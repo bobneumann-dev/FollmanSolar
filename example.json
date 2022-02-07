@@ -1,0 +1,37 @@
+{
+  "cliente": "Nome do Cliente",
+  "representante": "Rudi",
+  "cidade": "Foz do Iguaçu",
+
+  "dataOrcamento": "01/01/2022",
+  "validade": "30/01/2022",
+  "telha": "Romana",
+
+  "numeroPlacas": 15,
+  "potenciaPlacas": "500W",
+  "potenciaPico": 5000,
+  "geracaoMensal": 500,
+
+  "valorCotacao": 120000.0,
+  "valorOrcamento": 130000,
+  "valorExtenso": "Cento e Trinta Mil Reais",
+  "itemsOrcamento": [
+    {
+      "item": "Item 1",
+      "modelo": "Modelo",
+      "quantidade": 1,
+      "valor": 100000,
+      "total": 100000
+    }
+  ],
+  "financiamento": [
+    {
+      "parcelas": 10,
+      "mensal": 1000
+    },
+    {
+      "parcelas": 20,
+      "mensal": 520
+    }
+  ]
+}
