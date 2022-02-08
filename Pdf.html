@@ -1,919 +1,1427 @@
 <html>
 
 <head>
-	<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-	<meta name=Generator content="Microsoft Word 15 (filtered)">
-	<style>
-		<!--
-		/* Font Definitions */
-		@font-face {
-			font-family: Wingdings;
-			panose-1: 5 0 0 0 0 0 0 0 0 0;
-		}
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <style>
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 10mm;
+            margin: 3mm auto;
+            border: 1px #D3D3D3 solid;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }      
 
-		@font-face {
-			font-family: "Cambria Math";
-			panose-1: 2 4 5 3 5 4 6 3 2 4;
-		}
+        @media print {
+            body {
+                margin: 0;
+                box-shadow: 0;
+            }
 
-		@font-face {
-			font-family: Calibri;
-			panose-1: 2 15 5 2 2 2 4 3 2 4;
-		}
+            .page {
+                margin: 0;
+                box-shadow: 0;
+                border: 0px;
+            }
 
-		@font-face {
-			font-family: "Segoe UI";
-			panose-1: 2 11 5 2 4 2 4 2 2 3;
-		}
+            .app {
+                display: none;
+            }
+        }
+    </style>
+    <style>
+        /* Font Definitions */
+        @font-face {
+            font-family: Wingdings;
+            panose-1: 5 0 0 0 0 0 0 0 0 0;
+        }
 
-		/* Style Definitions */
-		p.MsoNormal,
-		li.MsoNormal,
-		div.MsoNormal {
-			margin: 0in;
-			text-autospace: none;
-			font-size: 11.0pt;
-			font-family: "Arial", sans-serif;
-		}
+        @font-face {
+            font-family: "Cambria Math";
+            panose-1: 2 4 5 3 5 4 6 3 2 4;
+        }
 
-		h1 {
-			margin-top: 0in;
-			margin-right: 0in;
-			margin-bottom: 0in;
-			margin-left: 65.0pt;
-			text-align: justify;
-			text-autospace: none;
-			font-size: 15.5pt;
-			font-family: "Arial", sans-serif;
-		}
+        @font-face {
+            font-family: Calibri;
+            panose-1: 2 15 5 2 2 2 4 3 2 4;
+        }
 
-		h2 {
-			margin-top: 0in;
-			margin-right: 5.0pt;
-			margin-bottom: 0in;
-			margin-left: 4.75pt;
-			text-align: center;
-			text-autospace: none;
-			font-size: 14.0pt;
-			font-family: "Arial", sans-serif;
-		}
+        @font-face {
+            font-family: "Segoe UI";
+            panose-1: 2 11 5 2 4 2 4 2 2 3;
+        }
 
-		p.MsoTitle,
-		li.MsoTitle,
-		div.MsoTitle {
-			margin-top: 0in;
-			margin-right: 5.0pt;
-			margin-bottom: 0in;
-			margin-left: 4.95pt;
-			text-align: center;
-			line-height: 45.75pt;
-			text-autospace: none;
-			font-size: 40.0pt;
-			font-family: "Calibri", sans-serif;
-			font-weight: bold;
-		}
+        /* Style Definitions */
+        p.MsoNormal,
+        li.MsoNormal,
+        div.MsoNormal {
+            margin: 0in;
+            text-autospace: none;
+            font-size: 11.0pt;
+            font-family: "Arial", sans-serif;
+        }
 
-		p.MsoBodyText,
-		li.MsoBodyText,
-		div.MsoBodyText {
-			margin: 0in;
-			text-autospace: none;
-			font-size: 14.0pt;
-			font-family: "Arial", sans-serif;
-		}
+        h1 {
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 65.0pt;
+            text-align: justify;
+            text-autospace: none;
+            font-size: 15.5pt;
+            font-family: "Arial", sans-serif;
+        }
 
-		a:link,
-		span.MsoHyperlink {
-			color: blue;
-			text-decoration: underline;
-		}
+        h2 {
+            margin-top: 0in;
+            margin-right: 5.0pt;
+            margin-bottom: 0in;
+            margin-left: 4.75pt;
+            text-align: center;
+            text-autospace: none;
+            font-size: 14.0pt;
+            font-family: "Arial", sans-serif;
+        }
 
-		p.MsoListParagraph,
-		li.MsoListParagraph,
-		div.MsoListParagraph {
-			margin-top: 0in;
-			margin-right: 0in;
-			margin-bottom: 0in;
-			margin-left: 101.0pt;
-			text-indent: -18.05pt;
-			line-height: 17.05pt;
-			text-autospace: none;
-			font-size: 11.0pt;
-			font-family: "Arial", sans-serif;
-		}
+        p.MsoTitle,
+        li.MsoTitle,
+        div.MsoTitle {
+            margin-top: 0in;
+            margin-right: 5.0pt;
+            margin-bottom: 0in;
+            margin-left: 4.95pt;
+            text-align: center;
+            line-height: 45.75pt;
+            text-autospace: none;
+            font-size: 40.0pt;
+            font-family: "Calibri", sans-serif;
+            font-weight: bold;
+        }
 
-		p.TableParagraph,
-		li.TableParagraph,
-		div.TableParagraph {
-			mso-style-name: "Table Paragraph";
-			margin-top: .15pt;
-			margin-right: 0in;
-			margin-bottom: 0in;
-			margin-left: 0in;
-			text-autospace: none;
-			font-size: 11.0pt;
-			font-family: "Calibri", sans-serif;
-		}
+        p.MsoBodyText,
+        li.MsoBodyText,
+        div.MsoBodyText {
+            margin: 0in;
+            text-autospace: none;
+            font-size: 14.0pt;
+            font-family: "Arial", sans-serif;
+        }
 
-		.MsoChpDefault {
-			font-family: "Calibri", sans-serif;
-		}
+        a:link,
+        span.MsoHyperlink {
+            color: blue;
+            text-decoration: underline;
+        }
 
-		.MsoPapDefault {
-			text-autospace: none;
-		}
+        p.MsoListParagraph,
+        li.MsoListParagraph,
+        div.MsoListParagraph {
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 101.0pt;
+            text-indent: -18.05pt;
+            line-height: 17.05pt;
+            text-autospace: none;
+            font-size: 11.0pt;
+            font-family: "Arial", sans-serif;
+        }
 
-		@page WordSection1 {
-			size: 595.5pt 842.5pt;
-			margin: 28.0pt 20.0pt 14.0pt 20.0pt;
-		}
+        p.TableParagraph,
+        li.TableParagraph,
+        div.TableParagraph {
+            mso-style-name: "Table Paragraph";
+            margin-top: .15pt;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0in;
+            text-autospace: none;
+            font-size: 11.0pt;
+            font-family: "Calibri", sans-serif;
+        }
 
-		div.WordSection1 {
-			page: WordSection1;
-		}
+        .MsoChpDefault {
+            font-family: "Calibri", sans-serif;
+        }
 
-		@page WordSection2 {
-			size: 595.5pt 842.5pt;
-			margin: 24.0pt 20.0pt 14.0pt 20.0pt;
-		}
+        .MsoPapDefault {
+            text-autospace: none;
+        }
 
-		div.WordSection2 {
-			page: WordSection2;
-		}
+        @page WordSection1 {
+            size: 595.5pt 842.5pt;
+            margin: 28.0pt 20.0pt 14.0pt 20.0pt;
+        }
 
-		@page WordSection3 {
-			size: 595.5pt 842.5pt;
-			margin: 80.0pt 20.0pt 14.0pt 20.0pt;
-		}
+        div.WordSection1 {
+            page: WordSection1;
+        }
 
-		div.WordSection3 {
-			page: WordSection3;
-		}
+        @page WordSection2 {
+            size: 595.5pt 842.5pt;
+            margin: 24.0pt 20.0pt 14.0pt 20.0pt;
+        }
 
-		/* List Definitions */
-		ol {
-			margin-bottom: 0in;
-		}
+        div.WordSection2 {
+            page: WordSection2;
+        }
 
-		ul {
-			margin-bottom: 0in;
-		}
-		-->
-	</style>
+        @page WordSection3 {
+            size: 595.5pt 842.5pt;
+            margin: 80.0pt 20.0pt 14.0pt 20.0pt;
+        }
+
+        div.WordSection3 {
+            page: WordSection3;
+        }
+
+        /* List Definitions */
+        ol {
+            margin-bottom: 0in;
+        }
+
+        ul {
+            margin-bottom: 0in;
+        }
+    </style>
 
 </head>
 
-<body lang=EN-US link=blue vlink=purple style='word-wrap:break-word'>
+<body>
+    <div class="printArea">
+        <!--Page 1-->
+        <div class="page">
+            <div class=WordSection1>
 
-	<div class=WordSection1>
+                <p class=MsoBodyText style='margin-left:65.05pt'>
+                    <span lang=PT
+                          style='font-size:10.0pt;font-family:"Times New Roman",serif'>
+                        <img width=209 height=107 id=image1.png
+                             src="image001.png">
+                    </span>
+                </p>
 
-		<p class=MsoBodyText style='margin-left:65.05pt'><span lang=PT
-				style='font-size:10.0pt;font-family:"Times New Roman",serif'><img width=209 height=107 id=image1.png
-					src="image001.png"></span></p>
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt;font-family:"Times New Roman",serif'>&nbsp;</span>
+                </p>
 
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt;font-family:"Times New Roman",serif'>&nbsp;</span>
-		</p>
+                <p class=MsoBodyText style='margin-top:.4pt'>
 
-		<p class=MsoBodyText style='margin-top:.4pt'>
+                    <table cellpadding=0 cellspacing=0 align=left>
+                        <tr>
+                            <td width=111 height=0></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <img width=571 height=2 src="image002.png">
+                            </td>
+                        </tr>
+                    </table>
 
-		<table cellpadding=0 cellspacing=0 align=left>
-			<tr>
-				<td width=111 height=0></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><img width=571 height=2 src="image002.png"></td>
-			</tr>
-		</table>
+                    <br clear=ALL>
+                </p>
 
-		<br clear=ALL>
-		</p>
+                <p class=MsoBodyText style='margin-top:.5pt'>
+                    <span lang=PT style='font-size:
+4.5pt;font-family:"Times New Roman",serif'>&nbsp;</span>
+                </p>
 
-		<p class=MsoBodyText style='margin-top:.5pt'><span lang=PT style='font-size:
-4.5pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+                <p class=MsoTitle>
+                    <span lang=PT style='color:#FFC000'>
+                        Orçamento Sistema
+                        Fotovoltaico
+                    </span>
+                </p>
 
-		<p class=MsoTitle><span lang=PT style='color:#FFC000'>Orçamento Sistema
-				Fotovoltaico</span></p>
+                <p class=MsoBodyText style='margin-top:.55pt'>
+                    <b>
+                        <span lang=PT
+                              style='font-size:4.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span>
+                    </b>
+                </p>
 
-		<p class=MsoBodyText style='margin-top:.55pt'><b><span lang=PT
-					style='font-size:4.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span></b></p>
-
-		<table class=TableNormal1 border=1 cellspacing=0 cellpadding=0
-			style='margin-left:65.5pt;border-collapse:collapse;border:none'>
-			<tr style='height:29.4pt'>
-				<td width=566 valign=top style='width:424.7pt;border:solid black 1.0pt;
+                <table class=TableNormal1 border=1 cellspacing=0 cellpadding=0
+                       style='margin-left:65.5pt;border-collapse:collapse;border:none'>
+                    <tr style='height:29.4pt'>
+                        <td width=566 valign=top style='width:424.7pt;border:solid black 1.0pt;
   padding:0in 0in 0in 0in;height:29.4pt'>
-					<p class=TableParagraph style='margin-left:5.5pt'><b><span lang=PT
-								style='font-size:15.5pt;font-family:"Arial",sans-serif'>Cliente:
-								XXXXXXXXXXXXXXXXXX</span></b></p>
-				</td>
-			</tr>
-			<tr style='height:29.75pt'>
-				<td width=566 valign=top style='width:424.7pt;border:solid black 1.0pt;
+                            <p class=TableParagraph style='margin-left:5.5pt'>
+                                <b>
+                                    <span lang=PT
+                                          style='font-size:15.5pt;font-family:"Arial",sans-serif'>
+                                        Cliente:
+                                        XXXXXXXXXXXXXXXXXX
+                                    </span>
+                                </b>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr style='height:29.75pt'>
+                        <td width=566 valign=top style='width:424.7pt;border:solid black 1.0pt;
   border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-					<p class=TableParagraph style='margin-left:5.5pt'><b><span lang=PT
-								style='font-size:15.5pt;font-family:"Arial",sans-serif'>XXXXXXXXXXXX-PR, X de
-								XXXXXX de 2022.</span></b></p>
-				</td>
-			</tr>
-		</table>
+                            <p class=TableParagraph style='margin-left:5.5pt'>
+                                <b>
+                                    <span lang=PT
+                                          style='font-size:15.5pt;font-family:"Arial",sans-serif'>
+                                        XXXXXXXXXXXX-PR, X de
+                                        XXXXXX de 2022.
+                                    </span>
+                                </b>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
 
-		<p class=MsoBodyText><b><span lang=PT
-					style='font-size:10.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span></b></p>
+                <p class=MsoBodyText>
+                    <b>
+                        <span lang=PT
+                              style='font-size:10.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span>
+                    </b>
+                </p>
 
-		<p class=MsoBodyText align=center style='text-align:center'><b><span lang=PT
-					style='font-size:10.0pt;font-family:"Calibri",sans-serif'>KIT SOLAR XXXXX KWP. TELHA
-					.  </span></b><span lang=PT style='font-size:10.0pt'>Válido até XX/XX/2022</span></p>
+                <p class=MsoBodyText align=center style='text-align:center'>
+                    <b>
+                        <span lang=PT
+                              style='font-size:10.0pt;font-family:"Calibri",sans-serif'>
+                            KIT SOLAR XXXXX KWP. TELHA
+                            .  
+                        </span>
+                    </b>
+                    <span lang=PT style='font-size:10.0pt'>Válido até XX/XX/2022</span>
+                </p>
 
-		<p class=MsoBodyText align=center style='text-align:center'><span lang=PT
-				style='font-size:10.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span></p>
+                <p class=MsoBodyText align=center style='text-align:center'>
+                    <span lang=PT
+                          style='font-size:10.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span>
+                </p>
 
-		<p class=MsoBodyText align=center style='text-align:center'><b><span lang=PT
-					style='color:black'>&nbsp;</span></b></p>
+                <p class=MsoBodyText align=center style='text-align:center'>
+                    <b>
+                        <span lang=PT
+                              style='color:black'>&nbsp;</span>
+                    </b>
+                </p>
 
-		<p class=MsoBodyText align=center style='text-align:center'><b><span lang=PT style='color:black'>R$<span
-						style='letter-spacing:-.15pt'> </span>XXXXXXXXXX</span></b></p>
+                <p class=MsoBodyText align=center style='text-align:center'>
+                    <b>
+                        <span lang=PT style='color:black'>
+                            R$<span style='letter-spacing:-.15pt'> </span>XXXXXXXXXX
+                        </span>
+                    </b>
+                </p>
 
-		<p class=MsoBodyText><b><span lang=PT
-					style='font-size:10.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span></b></p>
+                <p class=MsoBodyText>
+                    <b>
+                        <span lang=PT
+                              style='font-size:10.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span>
+                    </b>
+                </p>
 
-		<p class=MsoBodyText style='margin-top:.35pt'>
+                <p class=MsoBodyText style='margin-top:.35pt'>
 
-		<table cellpadding=0 cellspacing=0 align=left>
-			<tr>
-				<td width=301 height=0></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><img width=723 height=228 src="image003.png"></td>
-			</tr>
-		</table>
+                    <table cellpadding=0 cellspacing=0 align=left>
+                        <tr>
+                            <td width=301 height=0></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <img width=723 height=228 src="image003.png">
+                            </td>
+                        </tr>
+                    </table>
 
-		<br clear=ALL>
-		</p>
+                    <br clear=ALL>
+                </p>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
+                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                    <span lang=PT>&nbsp;</span>
+                </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
+                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                    <span lang=PT>&nbsp;</span>
+                </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
+                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                    <span lang=PT>&nbsp;</span>
+                </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
+                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                    <span lang=PT>&nbsp;</span>
+                </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
+                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                    <span lang=PT>&nbsp;</span>
+                </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
+                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                    <span lang=PT>&nbsp;</span>
+                </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
+                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                    <span lang=PT>&nbsp;</span>
+                </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
+                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                    <span lang=PT>&nbsp;</span>
+                </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
+                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                    <span lang=PT>&nbsp;</span>
+                </h2>
+            </div>
+        </div>
+        <!--Page 2-->
+        <div class="page">
+            <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                <span lang=PT>
+                    SISTEMA
+                    COMPLETO CONTENDO XX PLACAS IMPORTADAS COM POTÊNCIA DE XXX Wp CADA. PROPOMOS UM
+                    SISTEMA GERADOR COM PRODUÇÃO MENSAL DE
+                </span>
+            </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>SISTEMA
-				COMPLETO CONTENDO XX PLACAS IMPORTADAS COM POTÊNCIA DE XXX Wp CADA. PROPOMOS UM
-				SISTEMA GERADOR COM PRODUÇÃO MENSAL DE </span></h2>
+            <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                <u><span lang=PT>XXX KWh</span></u>
+                <span lang=PT>.</span>
+            </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><u><span lang=PT>XXX KWh</span></u><span
-				lang=PT>.</span></h2>
+            <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
+                <span lang=PT>&nbsp;</span>
+            </h2>
 
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
-73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'><span lang=PT>&nbsp;</span></h2>
-
-		<h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
+            <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:
 73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
 
-			<table cellpadding=0 cellspacing=0 align=left>
-				<tr>
-					<td width=165 height=16></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><img width=400 height=102 src="image004.png"></td>
-				</tr>
-			</table>
+                <table cellpadding=0 cellspacing=0 align=left>
+                    <tr>
+                        <td width=165 height=16></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <img width=400 height=102 src="image004.png">
+                        </td>
+                    </tr>
+                </table>
 
-			<span lang=PT>&nbsp;</span>
-		</h2>
+                <span lang=PT>&nbsp;</span>
+            </h2>
 
-		<br clear=ALL>
+            <br clear=ALL>
 
-		<p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
-margin-left:2.5in;margin-bottom:.0001pt;line-height:150%'><b><span lang=PT
-					style='font-size:14.0pt;line-height:150%;color:red'>       INVESTIMENTO TOTAL </span></b></p>
+            <p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
+margin-left:2.5in;margin-bottom:.0001pt;line-height:150%'>
+                <b>
+                    <span lang=PT
+                          style='font-size:14.0pt;line-height:150%;color:red'>       INVESTIMENTO TOTAL </span>
+                </b>
+            </p>
 
-		<p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
-margin-left:3.0in;margin-bottom:.0001pt;line-height:150%'><b><span lang=PT
-					style='font-size:14.0pt;line-height:150%;color:red'>       R$ XXXXXXXXX</span></b></p>
+            <p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
+margin-left:3.0in;margin-bottom:.0001pt;line-height:150%'>
+                <b>
+                    <span lang=PT
+                          style='font-size:14.0pt;line-height:150%;color:red'>       R$ XXXXXXXXX</span>
+                </b>
+            </p>
 
-		<p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
-margin-left:2.0in;margin-bottom:.0001pt;line-height:150%'><b><span lang=PT
-					style='font-size:14.0pt;line-height:150%;color:red'>&nbsp;</span></b></p>
+            <p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
+margin-left:2.0in;margin-bottom:.0001pt;line-height:150%'>
+                <b>
+                    <span lang=PT
+                          style='font-size:14.0pt;line-height:150%;color:red'>&nbsp;</span>
+                </b>
+            </p>
 
-		<p class=MsoNormal style='margin-right:5.0pt;line-height:150%'><b><span lang=PT
-					style='font-size:14.0pt;line-height:150%;color:red'>&nbsp;</span></b></p>
+            <p class=MsoNormal style='margin-right:5.0pt;line-height:150%'>
+                <b>
+                    <span lang=PT
+                          style='font-size:14.0pt;line-height:150%;color:red'>&nbsp;</span>
+                </b>
+            </p>
 
-		<p class=MsoNormal style='margin-right:5.0pt;line-height:150%'><b><span lang=PT
-					style='font-size:14.0pt;line-height:150%;color:red'>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span></b>
-		</p>
+            <p class=MsoNormal style='margin-right:5.0pt;line-height:150%'>
+                <b>
+                    <span lang=PT
+                          style='font-size:14.0pt;line-height:150%;color:red'>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+                </b>
+            </p>
 
-		<p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
-margin-left:2.0in;margin-bottom:.0001pt;line-height:150%'><b><span lang=PT
-					style='font-size:14.0pt;line-height:150%'>&nbsp;</span></b></p>
+            <p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
+margin-left:2.0in;margin-bottom:.0001pt;line-height:150%'>
+                <b>
+                    <span lang=PT
+                          style='font-size:14.0pt;line-height:150%'>&nbsp;</span>
+                </b>
+            </p>
 
-	</div>
 
-	<span lang=PT style='font-size:14.0pt;font-family:"Arial",sans-serif'><br clear=all
-			style='page-break-before:always'>
-	</span>
+            <span lang=PT style='font-size:14.0pt;font-family:"Arial",sans-serif'>
+                <br clear=all
+                    style='page-break-before:always'>
+            </span>
+        </div>
+        <!--Page 3-->
+        <div class="page">
+            <div class=WordSection2>
 
-	<div class=WordSection2>
+                <p class=MsoNormal style='margin-top:4.25pt;margin-right:0in;margin-bottom:0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify'>
+                    <b>
+                        <span lang=PT style='font-size:15.5pt'>
+                            Auto
+                            sustentabilidade:
+                        </span>
+                    </b>
+                </p>
 
-		<p class=MsoNormal style='margin-top:4.25pt;margin-right:0in;margin-bottom:
-0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify'><b><span lang=PT style='font-size:15.5pt'>Auto
-					sustentabilidade:</span></b></p>
+                <p class=MsoBodyText style='margin-top:9.5pt;margin-right:65.2pt;margin-bottom:0in;margin-left:64.9pt;margin-bottom:.0001pt;text-align:justify;text-indent:35.45pt;line-height:107%'>
+                    <span lang=PT>
+                        Acreditamos <span style='letter-spacing:-.15pt'>em </span>um mundo melhor, mais limpo e sustentável, por isso
+                        oferecemos a solução mais eficiente e econômica para nossos clientes com o
+                        mínimo <span style='letter-spacing:-.15pt'>de </span>impacto ao meio ambiente.
+                        Sistemas<span style='letter-spacing:-.55pt'> </span>fotovoltaicos<span style='letter-spacing:-.6pt'>
+                        </span>são<span style='letter-spacing:-.65pt'> </span>capazes<span style='letter-spacing:-.65pt'>
+                        </span>de<span style='letter-spacing:-.3pt'> </span>gerar<span style='letter-spacing:-.45pt'>
+                        </span>energia<span style='letter-spacing:-.3pt'>
+                        </span>elétrica<span style='letter-spacing:-.35pt'> </span>através da radiação
+                        solar, uma alternativa sustentável e econômica para obtenção de eletricidade.
+                        Os sistemas fotovoltaicos conectados à rede elétrica operam <span style='letter-spacing:-.15pt'>
+                            em
+                        </span>paralelo ao sistema de distribuição de
+                        energia elétrica e podem ser instalados em residências, comércios,
+                        agronegócios, indústrias, estádios, escolas, entre<span style='letter-spacing:
+-.3pt'> </span>outros.
+                    </span>
+                </p>
 
-		<p class=MsoBodyText style='margin-top:9.5pt;margin-right:65.2pt;margin-bottom:
-0in;margin-left:64.9pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-35.45pt;line-height:107%'><span lang=PT>Acreditamos <span style='letter-spacing:
--.15pt'>em </span>um mundo melhor, mais limpo e sustentável, por isso
-				oferecemos a solução mais eficiente e econômica para nossos clientes com o
-				mínimo <span style='letter-spacing:-.15pt'>de </span>impacto ao meio ambiente.
-				Sistemas<span style='letter-spacing:-.55pt'> </span>fotovoltaicos<span style='letter-spacing:-.6pt'>
-				</span>são<span style='letter-spacing:-.65pt'> </span>capazes<span style='letter-spacing:-.65pt'>
-				</span>de<span style='letter-spacing:-.3pt'> </span>gerar<span style='letter-spacing:-.45pt'>
-				</span>energia<span style='letter-spacing:-.3pt'>
-				</span>elétrica<span style='letter-spacing:-.35pt'> </span>através da radiação
-				solar, uma alternativa sustentável e econômica para obtenção de eletricidade.
-				Os sistemas fotovoltaicos conectados à rede elétrica operam <span style='letter-spacing:-.15pt'>em
-				</span>paralelo ao sistema de distribuição de
-				energia elétrica e podem ser instalados em residências, comércios,
-				agronegócios, indústrias, estádios, escolas, entre<span style='letter-spacing:
--.3pt'> </span>outros.</span></p>
-
-		<p class=MsoBodyText align=center style='margin-top:9.5pt;margin-right:65.2pt;
+                <p class=MsoBodyText align=center style='margin-top:9.5pt;margin-right:65.2pt;
 margin-bottom:0in;margin-left:64.9pt;margin-bottom:.0001pt;text-align:center;
-text-indent:35.45pt;line-height:107%'><span lang=PT><img width=361 height=361 id="Imagem 8"
-					src="image005.png"></span></p>
+text-indent:35.45pt;line-height:107%'>
+                    <span lang=PT>
+                        <img width=361 height=361 id="Imagem 8"
+                             src="image005.png">
+                    </span>
+                </p>
 
-		<p class=MsoBodyText style='margin-top:.05pt'><span lang=PT style='font-size:
-15.5pt'>&nbsp;</span></p>
+                <p class=MsoBodyText style='margin-top:.05pt'>
+                    <span lang=PT style='font-size:
+15.5pt'>&nbsp;</span>
+                </p>
 
-		<h1><span lang=PT>Solução completa:</span></h1>
+                <h1>
+                    <span lang=PT>Solução completa:</span>
+                </h1>
 
-		<p class=MsoBodyText style='margin-top:1.6pt;margin-right:64.6pt;margin-bottom:
+                <p class=MsoBodyText style='margin-top:1.6pt;margin-right:64.6pt;margin-bottom:
 0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-35.3pt;line-height:107%'><span lang=PT>Nesse sistema, a medição <span style='letter-spacing:-.15pt'>de </span>energia é
-				realizada através de um
-				medidor eletrônico bidirecional (que substitui o medidor convencional <span
-					style='letter-spacing:-.15pt'>no </span>momento <span style='letter-spacing:
+35.3pt;line-height:107%'>
+                    <span lang=PT>
+                        Nesse sistema, a medição <span style='letter-spacing:-.15pt'>de </span>energia é
+                        realizada através de um
+                        medidor eletrônico bidirecional (que substitui o medidor convencional <span style='letter-spacing:-.15pt'>no </span>momento <span style='letter-spacing:
 -.15pt'>da </span>ativação do sistema pela concessionária), capaz de registrar
-				o fluxo de energia nos dois sentidos, a energia que a unidade recebe e a
-				energia que a unidade injeta na rede. <span style='letter-spacing:-.2pt'>Se </span>a
-				unidade consumidora estiver demandando mais energia do que está gerando, o
-				complemento é realizado através da rede pública, e o medidor registra o
-				consumo. Do contrário, se a geração<span style='letter-spacing:-.65pt'> </span>de<span
-					style='letter-spacing:-.3pt'> </span>energia<span style='letter-spacing:-.65pt'>
-				</span>for<span style='letter-spacing:-.4pt'> </span>maior<span style='letter-spacing:-.4pt'>
-				</span>que<span style='letter-spacing:-.25pt'> </span>o<span style='letter-spacing:-.3pt'>
-				</span>consumo,<span style='letter-spacing:-.75pt'>
-				</span>o<span style='letter-spacing:-.3pt'> </span>excedente<span style='letter-spacing:-.65pt'>
-				</span>é<span style='letter-spacing:-.3pt'> </span>injetado
-				na rede e registrado <span style='letter-spacing:-.15pt'>pelo </span>medidor. <span
-					style='letter-spacing:-.2pt'>Ao </span>final <span style='letter-spacing:-.15pt'>do
-				</span>mês o consumidor pagará o que ficou registrado <span style='letter-spacing:
+                        o fluxo de energia nos dois sentidos, a energia que a unidade recebe e a
+                        energia que a unidade injeta na rede. <span style='letter-spacing:-.2pt'>Se </span>a
+                        unidade consumidora estiver demandando mais energia do que está gerando, o
+                        complemento é realizado através da rede pública, e o medidor registra o
+                        consumo. Do contrário, se a geração<span style='letter-spacing:-.65pt'> </span>de<span style='letter-spacing:-.3pt'> </span>energia<span style='letter-spacing:-.65pt'>
+                        </span>for<span style='letter-spacing:-.4pt'> </span>maior<span style='letter-spacing:-.4pt'>
+                        </span>que<span style='letter-spacing:-.25pt'> </span>o<span style='letter-spacing:-.3pt'>
+                        </span>consumo,<span style='letter-spacing:-.75pt'>
+                        </span>o<span style='letter-spacing:-.3pt'> </span>excedente<span style='letter-spacing:-.65pt'>
+                        </span>é<span style='letter-spacing:-.3pt'> </span>injetado
+                        na rede e registrado <span style='letter-spacing:-.15pt'>pelo </span>medidor. <span style='letter-spacing:-.2pt'>Ao </span>final <span style='letter-spacing:-.15pt'>
+                            do
+                        </span>mês o consumidor pagará o que ficou registrado <span style='letter-spacing:
 -.15pt'>no </span>medidor, ou seja, a diferença entre o que ele consumiu e o
-				que gerou, conforme a Resolução ANEEL<span style='letter-spacing:-2.5pt'> </span>nº
-				482/14 – Compensação de Energia com Geração<span style='letter-spacing:-.65pt'>
-				</span>Distribuída.</span></p>
+                        que gerou, conforme a Resolução ANEEL<span style='letter-spacing:-2.5pt'> </span>nº
+                        482/14 – Compensação de Energia com Geração<span style='letter-spacing:-.65pt'>
+                        </span>Distribuída.
+                    </span>
+                </p>
 
-		<p class=MsoBodyText style='margin-top:.55pt'><span lang=PT style='font-size:
-18.5pt'>&nbsp;</span></p>
+                <p class=MsoBodyText style='margin-top:.55pt'>
+                    <span lang=PT style='font-size:
+18.5pt'>&nbsp;</span>
+                </p>
+            </div>
+        </div>
+        <!--Page 4-->
+        <div class="page">
+            <h1 style='line-height:17.2pt'>
+                <span lang=PT>Os módulos fotovoltaicos:</span>
+            </h1>
 
-		<p class=MsoBodyText style='margin-top:.55pt'><span lang=PT style='font-size:
-18.5pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText style='margin-top:.55pt'><span lang=PT style='font-size:
-18.5pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText style='margin-top:.55pt'><span lang=PT style='font-size:
-18.5pt'>&nbsp;</span></p>
-
-		<h1 style='line-height:17.2pt'><span lang=PT>Os módulos fotovoltaicos:</span></h1>
-
-		<p class=MsoBodyText style='margin-top:0in;margin-right:65.05pt;margin-bottom:
+            <p class=MsoBodyText style='margin-top:0in;margin-right:65.05pt;margin-bottom:
 0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-35.3pt;line-height:107%'><span lang=PT>A alta qualidade e a confiabilidade dos
-				módulos (ou painéis solares) que oferecemos caracterizam-se pelo design bem<span
-					style='letter-spacing:-2.85pt'> </span>projetado e pelo rigoroso teste <span
-					style='letter-spacing:-.15pt'>de </span>qualidade <span style='letter-spacing:
+35.3pt;line-height:107%'>
+                <span lang=PT>
+                    A alta qualidade e a confiabilidade dos
+                    módulos (ou painéis solares) que oferecemos caracterizam-se pelo design bem<span style='letter-spacing:-2.85pt'> </span>projetado e pelo rigoroso teste <span style='letter-spacing:-.15pt'>de </span>qualidade <span style='letter-spacing:
 -.15pt'>de seus </span>insumos. Os painéis fotovoltaicos possuem a
-				classificação &quot;A&quot; do <span style='letter-spacing:-.15pt'>INMETRO </span>no
-				quesito de eficiência energética. Tecnologia testada e homologada para o
-				mercado brasileiro!</span></p>
+                    classificação &quot;A&quot; do <span style='letter-spacing:-.15pt'>INMETRO </span>no
+                    quesito de eficiência energética. Tecnologia testada e homologada para o
+                    mercado brasileiro!
+                </span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:0in;margin-right:65.05pt;margin-bottom:
+            <p class=MsoBodyText style='margin-top:0in;margin-right:65.05pt;margin-bottom:
 0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-35.3pt;line-height:107%'><span lang=PT>&nbsp;</span></p>
+35.3pt;line-height:107%'>
+                <span lang=PT>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText align=center style='margin-top:.05pt;text-align:center'><span lang=PT
-				style='font-size:21.5pt'><img width=279 height=279 id="Imagem 10"
-					src="image006.png"></span></p>
+            <p class=MsoBodyText align=center style='margin-top:.05pt;text-align:center'>
+                <span lang=PT
+                      style='font-size:21.5pt'>
+                    <img width=279 height=279 id="Imagem 10"
+                         src="image006.png">
+                </span>
+            </p>
 
-		<p class=MsoBodyText align=center style='margin-top:.05pt;text-align:center'><span lang=PT
-				style='font-size:21.5pt'>&nbsp;</span></p>
+            <p class=MsoBodyText align=center style='margin-top:.05pt;text-align:center'>
+                <span lang=PT
+                      style='font-size:21.5pt'>&nbsp;</span>
+            </p>
 
-		<h1><span lang=PT>Diferencial da empresa:</span></h1>
+            <h1>
+                <span lang=PT>Diferencial da empresa:</span>
+            </h1>
 
-		<p class=MsoListParagraph style='margin-top:13.25pt;margin-right:83.85pt;
+            <p class=MsoListParagraph style='margin-top:13.25pt;margin-right:83.85pt;
 margin-bottom:0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in;
-line-height:103%'><span lang=PT style='font-size:14.0pt;line-height:103%;
-font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT style='font-size:14.0pt;line-height:103%'>Elaboração
-				<span style='letter-spacing:-.15pt'>da </span>documentação técnica dentro das
-				normas técnicas da concessionária de energia;<span style='letter-spacing:-.25pt'>
-				</span>(COPEL)</span></p>
+line-height:103%'>
+                <span lang=PT style='font-size:14.0pt;line-height:103%;
+font-family:Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT style='font-size:14.0pt;line-height:103%'>
+                    Elaboração
+                    <span style='letter-spacing:-.15pt'>da </span>documentação técnica dentro das
+                    normas técnicas da concessionária de energia;<span style='letter-spacing:-.25pt'>
+                    </span>(COPEL)
+                </span>
+            </p>
 
-		<p class=MsoListParagraph style='margin-top:.05pt'><span lang=PT
-				style='font-size:14.0pt;font-family:Symbol'>·<span
-					style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT style='font-size:14.0pt'>Registro do projeto no CREA;</span></p>
+            <p class=MsoListParagraph style='margin-top:.05pt'>
+                <span lang=PT
+                      style='font-size:14.0pt;font-family:Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT style='font-size:14.0pt'>Registro do projeto no CREA;</span>
+            </p>
 
-		<p class=MsoListParagraph><span lang=PT style='font-size:14.0pt;font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT style='font-size:14.0pt'>Equipamentos certificados;</span></p>
+            <p class=MsoListParagraph>
+                <span lang=PT style='font-size:14.0pt;font-family:
+Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT style='font-size:14.0pt'>Equipamentos certificados;</span>
+            </p>
 
-		<p class=MsoListParagraph style='margin-top:.1pt;margin-right:65.25pt;
+            <p class=MsoListParagraph style='margin-top:.1pt;margin-right:65.25pt;
 margin-bottom:0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in;
-line-height:normal'><span lang=PT style='font-size:14.0pt;font-family:Symbol'>·<span
-					style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT style='font-size:14.0pt'>Desembaraço do projeto
-				junto à concessionária <span style='letter-spacing:-.15pt'>de </span>energia
-				local;</span></p>
+line-height:normal'>
+                <span lang=PT style='font-size:14.0pt;font-family:Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT style='font-size:14.0pt'>
+                    Desembaraço do projeto
+                    junto à concessionária <span style='letter-spacing:-.15pt'>de </span>energia
+                    local;
+                </span>
+            </p>
 
-		<p class=MsoListParagraph style='margin-top:4.0pt'><span lang=PT
-				style='font-size:14.0pt;font-family:Symbol'>·<span
-					style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT style='font-size:14.0pt'>Entrega - logística <span
-					style='letter-spacing:-.15pt'>de </span>entrega dos<span style='letter-spacing:
-.2pt'> </span>produtos;</span></p>
+            <p class=MsoListParagraph style='margin-top:4.0pt'>
+                <span lang=PT
+                      style='font-size:14.0pt;font-family:Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT style='font-size:14.0pt'>
+                    Entrega - logística <span style='letter-spacing:-.15pt'>de </span>entrega dos<span style='letter-spacing:
+.2pt'> </span>produtos;
+                </span>
+            </p>
 
-		<p class=MsoListParagraph style='line-height:16.9pt'><span lang=PT
-				style='font-size:14.0pt;font-family:Symbol'>·<span
-					style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT style='font-size:14.0pt'>Sistema de monitoramento
-				web da geração <span style='letter-spacing:-.15pt'>de</span><span style='letter-spacing:-.3pt'>
-				</span>energia;</span></p>
+            <p class=MsoListParagraph style='line-height:16.9pt'>
+                <span lang=PT
+                      style='font-size:14.0pt;font-family:Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT style='font-size:14.0pt'>
+                    Sistema de monitoramento
+                    web da geração <span style='letter-spacing:-.15pt'>de</span><span style='letter-spacing:-.3pt'>
+                    </span>energia;
+                </span>
+            </p>
 
-		<p class=MsoListParagraph style='margin-right:65.45pt;text-indent:-.25in;
-line-height:normal'><span lang=PT style='font-size:14.0pt;font-family:Symbol'>·<span
-					style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT style='font-size:14.0pt'>Instalação<span style='letter-spacing:-.35pt'>
-				</span>por<span style='letter-spacing:-.45pt'> </span>equipe<span style='letter-spacing:-.35pt'>
-				</span>experiente<span style='letter-spacing:
+            <p class=MsoListParagraph style='margin-right:65.45pt;text-indent:-.25in;
+line-height:normal'>
+                <span lang=PT style='font-size:14.0pt;font-family:Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT style='font-size:14.0pt'>
+                    Instalação<span style='letter-spacing:-.35pt'>
+                    </span>por<span style='letter-spacing:-.45pt'> </span>equipe<span style='letter-spacing:-.35pt'>
+                    </span>experiente<span style='letter-spacing:
 -.7pt'> </span>e<span style='letter-spacing:-.3pt'> </span>qualificada<span style='letter-spacing:-.35pt'>
-				</span>com<span style='letter-spacing:-.3pt'> </span><span
-					style='letter-spacing:-.15pt'>emissão</span><span style='letter-spacing:-.35pt'>
-				</span>de ART do Engenheiro Eletricista;</span></p>
+                    </span>com<span style='letter-spacing:-.3pt'> </span><span style='letter-spacing:-.15pt'>emissão</span><span style='letter-spacing:-.35pt'>
+                    </span>de ART do Engenheiro Eletricista;
+                </span>
+            </p>
 
-		<p class=MsoListParagraph style='margin-top:.15pt;margin-right:111.0pt;
+            <p class=MsoListParagraph style='margin-top:.15pt;margin-right:111.0pt;
 margin-bottom:0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in;
-line-height:103%'><span lang=PT style='font-size:14.0pt;line-height:103%;
-font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT style='font-size:14.0pt;line-height:103%'>Monitoramento   do    processo   
-				de    liberação <span style='letter-spacing:-.3pt'>para </span>compensação <span style='letter-spacing:
+line-height:103%'>
+                <span lang=PT style='font-size:14.0pt;line-height:103%;
+font-family:Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT style='font-size:14.0pt;line-height:103%'>
+                    Monitoramento   do    processo   
+                    de    liberação <span style='letter-spacing:-.3pt'>para </span>compensação <span style='letter-spacing:
 -.15pt'>de </span>energia pela concessionária<span style='letter-spacing:-.35pt'>
-				</span>local;</span></p>
+                    </span>local;
+                </span>
+            </p>
 
-		<p class=MsoListParagraph style='line-height:13.9pt'><span lang=PT
-				style='font-size:14.0pt;font-family:Symbol'>·<span
-					style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT style='font-size:14.0pt'>Atendimento e garantia em
-				todo o<span style='letter-spacing:-.1pt'> </span>Brasil.</span></p>
+            <p class=MsoListParagraph style='line-height:13.9pt'>
+                <span lang=PT
+                      style='font-size:14.0pt;font-family:Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT style='font-size:14.0pt'>
+                    Atendimento e garantia em
+                    todo o<span style='letter-spacing:-.1pt'> </span>Brasil.
+                </span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.25pt'><span lang=PT style='font-size:
-16.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.25pt'>
+                <span lang=PT style='font-size:
+16.0pt'>&nbsp;</span>
+            </p>
 
-		<h1><span lang=PT>Alteração no projeto:</span></h1>
+            <h1>
+                <span lang=PT>Alteração no projeto:</span>
+            </h1>
 
-		<p class=MsoBodyText style='margin-top:1.6pt;margin-right:65.15pt;margin-bottom:
+            <p class=MsoBodyText style='margin-top:1.6pt;margin-right:65.15pt;margin-bottom:
 0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-35.3pt;line-height:107%'><span lang=PT>Toda e qualquer modificação do projeto <span style='letter-spacing:-.15pt'>ou
-				</span>serviço inicial, solicitado pelo
-				cliente, que implique em alterações de<span style='letter-spacing:-2.35pt'> </span>características
-				específicas, funções adicionais, reinstalação, ampliação ou outros itens não
-				especificados, serão considerados como adicionais ao produto, devendo seguir
-				cronograma <span style='letter-spacing:-.15pt'>de </span>execução e alocação <span
-					style='letter-spacing:-.15pt'>de </span>recursos, através <span style='letter-spacing:-.15pt'>de
-					nova </span>proposta técnica e<span style='letter-spacing:-.2pt'> </span>comercial.</span></p>
+35.3pt;line-height:107%'>
+                <span lang=PT>
+                    Toda e qualquer modificação do projeto <span style='letter-spacing:-.15pt'>
+                        ou
+                    </span>serviço inicial, solicitado pelo
+                    cliente, que implique em alterações de<span style='letter-spacing:-2.35pt'> </span>características
+                    específicas, funções adicionais, reinstalação, ampliação ou outros itens não
+                    especificados, serão considerados como adicionais ao produto, devendo seguir
+                    cronograma <span style='letter-spacing:-.15pt'>de </span>execução e alocação <span style='letter-spacing:-.15pt'>de </span>recursos, através <span style='letter-spacing:-.15pt'>
+                        de
+                        nova
+                    </span>proposta técnica e<span style='letter-spacing:-.2pt'> </span>comercial.
+                </span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.1pt'><span lang=PT style='font-size:
-18.5pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.1pt'>
+                <span lang=PT style='font-size:
+18.5pt'>&nbsp;</span>
+            </p>
+        </div>
+        <!--Page 5-->
+        <div class="page">
+            <h1 style='margin-top:.05pt'>
+                <span lang=PT>Crédito de energia:</span>
+            </h1>
 
-		<h1 style='margin-top:.05pt'><span lang=PT>Crédito de energia:</span></h1>
-
-		<p class=MsoBodyText style='margin-top:1.55pt;margin-right:65.4pt;margin-bottom:
+            <p class=MsoBodyText style='margin-top:1.55pt;margin-right:65.4pt;margin-bottom:
 0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-35.3pt;line-height:107%'><span lang=PT>Caso a energia injetada na rede seja
-				superior à consumida, cria-se um “crédito <span style='letter-spacing:-.15pt'>de
-				</span>energia” que não pode ser revertido <span style='letter-spacing:-.15pt'>em
-				</span>dinheiro, mas pode ser utilizado para abater o consumo <span style='letter-spacing:-.15pt'>da
-				</span>unidade consumidora nos meses
-				subsequentes <span style='letter-spacing:-.15pt'>ou em </span>outras unidades
-				de mesma<span style='letter-spacing:-.7pt'> </span>titularidade<span style='letter-spacing:-.7pt'>
-				</span>(desde<span style='letter-spacing:-1.1pt'>
-				</span>que<span style='letter-spacing:-1.05pt'> </span>todas<span style='letter-spacing:-1.05pt'>
-				</span>as<span style='letter-spacing:-1.0pt'> </span>unidades<span style='letter-spacing:-1.0pt'>
-				</span>estejam<span style='letter-spacing:-1.0pt'>
-				</span><span style='letter-spacing:-.15pt'>na</span><span style='letter-spacing:
+35.3pt;line-height:107%'>
+                <span lang=PT>
+                    Caso a energia injetada na rede seja
+                    superior à consumida, cria-se um “crédito <span style='letter-spacing:-.15pt'>
+                        de
+                    </span>energia” que não pode ser revertido <span style='letter-spacing:-.15pt'>
+                        em
+                    </span>dinheiro, mas pode ser utilizado para abater o consumo <span style='letter-spacing:-.15pt'>
+                        da
+                    </span>unidade consumidora nos meses
+                    subsequentes <span style='letter-spacing:-.15pt'>ou em </span>outras unidades
+                    de mesma<span style='letter-spacing:-.7pt'> </span>titularidade<span style='letter-spacing:-.7pt'>
+                    </span>(desde<span style='letter-spacing:-1.1pt'>
+                    </span>que<span style='letter-spacing:-1.05pt'> </span>todas<span style='letter-spacing:-1.05pt'>
+                    </span>as<span style='letter-spacing:-1.0pt'> </span>unidades<span style='letter-spacing:-1.0pt'>
+                    </span>estejam<span style='letter-spacing:-1.0pt'>
+                    </span><span style='letter-spacing:-.15pt'>na</span><span style='letter-spacing:
 -.7pt'> </span>mesma área de concessão), com validade <span style='letter-spacing:
--.15pt'>de 60</span><span style='letter-spacing:-.05pt'> </span>meses.</span></p>
+-.15pt'>de 60</span><span style='letter-spacing:-.05pt'> </span>meses.
+                </span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.15pt;margin-right:65.2pt;margin-bottom:
+            <p class=MsoBodyText style='margin-top:.15pt;margin-right:65.2pt;margin-bottom:
 0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-13.7pt;line-height:107%'><span lang=PT>Um exemplo é o da microgeração por fonte
-				solar fotovoltaica: de dia, a “sobra” da energia gerada pela central é passada
-				para a rede; à<span style='letter-spacing:-.75pt'> </span>noite,<span style='letter-spacing:-1.15pt'>
-				</span>a<span style='letter-spacing:-1.1pt'> </span>rede<span style='letter-spacing:-1.1pt'>
-				</span>devolve<span style='letter-spacing:-.7pt'>
-				</span>a<span style='letter-spacing:-1.45pt'> </span>energia<span style='letter-spacing:-1.05pt'>
-				</span>para<span style='letter-spacing:-1.1pt'>
-				</span>a<span style='letter-spacing:-1.05pt'> </span>unidade<span style='letter-spacing:-1.1pt'>
-				</span>consumidora<span style='letter-spacing:
+13.7pt;line-height:107%'>
+                <span lang=PT>
+                    Um exemplo é o da microgeração por fonte
+                    solar fotovoltaica: de dia, a “sobra” da energia gerada pela central é passada
+                    para a rede; à<span style='letter-spacing:-.75pt'> </span>noite,<span style='letter-spacing:-1.15pt'>
+                    </span>a<span style='letter-spacing:-1.1pt'> </span>rede<span style='letter-spacing:-1.1pt'>
+                    </span>devolve<span style='letter-spacing:-.7pt'>
+                    </span>a<span style='letter-spacing:-1.45pt'> </span>energia<span style='letter-spacing:-1.05pt'>
+                    </span>para<span style='letter-spacing:-1.1pt'>
+                    </span>a<span style='letter-spacing:-1.05pt'> </span>unidade<span style='letter-spacing:-1.1pt'>
+                    </span>consumidora<span style='letter-spacing:
 -.75pt'> </span>e<span style='letter-spacing:-1.05pt'> </span>supre
-				necessidades adicionais. Portanto, a rede funciona como uma bateria,<span style='letter-spacing:-.8pt'>
-				</span>armazenando<span style='letter-spacing:
+                    necessidades adicionais. Portanto, a rede funciona como uma bateria,<span style='letter-spacing:-.8pt'>
+                    </span>armazenando<span style='letter-spacing:
 -.65pt'> </span>o<span style='letter-spacing:-.65pt'> </span>excedente<span style='letter-spacing:-.65pt'>
-				</span>até<span style='letter-spacing:-.65pt'> </span>o<span style='letter-spacing:-.65pt'>
-				</span>momento<span style='letter-spacing:-.65pt'>
-				</span><span style='letter-spacing:-.15pt'>em</span><span style='letter-spacing:
+                    </span>até<span style='letter-spacing:-.65pt'> </span>o<span style='letter-spacing:-.65pt'>
+                    </span>momento<span style='letter-spacing:-.65pt'>
+                    </span><span style='letter-spacing:-.15pt'>em</span><span style='letter-spacing:
 -.3pt'> </span>que<span style='letter-spacing:-1.0pt'> </span>a<span style='letter-spacing:-.3pt'> </span>unidade
-				consumidora necessite de energia
-				proveniente <span style='letter-spacing:-.15pt'>da</span><span style='letter-spacing:-.8pt'>
-				</span>distribuidora.</span></p>
+                    consumidora necessite de energia
+                    proveniente <span style='letter-spacing:-.15pt'>da</span><span style='letter-spacing:-.8pt'>
+                    </span>distribuidora.
+                </span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.05pt'><span lang=PT style='font-size:
-22.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.05pt'>
+                <span lang=PT style='font-size:
+22.0pt'>&nbsp;</span>
+            </p>
 
-		<h1 align=left style='margin-top:.05pt;text-align:left'><span lang=PT>Regulamentação:</span></h1>
+            <h1 align=left style='margin-top:.05pt;text-align:left'>
+                <span lang=PT>Regulamentação:</span>
+            </h1>
 
-		<p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:
-0in;margin-left:100.3pt;margin-bottom:.0001pt'><span lang=PT>A RESOLUÇÃO
-				NORMATIVA Nº 687, DE 24 DE NOVEMBRO</span></p>
+            <p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:
+0in;margin-left:100.3pt;margin-bottom:.0001pt'>
+                <span lang=PT>
+                    A RESOLUÇÃO
+                    NORMATIVA Nº 687, DE 24 DE NOVEMBRO
+                </span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:1.2pt;margin-right:65.3pt;margin-bottom:
+            <p class=MsoBodyText style='margin-top:1.2pt;margin-right:65.3pt;margin-bottom:
 0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;line-height:
-107%'><span lang=PT>DE 2015, Estabelece as condições gerais para o acesso de
-				micro geração e geração distribuída (sistemas de energia solar e outros
-				geradores de energia renovável) aos sistemas de distribuição de energia
-				elétrica, o sistema de compensação (créditos de energia). Também é conhecida
-				por lei de incentivo a energia solar.</span></p>
+107%'>
+                <span lang=PT>
+                    DE 2015, Estabelece as condições gerais para o acesso de
+                    micro geração e geração distribuída (sistemas de energia solar e outros
+                    geradores de energia renovável) aos sistemas de distribuição de energia
+                    elétrica, o sistema de compensação (créditos de energia). Também é conhecida
+                    por lei de incentivo a energia solar.
+                </span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.25pt;margin-right:64.95pt;margin-bottom:
+            <p class=MsoBodyText style='margin-top:.25pt;margin-right:64.95pt;margin-bottom:
 0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-35.3pt;line-height:107%'><span lang=PT>LEI 13.169 06/10/15, Ficam reduzidas a
-				zero as alíquotas da Contribuição para o PIS/Pasep e da Contribuição para
-				Financiamento da Seguridade Social - COFINS incidentes sobre a energia elétrica
-				ativa fornecida pela distribuidora à unidade consumidora na quantidade
-				correspondente à soma da energia elétrica ativa injetada na rede de
-				distribuição pela mesma unidade consumidora com os créditos de energia ativa
-				originados na própriaunidade consumidora <span style='letter-spacing:-.15pt'>no
-				</span>mesmo mês, <span style='letter-spacing:-.15pt'>em </span>meses
-				anteriores ou <span style='letter-spacing:-.15pt'>em </span>outra<span style='letter-spacing:-.6pt'>
-				</span>unidade<span style='letter-spacing:-.6pt'>
-				</span>consumidora<span style='letter-spacing:-.6pt'> </span>do<span style='letter-spacing:-.55pt'>
-				</span>mesmo<span style='letter-spacing:-.25pt'>
-				</span>titular,<span style='letter-spacing:-.7pt'> </span>nos<span style='letter-spacing:-.5pt'>
-				</span>termos<span style='letter-spacing:-.55pt'>
-				</span><span style='letter-spacing:-.15pt'>do</span><span style='letter-spacing:
+35.3pt;line-height:107%'>
+                <span lang=PT>
+                    LEI 13.169 06/10/15, Ficam reduzidas a
+                    zero as alíquotas da Contribuição para o PIS/Pasep e da Contribuição para
+                    Financiamento da Seguridade Social - COFINS incidentes sobre a energia elétrica
+                    ativa fornecida pela distribuidora à unidade consumidora na quantidade
+                    correspondente à soma da energia elétrica ativa injetada na rede de
+                    distribuição pela mesma unidade consumidora com os créditos de energia ativa
+                    originados na própriaunidade consumidora <span style='letter-spacing:-.15pt'>
+                        no
+                    </span>mesmo mês, <span style='letter-spacing:-.15pt'>em </span>meses
+                    anteriores ou <span style='letter-spacing:-.15pt'>em </span>outra<span style='letter-spacing:-.6pt'>
+                    </span>unidade<span style='letter-spacing:-.6pt'>
+                    </span>consumidora<span style='letter-spacing:-.6pt'> </span>do<span style='letter-spacing:-.55pt'>
+                    </span>mesmo<span style='letter-spacing:-.25pt'>
+                    </span>titular,<span style='letter-spacing:-.7pt'> </span>nos<span style='letter-spacing:-.5pt'>
+                    </span>termos<span style='letter-spacing:-.55pt'>
+                    </span><span style='letter-spacing:-.15pt'>do</span><span style='letter-spacing:
 -.25pt'> </span>Sistema de Compensação <span style='letter-spacing:-.15pt'>de </span>Energia
-				Elétrica para micro geração e geração distribuída, conforme regulamentação da
-				Agência Nacional <span style='letter-spacing:-.15pt'>de </span>Energia Elétrica
-				-<span style='letter-spacing:.5pt'> </span>ANEEL.</span></p>
+                    Elétrica para micro geração e geração distribuída, conforme regulamentação da
+                    Agência Nacional <span style='letter-spacing:-.15pt'>de </span>Energia Elétrica
+                    -<span style='letter-spacing:.5pt'> </span>ANEEL.
+                </span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.3pt'><span lang=PT style='font-size:
-15.0pt'>&nbsp;</span></p>
+            <p class=MsoBodyText style='margin-top:.3pt'>
+                <span lang=PT style='font-size:
+15.0pt'>&nbsp;</span>
+            </p>
+        </div>
+        <!--Page 6-->
+        <div class="page">
+            <h1 align=left style='margin-top:.05pt;text-align:left'>
+                <span lang=PT>
+                    Condições
+                    de pagamento:
+                </span>
+            </h1>
 
-		<h1 align=left style='margin-top:.05pt;text-align:left'><span lang=PT>Condições
-				de pagamento:</span></h1>
+            <p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:
+0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in'>
+                <a name="_Hlk92441116"></a>
+                <a name="_Hlk92439478">
+                    <span lang=PT style='font-family:
+Symbol'>
+                        ·<span style='font:7.0pt "Times New Roman"'>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                    </span><span lang=PT>À Vista</span>
+                </a>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:
-0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in'><a name="_Hlk92441116"></a><a
-				name="_Hlk92439478"><span lang=PT style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					</span></span><span lang=PT>À Vista</span></a></p>
+            <p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:
+0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in'>
+                <span lang=PT style='font-family:Symbol'>
+                    ·<span style='font:7.0pt "Times New Roman"'>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                </span>
+                <span lang=PT>
+                    Simulação de Financiamento Solar (BV) com carência
+                    de 60 dias:
+                </span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:
-0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in'><span lang=PT style='font-family:Symbol'>·<span
-					style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</span></span><span lang=PT>Simulação de Financiamento Solar (BV) com carência
-				de 60 dias:</span></p>
+            <p class=MsoBodyText align=center style='margin-top:1.55pt;text-align:center'>
+                <span lang=PT>
+                    <img width=27
+                         height=45 id="Imagem 15" src="image007.jpg">
+                </span>
+            </p>
 
-		<p class=MsoBodyText align=center style='margin-top:1.55pt;text-align:center'><span lang=PT><img width=27
-					height=45 id="Imagem 15" src="image007.jpg"></span></p>
+            <p class=MsoBodyText style='margin-top:1.55pt'>
+                <span lang=PT>&nbsp;</span>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:1.55pt'><span lang=PT>&nbsp;</span></p>
+            <h1 align=left style='text-align:left'>
+                <span lang=PT>Termos de garantia:</span>
+            </h1>
 
-		<h1 align=left style='text-align:left'><span lang=PT>Termos de garantia:</span></h1>
+            <p class=MsoBodyText>
+                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+            </p>
 
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
+            <p class=MsoBodyText style='margin-top:.45pt'>
+                <b><span lang=PT style='font-size:9.0pt'>&nbsp;</span></b>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:.45pt'><b><span lang=PT style='font-size:9.0pt'>&nbsp;</span></b></p>
-
-		<table class=TableNormal1 border=1 cellspacing=0 cellpadding=0
-			style='margin-left:34.5pt;border-collapse:collapse;border:none'>
-			<tr style='height:39.1pt'>
-				<td width=216 valign=top style='width:162.1pt;border:solid #BEBEBE 1.0pt;
+            <table class=TableNormal1 border=1 cellspacing=0 cellpadding=0
+                   style='margin-left:34.5pt;border-collapse:collapse;border:none'>
+                <tr style='height:39.1pt'>
+                    <td width=216 valign=top style='width:162.1pt;border:solid #BEBEBE 1.0pt;
   padding:0in 0in 0in 0in;height:39.1pt'>
-					<p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
-  0in;margin-left:5.5pt;margin-bottom:.0001pt'><b><span lang=PT
-								style='font-size:11.5pt;font-family:"Arial",sans-serif'>Inversores</span></b></p>
-				</td>
-				<td width=217 valign=top style='width:162.5pt;border:solid #BEBEBE 1.0pt;
+                        <p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
+  0in;margin-left:5.5pt;margin-bottom:.0001pt'>
+                            <b>
+                                <span lang=PT
+                                      style='font-size:11.5pt;font-family:"Arial",sans-serif'>Inversores</span>
+                            </b>
+                        </p>
+                    </td>
+                    <td width=217 valign=top style='width:162.5pt;border:solid #BEBEBE 1.0pt;
   border-left:none;padding:0in 0in 0in 0in;height:39.1pt'>
-					<p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
-  0in;margin-left:5.5pt;margin-bottom:.0001pt'><b><span lang=PT
-								style='font-size:11.5pt;font-family:"Arial",sans-serif'>Módulos</span></b></p>
-				</td>
-				<td width=216 valign=top style='width:162.1pt;border:solid #BEBEBE 1.0pt;
+                        <p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
+  0in;margin-left:5.5pt;margin-bottom:.0001pt'>
+                            <b>
+                                <span lang=PT
+                                      style='font-size:11.5pt;font-family:"Arial",sans-serif'>Módulos</span>
+                            </b>
+                        </p>
+                    </td>
+                    <td width=216 valign=top style='width:162.1pt;border:solid #BEBEBE 1.0pt;
   border-left:none;padding:0in 0in 0in 0in;height:39.1pt'>
-					<p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
-  0in;margin-left:5.45pt;margin-bottom:.0001pt'><b><span lang=PT
-								style='font-size:11.5pt;font-family:"Arial",sans-serif'>Mão de obra</span></b></p>
-				</td>
-			</tr>
-			<tr style='height:41.6pt'>
-				<td width=216 valign=top style='width:162.1pt;border:solid #BEBEBE 1.0pt;
+                        <p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
+  0in;margin-left:5.45pt;margin-bottom:.0001pt'>
+                            <b>
+                                <span lang=PT
+                                      style='font-size:11.5pt;font-family:"Arial",sans-serif'>Mão de obra</span>
+                            </b>
+                        </p>
+                    </td>
+                </tr>
+                <tr style='height:41.6pt'>
+                    <td width=216 valign=top style='width:162.1pt;border:solid #BEBEBE 1.0pt;
   border-top:none;background:#F1F1F1;padding:0in 0in 0in 0in;height:41.6pt'>
-					<p class=TableParagraph style='margin-top:.3pt'><span lang=PT
-							style='font-size:11.5pt;font-family:"Arial",sans-serif;color:black'> 5 anos</span></p>
-				</td>
-				<td width=217 valign=top style='width:162.5pt;border-top:none;border-left:
+                        <p class=TableParagraph style='margin-top:.3pt'>
+                            <span lang=PT
+                                  style='font-size:11.5pt;font-family:"Arial",sans-serif;color:black'> 5 anos</span>
+                        </p>
+                    </td>
+                    <td width=217 valign=top style='width:162.5pt;border-top:none;border-left:
   none;border-bottom:solid #BEBEBE 1.0pt;border-right:solid #BEBEBE 1.0pt;
   background:#F1F1F1;padding:0in 0in 0in 0in;height:41.6pt'>
-					<p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
-  0in;margin-left:5.5pt;margin-bottom:.0001pt'><span lang=PT style='font-size:
-  11.5pt;font-family:"Arial",sans-serif;color:black'>10 anos defeito de fábrica</span></p>
-					<p class=TableParagraph style='margin-top:.55pt;margin-right:0in;margin-bottom:
-  0in;margin-left:5.5pt;margin-bottom:.0001pt;line-height:13.5pt'><span lang=PT
-							style='font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>25
-							anos com 80% de eficiência</span></p>
-				</td>
-				<td width=216 valign=top style='width:162.1pt;border-top:none;border-left:
+                        <p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
+  0in;margin-left:5.5pt;margin-bottom:.0001pt'>
+                            <span lang=PT style='font-size:
+  11.5pt;font-family:"Arial",sans-serif;color:black'>10 anos defeito de fábrica</span>
+                        </p>
+                        <p class=TableParagraph style='margin-top:.55pt;margin-right:0in;margin-bottom:
+  0in;margin-left:5.5pt;margin-bottom:.0001pt;line-height:13.5pt'>
+                            <span lang=PT
+                                  style='font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>
+                                25
+                                anos com 80% de eficiência
+                            </span>
+                        </p>
+                    </td>
+                    <td width=216 valign=top style='width:162.1pt;border-top:none;border-left:
   none;border-bottom:solid #BEBEBE 1.0pt;border-right:solid #BEBEBE 1.0pt;
   background:#F1F1F1;padding:0in 0in 0in 0in;height:41.6pt'>
-					<p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
-  0in;margin-left:5.45pt;margin-bottom:.0001pt'><span lang=PT style='font-size:
-  11.5pt;font-family:"Arial",sans-serif;color:black'>1 ano</span></p>
-				</td>
-			</tr>
-		</table>
+                        <p class=TableParagraph style='margin-top:.3pt;margin-right:0in;margin-bottom:
+  0in;margin-left:5.45pt;margin-bottom:.0001pt'>
+                            <span lang=PT style='font-size:
+  11.5pt;font-family:"Arial",sans-serif;color:black'>1 ano</span>
+                        </p>
+                    </td>
+                </tr>
+            </table>
 
-		<p class=MsoBodyText style='margin-top:.1pt'><b><span lang=PT style='font-size:
-10.5pt'>&nbsp;</span></b></p>
+            <p class=MsoBodyText style='margin-top:.1pt'>
+                <b>
+                    <span lang=PT style='font-size:
+10.5pt'>&nbsp;</span>
+                </b>
+            </p>
 
-		<p class=MsoBodyText style='margin-top:4.6pt;margin-right:4.0pt;margin-bottom:
+            <p class=MsoBodyText style='margin-top:4.6pt;margin-right:4.0pt;margin-bottom:
 0in;margin-left:65.0pt;margin-bottom:.0001pt;text-indent:35.3pt;line-height:
-106%'><span lang=PT>As garantias que se referem a eficiência, defeitos de
-				fábrica, durabilidade se competem a indústria, <b>“BEDIN SOLAR.”</b></span></p>
-
-		<p class=MsoBodyText style='margin-top:.45pt;margin-right:0in;margin-bottom:
-0in;margin-left:100.3pt;margin-bottom:.0001pt'><span lang=PT>Mão-de-obra, é de
-				extrema responsabilidade da empresa</span></p>
-
-		<h2 align=left style='margin-top:1.2pt;margin-right:0in;margin-bottom:0in;
-margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'><span lang=PT>“Follmann
-				Energia Solar.”</span></h2>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:15.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:15.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText style='margin-top:.4pt'><b><span lang=PT style='font-size:
-20.5pt'>&nbsp;</span></b></p>
-
-		<p class=MsoNormal style='margin-left:65.0pt'><span lang=PT style='font-size:
-14.0pt'>Está proposta é válida até: <b>XX/XX/2022.</b></span></p>
-
-		<p class=MsoNormal><span lang=PT style='font-size:14.0pt'>&nbsp;</span></p>
-
-		<p class=MsoNormal><span lang=PT style='font-size:14.0pt'>&nbsp;</span></p>
-
-	</div>
-
-	<span lang=PT style='font-size:14.0pt;font-family:"Arial",sans-serif'><br clear=all
-			style='page-break-before:always'>
-	</span>
-
-	<div class=WordSection3>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText style='margin-top:.2pt'><b><span lang=PT style='font-size:
-8.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText style='margin-left:158.55pt;line-height:1.0pt'><span lang=PT style='font-size:1.0pt'><img
-					width=365 height=2 id="Group 6" src="image008.png"></span></p>
-
-		<p class=MsoBodyText align=center style='margin-top:1.25pt;margin-right:5.0pt;
-margin-bottom:0in;margin-left:40.35pt;margin-bottom:.0001pt;text-align:center'><span lang=PT>Valmir Follmann</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText><span lang=PT style='font-size:10.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText style='margin-top:.15pt'>
-
-		<table cellpadding=0 cellspacing=0 align=left>
-			<tr>
-				<td width=239 height=0></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><img width=364 height=1 src="image009.png"></td>
-			</tr>
-		</table>
-
-		<br clear=ALL>
-		</p>
-
-		<p class=MsoBodyText style='margin-top:.15pt'><span lang=PT style='font-size:
-3.0pt'>&nbsp;</span></p>
-
-		<p class=MsoBodyText align=center style='text-align:center'><b><span lang=PT style='font-size:15.5pt'>       
-					XXXXXXX</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText><b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b></p>
-
-		<p class=MsoBodyText style='margin-top:.2pt'><b><span lang=PT style='font-size:
-10.5pt'>&nbsp;</span></b></p>
-
-		<p class=MsoNormal align=center style='margin-top:.05pt;margin-right:5.0pt;
-margin-bottom:0in;margin-left:40.25pt;margin-bottom:.0001pt;text-align:center'><b><span lang=PT
-					style='color:black;background:#D2D2D2'>CNPJ: 31.075.819/0001-41</span></b></p>
-
-		<p class=MsoNormal align=center style='margin-top:1.05pt;margin-right:5.0pt;
-margin-bottom:0in;margin-left:39.95pt;margin-bottom:.0001pt;text-align:center'><b><span lang=PT
-					style='color:black;background:#D2D2D2'>Dados bancários:</span></b></p>
-
-		<p class=MsoNormal align=center style='margin-top:1.0pt;margin-right:149.25pt;
-margin-bottom:0in;margin-left:184.6pt;margin-bottom:.0001pt;text-align:center;
-text-indent:.05pt;line-height:107%'><b><span lang=PT style='color:black;
-letter-spacing:-.15pt;background:#D2D2D2'>Banco </span><span lang=PT
-					style='color:black;background:#D2D2D2'>Sicredi<span style='letter-spacing:.2pt'>
-					</span>C/C:<span style='letter-spacing:.25pt'> </span>82605-2     <span
-						style='letter-spacing:-.2pt'>AG: </span>0710</span><span lang=PT> <span
-						style='color:black;background:#D2D2D2'>Nome: Neusa Genir da Silva <span
-							style='letter-spacing:-.15pt'>Follmann </span><span
-							style='letter-spacing:-.3pt'>ME</span></span><span style='letter-spacing:-.3pt'>
-					</span><span style='color:black;background:#D2D2D2'>Endereço:</span></span></b></p>
-
-		<p class=MsoNormal align=center style='margin-top:.1pt;margin-right:5.0pt;
+106%'>
+                <span lang=PT>
+                    As garantias que se referem a eficiência, defeitos de
+                    fábrica, durabilidade se competem a indústria, <b>“BEDIN SOLAR.”</b>
+                </span>
+            </p>
+
+            <p class=MsoBodyText style='margin-top:.45pt;margin-right:0in;margin-bottom:
+0in;margin-left:100.3pt;margin-bottom:.0001pt'>
+                <span lang=PT>
+                    Mão-de-obra, é de
+                    extrema responsabilidade da empresa
+                </span>
+            </p>
+
+            <h2 align=left style='margin-top:1.2pt;margin-right:0in;margin-bottom:0in;
+margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
+                <span lang=PT>
+                    “Follmann
+                    Energia Solar.”
+                </span>
+            </h2>
+
+            <p class=MsoBodyText>
+                <b><span lang=PT style='font-size:15.0pt'>&nbsp;</span></b>
+            </p>
+
+            <p class=MsoBodyText>
+                <b><span lang=PT style='font-size:15.0pt'>&nbsp;</span></b>
+            </p>
+
+            <p class=MsoBodyText style='margin-top:.4pt'>
+                <b>
+                    <span lang=PT style='font-size:
+20.5pt'>&nbsp;</span>
+                </b>
+            </p>
+
+            <p class=MsoNormal style='margin-left:65.0pt'>
+                <span lang=PT style='font-size:
+14.0pt'>Está proposta é válida até: <b>XX/XX/2022.</b></span>
+            </p>
+
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+            </p>
+
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+            </p>
+
+        </div>
+        <!--Page 7-->
+        <div class="page">
+            <!--Page 7 Body-->
+            <div>
+                <div class=WordSection3>
+
+                    <p class=MsoBodyText>
+                        <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                    </p>
+
+                    <p class=MsoBodyText>
+                        <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                    </p>
+
+                    <p class=MsoBodyText>
+                        <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                    </p>
+
+                    <p class=MsoBodyText>
+                        <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                    </p>
+
+                    <p class=MsoBodyText>
+                        <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                    </p>
+
+                    <p class=MsoBodyText>
+                        <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                    </p>
+
+                    <p class=MsoBodyText>
+                        <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                    </p>
+
+                    <p class=MsoBodyText style='margin-top:.2pt'>
+                        <b>
+                            <span lang=PT style='font-size:8.0pt'>&nbsp;</span>
+                        </b>
+                    </p>
+
+                    <p class=MsoBodyText style='margin-left:158.55pt;line-height:1.0pt'>
+                        <span lang=PT style='font-size:1.0pt'>
+                            <img width=365 height=2 id="Group 6" src="image008.png">
+                        </span>
+                    </p>
+                </div>
+                <p class=MsoBodyText align=center style='margin-top:1.25pt;margin-right:5.0pt;margin-bottom:0in;margin-left:40.35pt;margin-bottom:.0001pt;text-align:center'>
+                    <span lang=PT>Valmir Follmann</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText>
+                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText style='margin-top:.15pt'>
+
+                    <table cellpadding=0 cellspacing=0 align=left>
+                        <tr>
+                            <td width=239 height=0></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <img width=364 height=1 src="image009.png">
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br clear=ALL>
+                </p>
+
+                <p class=MsoBodyText style='margin-top:.15pt'>
+                    <span lang=PT style='font-size:3.0pt'>&nbsp;</span>
+                </p>
+
+                <p class=MsoBodyText align=center style='text-align:center'>
+                    <b>
+                        <span lang=PT style='font-size:15.5pt'>
+                            XXXXXXX
+                        </span>
+                    </b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText>
+                    <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
+                </p>
+
+                <p class=MsoBodyText style='margin-top:.2pt'>
+                    <b>
+                        <span lang=PT style='font-size:10.5pt'>&nbsp;</span>
+                    </b>
+                </p>
+            </div>
+            <!--Page 7 Footer-->
+            <div>
+                <p class=MsoNormal align=center style='margin-top:.05pt;margin-right:5.0pt;
+margin-bottom:0in;margin-left:40.25pt;margin-bottom:.0001pt;text-align:center'>
+                    <b>
+                        <span lang=PT
+                              style='color:black;background:#D2D2D2'>CNPJ: 31.075.819/0001-41</span>
+                    </b>
+                </p>
+
+                <p class=MsoNormal align=center style='margin-top:1.05pt;margin-right:5.0pt;
 margin-bottom:0in;margin-left:39.95pt;margin-bottom:.0001pt;text-align:center'>
+                    <b>
+                        <span lang=PT
+                              style='color:black;background:#D2D2D2'>Dados bancários:</span>
+                    </b>
+                </p>
 
-		<table cellpadding=0 cellspacing=0>
-			<tr>
-				<td width=176 height=0></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><img width=489 height=17 src="image010.png"></td>
-			</tr>
-		</table>
+                <p class=MsoNormal align=center style='margin-top:1.0pt;margin-right:149.25pt;
+margin-bottom:0in;margin-left:184.6pt;margin-bottom:.0001pt;text-align:center;
+text-indent:.05pt;line-height:107%'>
+                    <b>
+                        <span lang=PT style='color:black;
+letter-spacing:-.15pt;background:#D2D2D2'>Banco </span><span lang=PT
+                                                             style='color:black;background:#D2D2D2'>
+                            Sicredi<span style='letter-spacing:.2pt'>
+                            </span>C/C:<span style='letter-spacing:.25pt'> </span>82605-2     <span style='letter-spacing:-.2pt'>AG: </span>0710
+                        </span><span lang=PT>
+                            <span>
+                                Nome: Neusa Genir da Silva <span style='letter-spacing:-.15pt'>Follmann </span><span style='letter-spacing:-.3pt'>ME</span>
+                            </span><span style='letter-spacing:-.3pt'>
+                            </span><span style='color:black;background:#D2D2D2'>Endereço:</span>
+                        </span>
+                    </b>
+                </p>
 
-		<br clear=ALL>
-		<b><span lang=PT style='color:black;background:#D2D2D2'>Avenida Independência,
-				1108, Flor da Serra – Serranópolis do Iguaçu, PR.</span></b></p>
+                <p class=MsoNormal align=center style='margin-top:.1pt;margin-right:5.0pt;margin-bottom:0in;margin-left:39.95pt;margin-bottom:.0001pt;text-align:center'>
+                    <b>
+                        <span lang=PT>
+                            CEP: 85885-000	Fone: (45) 3236-1562	(45) 9 9105-2828
+                        </span>
+                    </b>
+                    <br clear=ALL>
+                    <b>
+                        <span lang=PT>
+                            Avenida Independência,
+                            1108, Flor da Serra – Serranópolis do Iguaçu, PR.
+                        </span>
+                    </b>
+                </p>
 
-		<p class=MsoNormal style='margin-left:184.95pt;line-height:12.05pt'><span lang=PT><a
-					href="mailto:E-mail:%20follmannenergiasolar@outlook.com"><b><span style='background:#D2D2D2'>E-mail:
-							follmannenergiasolar@outlook.com</span></b></a></span></p>
-
-	</div>
-
+                <p class=MsoNormal style='margin-left:184.95pt;line-height:12.05pt'>
+                    <span lang=PT>
+                        <a href="mailto:E-mail:%20follmannenergiasolar@outlook.com">
+                            <b>
+                                <span>
+                                    E-mail:follmannenergiasolar@outlook.com
+                                </span>
+                            </b>
+                        </a>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

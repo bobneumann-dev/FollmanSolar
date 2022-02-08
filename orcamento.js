@@ -29,3 +29,13 @@ function ValorOrcamento(current) {
     valorOrcamento = current.valorCotacao * 1.3;
     valorExtenso = NumeroPorExtenso(valor);
 }
+
+function DownloadJson(data, nome) {
+        var textToSave = JSON.stringify(data);
+        var hiddenElement = document.createElement('a');
+
+        hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = nome + '.json';
+        hiddenElement.click();
+}
