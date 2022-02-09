@@ -3,19 +3,19 @@
   "representante": "Rudi",
   "cidade": "Foz do Iguaçu",
 
-  "dataOrcamento": "01/01/2022",
-  "validade": "30/01/2022",
+  "dataOrcamento": "2022-01-01",
+  "validade": "2022-01-02",
   "telha": "Romana",
 
   "numeroPlacas": 15,
-  "potenciaPlacas": "500W",
+  "potenciaPlacas": "500",
   "potenciaPico": 5000,
   "geracaoMensal": 500,
 
   "valorCotacao": 120000.0,
+  "valorMaoDeObra": 10000.0,
   "valorOrcamento": 130000,
-  "valorExtenso": "Cento e Trinta Mil Reais",
-  "itemsOrcamento": [
+  "items": [
     {
       "item": "Item 1",
       "modelo": "Modelo",

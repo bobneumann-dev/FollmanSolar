@@ -3,8 +3,104 @@ var DataArr = [];
 PDFJS.workerSrc = '';
 var orcamento = {};
 
-function ExtractData(pageTxt) {
+function DefaultObj() {
+    return {
+        "cliente": "",
+        "representante": null,
+        "cidade": "",
+
+        "dataOrcamento": "0001-01-01",
+        "validade": "0001-01-01",
+        "telha": "tipo de telha",
+
+        "numeroPlacas": 0,
+        "potenciaPlacas": "0",
+        "potenciaPico": 0,
+        "geracaoMensal": 0,
+
+        "valorCotacao": 0,
+        "valorMaoDeObra": 0,
+        "valorOrcamento": 0,
+        "items": [
+        ],
+        "financiamento": [
+        ]
+    }
+}
+
+function IptRefresh(input, data) {
+    $("#" + input + "Span").text(data[input]);
+}
+
+function AtualizarOrcamento(orcamento) {
+    //Pagina 1
+    IptRefresh("cliente", orcamento);
+    IptRefresh("cidade", orcamento);
+    IptRefresh("telha", orcamento);
+    $("#potenciaPicoSpan").text((orcamento.potenciaPico).toFixed(2));
+    $("#validadeSpan").text(new Date(orcamento.validade).toLocaleDateString());
+    $("#dataOrcamentoExtensoSpan").text(new Date(orcamento.dataOrcamento).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }))
     
+    $("#valorMaoDeObraSpan").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+    $("#valorCotacaoSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+    //Tabela de Items
+    orcamento.items.forEach((v) => {
+        let tr = $("<tr style='border:1px solid black;'></tr>");
+
+        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.quantidade + '</td>');
+        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.item + '</td>');
+        tr.append('<td style="padding-left:10px;text-align:center">' + v.modelo + '</td>');
+
+        $("#itemsBody").append(tr);
+    });
+
+    //Pagina 2
+    IptRefresh("numeroPlacas", orcamento);
+    $("#potenciaPlacasSpan").text(orcamento.potenciaPlacas.toUpperCase().replace("W", "").replace("P", ""));
+    $("#geracaoMensalSpan").text(orcamento.geracaoMensal.toLocaleString());
+    $("#valorOrcamentoSpan").text(orcamento.valorOrcamento.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+    $("#valorExtensoSpan").text(ValorPorExtensoReal(orcamento.valorOrcamento));
+
+    //Pagina 5
+    $("#validade2Span").text(new Date(orcamento.validade).toLocaleDateString());
+    $("#clienteFirmaSpan").text(orcamento.cliente);
+
+    //financiamento
+    if (orcamento.financiamento.length == 0) {
+        $("#FinanciamentoDiv").hide();
+    }
+    else {
+        orcamento.financiamento.forEach((v) => {
+
+            let tr = $("<tr></tr>");
+
+            tr.append('<td width="30%">&nbsp;</td>');
+            tr.append('<td width="40%" align=center style="border:1px solid black;"><b><span style="color:#dc146a;">' + v.parcelas + ' parcelas</span> de R$ ' + v.mensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) + '</b></td>');
+            tr.append('<td width="30%">&nbsp;</td>');
+
+            $("#financiamentoTable").append(tr);
+        });
+    }
+
+
+    //Representante
+    if (orcamento.representante != null && orcamento.representante != "") {
+        IptRefresh("representante", orcamento);
+
+        $(".representanteShow").show();
+        $(".representanteHide").hide();
+    }
+    else {
+        $(".representanteShow").hide();
+        $(".representanteHide").show();
+    }
+
+
+}
+
+function ExtractData(pageTxt) {
+    orcamento = DefaultObj();
+
     //POTÊNCIA kWp  8.18 kWp  LINHAS
     if (pageTxt.includes("CIA kWp")) {
 
@@ -100,12 +196,19 @@ function ExtractData(pageTxt) {
         validade = validade.replace("VALIDADE", "");
         validade = validade.trim();
 
-        orcamento.validade = validade;
+        let parts = validade.split('/');
+
+        orcamento.validade = parts[2] + "-" + parts[1] + "-" + parts[0];
     }
     else {
         console.log("V");
     }
 
+    //Orçamentos    
+    orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.3;
+    orcamento.valorOrcamento = orcamento.valorMaoDeObra + orcamento.valorCotacao;
+
+    ExtrairInfPlacas(orcamento.items);
     console.log(orcamento);
 }
 
