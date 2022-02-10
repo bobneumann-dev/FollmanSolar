@@ -1,4 +1,4 @@
-ï»¿var BASE64_MARKER = ';base64,';
+var BASE64_MARKER = ';base64,';
 var datass = '';
 var DataArr = [];
 PDFJS.workerSrc = '';
@@ -19,7 +19,7 @@ function AtualizarRepresentante(representante) {
         orcamento.representante = representante;
 
         if (representante == 'Roseli Borchert') {
-            TrocarCidade("ItaipulÃ¢ndia");
+            TrocarCidade("Itaipulândia");
         }
     }
     else {
@@ -176,7 +176,7 @@ function AtualizarFinanciamento(orcamento) {
 
 function PreencherCampos(d, completo) {
 
-    //ImportaÃ§Ã£o
+    //Importação
     if (completo) {
         $("#cliente").val(d.cliente);
 
@@ -206,7 +206,7 @@ function PreencherCampos(d, completo) {
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
 
-    //POTÃŠNCIA kWp  8.18 kWp  LINHAS
+    //POTÊNCIA kWp  8.18 kWp  LINHAS
     if (pageTxt.includes("CIA kWp")) {
 
         let kwp = pageTxt.substring(
@@ -309,7 +309,7 @@ function ExtractData(pageTxt) {
         console.log("V");
     }
 
-    //OrÃ§amentos    
+    //Orçamentos    
     orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.3;
     orcamento.valorOrcamento = orcamento.valorMaoDeObra + orcamento.valorCotacao;
 

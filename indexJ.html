@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Follmann Solar - Gerador de Orçamentos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 10mm auto;
+            border: 1px #D3D3D3 solid;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        @media print {
+
+            body,
+            .page {
+                margin: 0;
+                box-shadow: 0;
+            }
+
+            .app {
+                display: none;
+            }
+        }
+    </style>
+    <!--Orçamento-->
+    <style>
+        <!--
+        /* Font Definitions */
+        @font-face {
+            font-family: Wingdings;
+            panose-1: 5 0 0 0 0 0 0 0 0 0;
+        }
+
+        @font-face {
+            font-family: "Cambria Math";
+            panose-1: 2 4 5 3 5 4 6 3 2 4;
+        }
+
+        @font-face {
+            font-family: Calibri;
+            panose-1: 2 15 5 2 2 2 4 3 2 4;
+        }
+
+        @font-face {
+            font-family: "Segoe UI";
+            panose-1: 2 11 5 2 4 2 4 2 2 3;
+        }
+
+        /* Style Definitions */
+        p.MsoNormal,
+        li.MsoNormal,
+        div.MsoNormal {
+            margin: 0in;
+            text-autospace: none;
+            font-size: 11.0pt;
+            font-family: "Arial", sans-serif;
+        }
+
+        h1 {
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 65.0pt;
+            text-align: justify;
+            text-autospace: none;
+            font-size: 15.5pt;
+            font-family: "Arial", sans-serif;
+        }
+
+        h2 {
+            margin-top: 0in;
+            margin-right: 5.0pt;
+            margin-bottom: 0in;
+            margin-left: 4.75pt;
+            text-align: center;
+            text-autospace: none;
+            font-size: 14.0pt;
+            font-family: "Arial", sans-serif;
+        }
+
+        p.MsoTitle,
+        li.MsoTitle,
+        div.MsoTitle {
+            margin-top: 0in;
+            margin-right: 5.0pt;
+            margin-bottom: 0in;
+            margin-left: 4.95pt;
+            text-align: center;
+            line-height: 45.75pt;
+            text-autospace: none;
+            font-size: 40.0pt;
+            font-family: "Calibri", sans-serif;
+            font-weight: bold;
+        }
+
+        p.MsoBodyText,
+        li.MsoBodyText,
+        div.MsoBodyText {
+            margin: 0in;
+            text-autospace: none;
+            font-size: 14.0pt;
+            font-family: "Arial", sans-serif;
+        }
+
+        a:link,
+        span.MsoHyperlink {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        p.MsoListParagraph,
+        li.MsoListParagraph,
+        div.MsoListParagraph {
+            margin-top: 0in;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 101.0pt;
+            text-indent: -18.05pt;
+            line-height: 17.05pt;
+            text-autospace: none;
+            font-size: 11.0pt;
+            font-family: "Arial", sans-serif;
+        }
+
+        p.TableParagraph,
+        li.TableParagraph,
+        div.TableParagraph {
+            mso-style-name: "Table Paragraph";
+            margin-top: .15pt;
+            margin-right: 0in;
+            margin-bottom: 0in;
+            margin-left: 0in;
+            text-autospace: none;
+            font-size: 11.0pt;
+            font-family: "Calibri", sans-serif;
+        }
+
+        .MsoChpDefault {
+            font-family: "Calibri", sans-serif;
+        }
+
+        .MsoPapDefault {
+            text-autospace: none;
+        }
+
+        @page WordSection1 {
+            size: 595.5pt 842.5pt;
+            margin: 28.0pt 20.0pt 14.0pt 20.0pt;
+        }
+
+        div.WordSection1 {
+            page: WordSection1;
+        }
+
+        @page WordSection2 {
+            size: 595.5pt 842.5pt;
+            margin: 24.0pt 20.0pt 14.0pt 20.0pt;
+        }
+
+        div.WordSection2 {
+            page: WordSection2;
+        }
+
+        @page WordSection3 {
+            size: 595.5pt 842.5pt;
+            margin: 80.0pt 20.0pt 14.0pt 20.0pt;
+        }
+
+        div.WordSection3 {
+            page: WordSection3;
+        }
+
+        /* List Definitions */
+        ol {
+            margin-bottom: 0in;
+        }
+
+        ul {
+            margin-bottom: 0in;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid rgb(8, 8, 8);
+        }
+        -->
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-12">
+                                    <header class="clearfix ms-2 mb-2">
+                                        <div id="logo">
+                                            <img src="image001.png">
+                                        </div>
+                                    </header>
+
+                                </div>
+                            </div>
+                            <!--Gerador-->
+                            <div class="row">
+
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div>
+                                                <h1>
+                                                    <blockquote class="blockquote text-center">
+                                                        <p class="mb-0 fw-bold">Criar orçamento</p>
+                                                    </blockquote>
+                                                </h1>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <span class="small fw-bold">Cliente:</span>
+                                                    <br />
+                                                    <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cliente" name="cliente" />
+                                                </div>
+                                            </div>
+                                            <div class="row mt-1">
+                                                <div class="col-12 col-md-6">
+                                                    <span class="small fw-bold">Representante:</span>
+                                                    <br />
+                                                    <select class="form-control form-control-sm mt-1" id="representante" name="representante">
+                                                        <option>Matriz</option>
+                                                        <option value="Rudi">Rudi</option>
+                                                        <option value="Roseli Borchert">Rosi</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <span class="small fw-bold">Cidade:</span>
+                                                    <br />
+                                                    <select class="form-control form-control-sm mt-1 txtIpt" id="cidade" name="cidade">
+                                                        <option value="Medianeira">Medianeira</option>
+                                                        <option value="Itaipulândia">Itaipulândia</option>
+                                                        <option value="Foz do Iguaçu">Foz do Iguaçu</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-1">
+                                                <div class="col-12 col-md-3">
+                                                    <span class="small fw-bold">Nº Placas:</span>
+                                                    <br />
+                                                    <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="numeroPlacas" />
+                                                </div>
+                                                <div class="col-12 col-md-3">
+                                                    <span class="small fw-bold">KWP:</span>
+                                                    <br />
+                                                    <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="potenciaPlacas" />
+                                                </div>
+
+                                                <div class="col-12 col-md-3">
+                                                    <span class="small fw-bold">Podução mensal:</span>
+                                                    <br />
+                                                    <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="" geracaoMensal" />
+                                                </div>
+                                                <div class="col-12 col-md-3">
+                                                    <span class="small fw-bold">Potência de pico:</span>
+                                                    <br />
+                                                    <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="potenciaPico" />
+                                                </div>
+                                            </div>
+                                            <div class="row mt-1">
+                                                <div class="col-12 col-md-6">
+                                                    <span class="small fw-bold">Telha:</span>
+                                                    <br />
+                                                    <select class="form-control form-control-sm mt-1 txtIpt" id="telhado">
+                                                        <option value="Medianeira">Telha romana</option>
+                                                        <option value="Itaipulândia">Telha americana</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-12 col-md-3">
+                                                    <span class="small fw-bold">Data:</span>
+                                                    <input type="date" class="form-control form-control-sm mt-1 txtIpt" id="dataOrcamento" />
+
+                                                </div>
+                                                <div class="col-12 col-md-3">
+                                                    <span class="small fw-bold">Validade:</span>
+                                                    <input type="date" class="form-control form-control-sm mt-1 txtIpt" id="validade" />
+
+                                                </div>
+                                                <br\>
+
+                                                    <hr>
+
+                                                    <div class="row mt-1">
+                                                        <div class="col-12 col-md-3">
+                                                            <span class="small fw-bold">Valor mão de obra:</span>
+                                                            <br />
+                                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="valorMaoDeObra" />
+                                                        </div>
+                                                        <div class="col-12 col-md-3">
+                                                            <span class="small fw-bold">Valor cotação:</span>
+                                                            <br />
+                                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="valorCotacao" />
+                                                        </div>
+
+                                                        <div class="col-12 col-md-3">
+                                                            <span class="small fw-bold">Investimento total:</span>
+                                                            <br />
+                                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="valorOrcamento" />
+                                                        </div>
+                                                    </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="printArea">
+
+    </div>
+    <!-- a container for the output -->
+    <div id="output"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.entry.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.worker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="pdf.js"></script>
+    <script src="orcamento.js"></script>
+    <script src="site.js"></script>
+</body>
+
+</html>

@@ -1,19 +1,29 @@
-<html>
+<!doctype html>
+<html lang="pt-br">
 
 <head>
-    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
-    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <title>Follmann Solar - Gerador de Orçamentos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         .page {
             width: 210mm;
-            min-height: 297mm;
+            height: 297mm;
             padding: 10mm;
             margin: 3mm auto;
-            border: 1px #D3D3D3 solid;
-            border-radius: 5px;
+            /*
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                border: 1px #D3D3D3 solid;
+            */
             background: white;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }      
+        }
+
+        .app {
+            display: block;
+        }
+        .printArea {
+            display: none;
+        }
 
         @media print {
             body {
@@ -29,6 +39,10 @@
 
             .app {
                 display: none;
+            }
+
+            .printArea {
+                display: block;
             }
         }
     </style>
@@ -187,114 +201,313 @@
             margin-bottom: 0in;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 </head>
 
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.entry.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.worker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="extenso.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
     <script src="pdf.js"></script>
+    <script src="orcamento.js"></script>
+    <script src="site.js"></script>
+    <script src="extenso.js"></script>
     <script>
-        var orcamento = {
-            "cliente": "Cliente Teste",
-            "representante": null,
-            "cidade": "Medianeira",
-            "dataOrcamento": "2022-02-08",
-            "validade": "2022-02-02",
-            "telha": "tipo de telha",
-            "numeroPlacas": 15,
-            "potenciaPlacas": "545",
-            "potenciaPico": 8.18,
-            "geracaoMensal": 0,
-            "valorCotacao": 26420,
-            "valorMaoDeObra": 7926,
-            "valorOrcamento": 34346,
-            "itemsOrcamento": [
-            ],
-            "financiamento": [
-            ],
-            "items": [
-                {
-                    "quantidade": 1,
-                    "item": "INVERSOR BEDINSOLAR  8K (BS-8K-G01)",
-                    "modelo": "Inversor",
-                    "valor": "R$ 4580.00",
-                    "total": "R$ 4580.00"
-                },
-                {
-                    "quantidade": 15,
-                    "item": "PAINEL SOLAR  BEDINSOLAR 545W MONO  (A PRONTA ENTREGA)",
-                    "modelo": "Módulo",
-                    "valor": "R$ 1310.00",
-                    "total": "R$ 19550.00"
-                },
-                {
-                    "quantidade": 1,
-                    "item": "SB 3E/3S 500V  SECCIONADORA NO  INVERSOR ( sem chave)",
-                    "modelo": "Estrutura",
-                    "valor": "R$ 405.00",
-                    "total": "R$ 405.00"
-                },
-                {
-                    "quantidade": 6,
-                    "item": "PERFIL 6,0MT  BEDINSOLAR (545W)",
-                    "modelo": "Estrutura",
-                    "valor": "R$ 111.80",
-                    "total": "R$ 671.00"
-                },
-                {
-                    "quantidade": 4,
-                    "item": "JUNCAO/EMENDA PERFIL  BEDINSOLAR",
-                    "modelo": "Estrutura",
-                    "valor": "R$ 8.90",
-                    "total": "R$ 35.60"
-                },
-                {
-                    "quantidade": 36,
-                    "item": "SUPORTE CERAMICO  TC002 galvanizado",
-                    "modelo": "Estrutura",
-                    "valor": "R$ 14.20",
-                    "total": "R$ 510.00"
-                },
-                {
-                    "quantidade": 24,
-                    "item": "TERMINAL  INTERMEDIARIO  BEDINSOLAR",
-                    "modelo": "Estrutura",
-                    "valor": "R$ 4.20",
-                    "total": "R$ 101.80"
-                },
-                {
-                    "quantidade": 12,
-                    "item": "TERMINAL FINAL  BEDINSOLAR",
-                    "modelo": "Estrutura",
-                    "valor": "R$ 5.40",
-                    "total": "R$ 64.20"
-                },
-                {
-                    "quantidade": 6,
-                    "item": "CONECTOR MC4  MACHO/FEMEA 1500V",
-                    "modelo": "Conector",
-                    "valor": "R$ 7.60",
-                    "total": "R$ 45.50"
-                },
-                {
-                    "quantidade": 30,
-                    "item": "CABO SOLAR 6MM 1800  VDC PRETO",
-                    "modelo": "Cabos",
-                    "valor": "R$ 6.00",
-                    "total": "R$ 178.80"
-                },
-                {
-                    "quantidade": 30,
-                    "item": "CABO SOLAR 6MM 1800  VDC VERMELHO",
-                    "modelo": "Cabos",
-                    "valor": "R$ 6.00",
-                    "total": "R$ 178.80  "
+        function InitInputs() {
+            let hoje = new Date().toISOString().split("T")[0];
+
+            $("#dataOrcamento").val(hoje);
+            $("#validade").val(hoje);
+        }
+
+        function InitEvents() {
+
+            $(".txtIpt").on('change', function (event) {
+                console.log("txtIpt Change Event");
+                let target = $(event.target);
+                console.log(target);
+                orcamento[target.attr('id')] = target.val();
+                AtualizarOrcamento(orcamento);
+            });
+
+            $(".numberIpt").on('change', function (event) {
+                console.log("numberIpt Change Event");
+                let target = $(event.target);
+                console.log(target);
+                orcamento[target.attr('id')] = Number(target.val().replace('.', '').replace(',', '.'));
+                AtualizarOrcamento(orcamento);
+            });
+
+            $(".dateIpt").on('change', function (event) {
+                console.log("dateIpt Change Event");
+                let target = $(event.target);
+                console.log(target);
+                orcamento[target.attr('id')] = new Date(target.val());
+                AtualizarOrcamento(orcamento);
+            });
+
+            $(".valueIpt").on('change', function (event) {
+                let valorCotacao = $("#valorCotacao").val();
+                let valorMaoDeObra = $("#valorMaoDeObra").val();
+
+                if (valorCotacao == "")
+                    orcamento.valorCotacao = 0;
+                else
+                    orcamento.valorCotacao = Number(valorCotacao.replace('.', '').replace(',', '.'));
+
+                if (valorMaoDeObra == "")
+                    orcamento.valorMaoDeObra = 0;
+                else
+                    orcamento.valorMaoDeObra = Number(valorMaoDeObra.replace('.', '').replace(',', '.'));
+
+                orcamento.valorOrcamento = orcamento.valorCotacao + orcamento.valorMaoDeObra;
+                $("#valorOrcamento").val(orcamento.valorOrcamento.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+
+                AtualizarOrcamento(orcamento);
+            });
+            //valueIpt
+
+            $("#representante").on('change', function () {
+                console.log("Representante Change Event");
+
+                let representante = $("#representante").val();
+                AtualizarRepresentante(representante);
+            });
+
+            $('#financiamento').on('paste', function (event) {
+
+                var paste = event.originalEvent.clipboardData.getData('text');
+                var lines = paste.split(/\r?\n/);
+
+                lines = lines.filter(f => f != "");
+
+                if (lines.length > 1) {
+
+                    if (lines.length % 2 != 0) {
+                        alert("Formato Incorreto, o número de linhas deve ser par.");
+                        return false;
+                    }
+
+                    for (let i = 0; i < lines.length; i += 2) {
+                        let valor = Number(lines[i].replace("R$", "").replace("mês", "").replace(".", "").replace(",", ".").trim());
+                        let parcelas = Number(lines[i + 1].replace("parcelas", "").trim());
+
+                        orcamento.financiamento.push({
+                            mensal: valor,
+                            parcelas: parcelas
+                        });
+                    }
+
+                    AtualizarFinanciamento(orcamento);
+                    AtualizarOrcamento(orcamento);
+                    return false;
                 }
-            ],
-            "telhado": "Telha romana/americana"
-        };
+
+                alert("Houve algum erro ao processar, verifique o texto colado.");
+
+                event.preventDefault();
+                return false;
+            });
+        }
+
+        //Aguarda Carregar o DOM
+        $(document).ready(function () {
+            InitInputs();
+            InitEvents();
+        });
+
     </script>
+   
+    <div class="app">
+
+        <!--Form-->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <!--Header-->
+                    <div class="row mb-5">
+                        <div class="col-12">
+                            &nbsp;
+                        </div>
+                    </div>
+                   
+                    <!--Gerador-->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!--Botões-->
+                                    <div class="row">
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <input type="file" id="file-id" name="file_name" onchange="ExtractText();" style="display:none" accept=".pdf">
+                                            <input type="file" id="importJson" onchange="ImportarOrcamento();" style="display:none" accept=".json">
+
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="$('#file-id').trigger('click');">
+                                                <i class="fa fa-file-pdf"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-info btn-sm ms-2 text-white" onclick="$('#importJson').trigger('click');">
+                                                <i class="fa fa-file-import"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-sm ms-2 me-2 text-white" onclick="DownloadJson(orcamento, orcamento.cliente);">
+                                                <i class="fa fa-download"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <h6>
+                                        <i class="fa fa-user ms-1"></i>&nbsp; Cliente/Representante
+                                    </h6>
+                                    <!--Clientes-->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span class="small fw-bold">Cliente:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm ms-2 mt-1 txtIpt" id="cliente" name="cliente" />
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12 col-md-6">
+                                            <span class="small fw-bold">Representante:</span>
+                                            <br />
+                                            <select class="form-control form-control-sm ms-2 mt-1" id="representante" name="representante">
+                                                <option>Matriz</option>
+                                                <option value="Rudi">Rudi</option>
+                                                <option value="Roseli Borchert">Rosi</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <span class="small fw-bold">Cidade:</span>
+                                            <br />
+                                            <select class="form-control form-control-sm ms-2 mt-1 txtIpt" id="cidade" name="cidade">
+                                                <option value="Medianeira" selected>Medianeira</option>
+                                                <option value="Itaipulândia">Itaipulândia</option>
+                                                <option value="Foz do Iguaçu">Foz do Iguaçu</option>
+                                            </select>
+                                        </div>
+                                    </div>
+  
+                                    <div class="row mt-3">
+                                        <div class="col-12 col-md-3">
+                                            <span class="small fw-bold">Data Orçamento:</span>
+                                            <br />
+                                            <input type="date" class="form-control form-control-sm ms-2 mt-1 dateIpt" id="dataOrcamento" name="dataOrcamento" />
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <span class="small fw-bold">Validade:</span>
+                                            <br />
+                                            <input type="date" class="form-control form-control-sm ms-2 mt-1 dateIpt" id="validade" name="validade" />
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <!--Instalação-->
+                                    <h6 class="mt-4">
+                                        <i class="fa fa-solar-panel ms-1"></i>&nbsp; Instalação
+                                    </h6>
+                                    <div class="row mt-1">
+                                        <div class="col-12 col-md-3">
+                                            <span class="small fw-bold">Tipo de Telha:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm ms-2 mt-1 txtIpt" id="telhado" name="telhado" />
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">                                      
+                                        <div class="col-12 col-md-3">
+                                            <span class="small fw-bold">Quantidade de Paineis:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm ms-2 mt-1 numberIpt" id="numeroPlacas" name="numeroPlacas" />
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <span class="small fw-bold">Potência Paineis:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm ms-2 mt-1 txtIpt" id="potenciaPlacas" name="potenciaPlacas" />
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <span class="small fw-bold">Potência de Pico: (kWp)</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm ms-2 mt-1 numberIpt" id="potenciaPico" name="potenciaPico" />
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <span class="small fw-bold">Geração Mensal: (kWh)</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm ms-2 mt-1 numberIpt" id="geracaoMensal" name="geracaoMensal" />
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <!--Financeiro-->
+                                    <h6 class="mt-4">
+                                        <i class="fa fa-cash-register ms-1"></i>&nbsp; Financeiro
+                                    </h6>
+                                    <div class="row mt-1">
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Valor Cotação:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm ms-2 mt-1 valueIpt" id="valorCotacao" name="valorCotacao" value="0,00" />
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Valor Mão-de-Obra:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm ms-2 mt-1 valueIpt" id="valorMaoDeObra" name="valorMaoDeObra" value="0,00" />
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Valor Orçamento:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm ms-2 mt-1" id="valorOrcamento" name="valorOrcamento" disabled />
+                                        </div>
+                                    </div>
+                                    <!--Items-->
+                                    <div class="row mt-4">
+                                        <div class="col-12 small">
+                                            <table class="small" width="100%" style="border: 1px solid black; border-collapse: collapse;" cellpadding="0" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="border-right:1px solid black;">Qtd</th>
+                                                        <th style="border-right:1px solid black;">Item</th>
+                                                        <th style="border-right:1px solid black;">Modelo</th>
+                                                        <th style="border-right:1px solid black;">Valor Un.</th>
+                                                        <th style="border-right:1px solid black;">Valor</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="itemsViewBody">
+                                                </tbody>
+                                                <tfoot style="font-weight: bold;">
+                                                    <tr style="border-right: 1px solid black; padding-right: 10px">
+                                                        <td colspan="4" align="right">
+                                                            TOTAL:
+                                                        </td>
+                                                        <td align="right" style="padding-right:10px">
+                                                            R$ <span id="valorCotacaoViewSpan">000,00</span>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <!--Input Financiamento-->
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <input type="text" class="form-control form-control-sm" id="financiamento" placeholder="Cole Aqui os dados do Financiamento" />
+                                        </div>
+                                    </div>
+                                    <!--Financiamento-->
+                                    <div class="row mt-1">
+                                        <div class="col-12 small">
+                                            <div id="FinanciamentoViewDiv">
+                                                <table class="small" width="100%" cellpadding="0" cellspacing="0" id="financiamentoViewTable"></table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="printArea">
         <!--Page 1-->
@@ -315,30 +528,16 @@
 
                 <p class=MsoBodyText style='margin-top:.4pt'>
 
-                    <table cellpadding=0 cellspacing=0 align=left>
-                        <tr>
-                            <td width=111 height=0></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <img width=571 height=2 src="image002.png">
-                            </td>
-                        </tr>
-                    </table>
-
                     <br clear=ALL>
                 </p>
 
                 <p class=MsoBodyText style='margin-top:.5pt'>
-                    <span lang=PT style='font-size:
-4.5pt;font-family:"Times New Roman",serif'>&nbsp;</span>
+                    <span lang=PT style='font-size:4.5pt;font-family:"Times New Roman",serif'>&nbsp;</span>
                 </p>
 
                 <p class=MsoTitle>
                     <span lang=PT style='color:#FFC000'>
-                        Orçamento Sistema
-                        Fotovoltaico
+                        Orçamento Sistema Fotovoltaico
                     </span>
                 </p>
 
@@ -349,36 +548,35 @@
                     </b>
                 </p>
 
-                <table class=TableNormal1 border=1 cellspacing=0 cellpadding=0
-                       style='margin-left:65.5pt;border-collapse:collapse;border:none'>
-                    <tr style='height:29.4pt'>
-                        <td width=566 valign=top style='width:424.7pt;border:solid black 1.0pt;
-  padding:0in 0in 0in 0in;height:29.4pt'>
-                            <p class=TableParagraph style='margin-left:5.5pt'>
-                                <b>
-                                    <span lang=PT
-                                          style='font-size:15.5pt;font-family:"Arial",sans-serif'>
-                                        Cliente: <span id="clienteSpan"></span>
-                                    </span>
-                                </b>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr style='height:29.75pt'>
-                        <td width=566 valign=top style='width:424.7pt;border:solid black 1.0pt;
-  border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
-                            <p class=TableParagraph style='margin-left:5.5pt'>
-                                <b>
-                                    <span lang=PT
-                                          style='font-size:15.5pt;font-family:"Arial",sans-serif'>
-                                        <span id="cidadeSpan"></span>-PR, <span id="dataOrcamentoExtensoSpan"></span>.
-                                    </span>
-                                </b>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
 
+                <div style="margin-left:70px;margin-right:10px">
+                    <table class=TableNormal1 border=1 cellspacing=0 cellpadding=0 width="100%">
+                        <tr style='height:29.4pt'>
+                            <td width=566 valign=top style='width:424.7pt;border:solid black 1.0pt;padding:0in 0in 0in 0in;height:29.4pt'>
+                                <p class=TableParagraph style='margin-left:5.5pt'>
+                                    <b>
+                                        <span lang=PT
+                                              style='font-size:15.5pt;font-family:"Arial",sans-serif'>
+                                            Cliente: <span id="clienteSpan"></span>
+                                        </span>
+                                    </b>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr style='height:29.75pt'>
+                            <td width=566 valign=top style='width:424.7pt;border:solid black 1.0pt;border-top:none;padding:0in 0in 0in 0in;height:29.75pt'>
+                                <p class=TableParagraph style='margin-left:5.5pt'>
+                                    <b>
+                                        <span lang=PT
+                                              style='font-size:15.5pt;font-family:"Arial",sans-serif'>
+                                            <span id="cidadeSpan"></span>-PR, <span id="dataOrcamentoExtensoSpan"></span>.
+                                        </span>
+                                    </b>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <p class=MsoBodyText>
                     <b>
                         <span lang=PT
@@ -408,7 +606,7 @@
                               style='color:black'>&nbsp;</span>
                     </b>
                 </p>
-                <!-- Tabela de Items-->                
+                <!-- Tabela de Items-->
 
                 <p class=MsoBodyText>
                     <b>
@@ -417,7 +615,7 @@
                     </b>
                 </p>
 
-                <div style="margin-left:70px;margin-right:10px">
+                <div class="small" style="margin-left:70px;margin-right:10px">
                     <table width="100%" style="border: 1px solid black; border-collapse: collapse;" cellpadding="0" cellspacing="0">
                         <thead>
                             <tr>
@@ -439,43 +637,8 @@
                             </tr>
                         </tfoot>
                     </table>
-                </div>               
+                </div>
 
-                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
-                    <span lang=PT>&nbsp;</span>
-                </h2>
-
-                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
-                    <span lang=PT>&nbsp;</span>
-                </h2>
-
-                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
-                    <span lang=PT>&nbsp;</span>
-                </h2>
-
-                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
-                    <span lang=PT>&nbsp;</span>
-                </h2>
-
-                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
-                    <span lang=PT>&nbsp;</span>
-                </h2>
-
-                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
-                    <span lang=PT>&nbsp;</span>
-                </h2>
-
-                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
-                    <span lang=PT>&nbsp;</span>
-                </h2>
-
-                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
-                    <span lang=PT>&nbsp;</span>
-                </h2>
-
-                <h2 style='margin-top:15.65pt;margin-right:73.5pt;margin-bottom:0in;margin-left:73.6pt;margin-bottom:.0001pt;text-indent:-.3pt;line-height:150%'>
-                    <span lang=PT>&nbsp;</span>
-                </h2>
             </div>
         </div>
         <!--Page 2-->
@@ -555,23 +718,23 @@
                         </b>
                     </p>
                 </div>
-                   
-                </div>
 
-                <p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
-margin-left:2.0in;margin-bottom:.0001pt;line-height:150%'>
-                    <b>
-                        <span lang=PT
-                              style='font-size:14.0pt;line-height:150%'>&nbsp;</span>
-                    </b>
-                </p>
-
-
-                <span lang=PT style='font-size:14.0pt;font-family:"Arial",sans-serif'>
-                    <br clear=all
-                        style='page-break-before:always'>
-                </span>
             </div>
+
+            <p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
+margin-left:2.0in;margin-bottom:.0001pt;line-height:150%'>
+                <b>
+                    <span lang=PT
+                          style='font-size:14.0pt;line-height:150%'>&nbsp;</span>
+                </b>
+            </p>
+
+
+            <span lang=PT style='font-size:14.0pt;font-family:"Arial",sans-serif'>
+                <br clear=all
+                    style='page-break-before:always'>
+            </span>
+        </div>
         <!--Page 3-->
         <div class="page">
             <div class=WordSection2>
@@ -824,10 +987,6 @@ font-family:Symbol'>
                 </span>
             </p>
 
-            <p class=MsoBodyText style='margin-top:.25pt'>
-                <span lang=PT style='font-size:
-16.0pt'>&nbsp;</span>
-            </p>
 
             <h1>
                 <span lang=PT>Alteração no projeto:</span>
@@ -850,20 +1009,14 @@ font-family:Symbol'>
                 </span>
             </p>
 
-            <p class=MsoBodyText style='margin-top:.1pt'>
-                <span lang=PT style='font-size:
-18.5pt'>&nbsp;</span>
-            </p>
         </div>
         <!--Page 5-->
         <div class="page">
-            <h1 style='margin-top:.05pt'>
+            <h1>
                 <span lang=PT>Crédito de energia:</span>
             </h1>
 
-            <p class=MsoBodyText style='margin-top:1.55pt;margin-right:65.4pt;margin-bottom:
-0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-35.3pt;line-height:107%'>
+            <p class=MsoBodyText style='margin-top:1.55pt;margin-right:65.4pt;margin-bottom:0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:35.3pt;line-height:107%'>
                 <span lang=PT>
                     Caso a energia injetada na rede seja
                     superior à consumida, cria-se um “crédito <span style='letter-spacing:-.15pt'>
@@ -968,67 +1121,13 @@ font-family:Symbol'>
                 </span>
             </p>
 
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
-
-            <p class=MsoBodyText style='margin-top:.3pt'>
-                <span lang=PT style='font-size:
-15.0pt'>&nbsp;</span>
-            </p>
+            
         </div>
         <!--Page 6-->
         <div class="page">
-            <h1 align=left style='margin-top:.05pt;text-align:left'>
+            <h1 align=left style='text-align:left'>
                 <span lang=PT>
-                    Condições
-                    de pagamento:
+                    Condições de pagamento:
                 </span>
             </h1>
 
@@ -1213,44 +1312,21 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
         </div>
         <!--Page 7-->
         <div class="page">
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
 
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+            </p>
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+            </p>
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+            </p>
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+            </p>
             <!--Valmir-->
-            <p class=MsoBodyText style='margin-top:.15pt' align=center>
+            <p class=MsoBodyText align=center>
                 _________________________________________
                 <br clear=ALL>
             </p>
@@ -1266,45 +1342,9 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                 </b>
             </p>
 
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-
             <!--Representante-->
-            <div class="representanteShow" style="display:none">
-                <p class=MsoBodyText style='margin-top:.15pt' align=center>
+            <div class="representanteShow" style="display: none; margin-top: 4cm">
+                <p class=MsoBodyText align=center>
                     _________________________________________
                     <br clear=ALL>
                 </p>
@@ -1319,58 +1359,25 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                     </b>
                 </p>
             </div>
-            <div class="representanteHide">
-                <p class=MsoBodyText>
-                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+            <div class="representanteHide" style="margin-top: 4cm">
+                <p class=MsoBodyText align=center>
+                    &nbsp;
+                    <br clear=ALL>
                 </p>
 
-                <p class=MsoBodyText>
-                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                <p class=MsoBodyText style='margin-top:.15pt'>
+                    <span lang=PT style='font-size:3.0pt'>&nbsp;</span>
                 </p>
 
-                <p class=MsoBodyText>
-                    <span lang=PT style='font-size:10.0pt'>&nbsp;</span>
+                <p class=MsoBodyText align=center style='text-align:center'>
+                    <b>
+                        <span lang=PT style='font-size:15.5pt'>&nbsp;</span>
+                    </b>
                 </p>
             </div>
             <!--Representante Fim-->
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-
             <!--Cliente-->
-            <p class=MsoBodyText style='margin-top:.15pt' align=center>
+            <p class=MsoBodyText style='margin-top:4cm' align=center>
                 _________________________________________
                 <br clear=ALL>
             </p>
@@ -1381,75 +1388,12 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
 
             <p class=MsoBodyText align=center style='text-align:center'>
                 <b>
-                    <span lang=PT style='font-size:15.5pt' id="clienteFirmaSpan"></span>
+                    <span lang=PT style='font-size:15.5pt' id="clienteFirmaSpan">Nome Cliente</span>
                 </b>
             </p>
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <!--Espaços-->
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
-            <p class=MsoBodyText>
-                <b><span lang=PT style='font-size:10.0pt'>&nbsp;</span></b>
-            </p>
+
             <!--FOOTER-->
-            <div>
+            <div style='margin-top:5cm'>
 
                 <p class=MsoNormal align=center>
                     <b>
@@ -1480,7 +1424,7 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                         <span>
                             Endereço:
                         </span>
-                        </span>
+                        
                     </b>
                 </p>
 
