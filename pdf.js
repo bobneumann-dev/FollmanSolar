@@ -23,8 +23,10 @@ function AtualizarRepresentante(representante) {
         }
     }
     else {
-        representante = null;
+        orcamento.representante = null;
     }
+
+    AtualizarOrcamento(orcamento);
 }
 
 function TitleCase(str) {
@@ -72,14 +74,17 @@ function AtualizarOrcamento(orcamento) {
     //Pagina 1
     IptRefresh("cliente", orcamento);
     IptRefresh("cidade", orcamento);
-    IptRefresh("telha", orcamento);
+    IptRefresh("telhado", orcamento);
     $("#potenciaPicoSpan").text((orcamento.potenciaPico).toFixed(2));
     $("#validadeSpan").text(new Date(orcamento.validade).toLocaleDateString());
     $("#dataOrcamentoExtensoSpan").text(new Date(orcamento.dataOrcamento).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }))
     
     $("#valorMaoDeObraSpan").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
     $("#valorCotacaoSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+
     //Tabela de Items
+    $("#itemsBody").empty();
+
     orcamento.items.forEach((v) => {
         let tr = $("<tr style='border:1px solid black;'></tr>");
 
@@ -107,6 +112,8 @@ function AtualizarOrcamento(orcamento) {
     }
     else {
         $("#FinanciamentoDiv").show();
+        $("#financiamentoTable").empty();
+
         orcamento.financiamento.forEach((v) => {
 
             let tr = $("<tr></tr>");
@@ -122,6 +129,7 @@ function AtualizarOrcamento(orcamento) {
 
     //Representante
     if (orcamento.representante != null && orcamento.representante != "") {
+
         IptRefresh("representante", orcamento);
 
         $(".representanteShow").show();
@@ -136,6 +144,8 @@ function AtualizarOrcamento(orcamento) {
 }
 
 function AtualizarItems(orcamento) {
+    $("#itemsViewBody").empty();
+
     //Tabela de Items
     orcamento.items.forEach((v) => {
         let tr = $("<tr style='border:1px solid black;'></tr>");
@@ -160,6 +170,7 @@ function AtualizarFinanciamento(orcamento) {
     }
     else {
         $("#FinanciamentoViewDiv").show();
+        $("#financiamentoViewTable").empty();
 
         orcamento.financiamento.forEach((v) => {
 
@@ -205,6 +216,7 @@ function PreencherCampos(d, completo) {
 
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
+    console.log(pageTxt);
 
     //POTÊNCIA kWp  8.18 kWp  LINHAS
     if (pageTxt.includes("CIA kWp")) {
@@ -229,12 +241,16 @@ function ExtractData(pageTxt) {
 
         let total = pageTxt.substring(
             pageTxt.lastIndexOf("VALOR DO PRODUTO") + 16,
-            pageTxt.lastIndexOf("F)"));
+            pageTxt.lastIndexOf("CONDIÇ"));
+
+        console.log(total);
 
         total = total.replace("R$", "");
         total = total.replace(".", "");
         total = total.replace(",", ".");
+        total = total.replace(/(\S\))/gm, "");
         total = total.trim();
+        console.log(total);
 
         let value = Number(total);
 
@@ -248,7 +264,7 @@ function ExtractData(pageTxt) {
     if (pageTxt.includes("VALOR DO PRODUTO")) {
 
         let itemsTxt = pageTxt.substring(
-            pageTxt.lastIndexOf("E)") + 2,
+            pageTxt.lastIndexOf("ITENS DO PROJETO") + 16,
             pageTxt.lastIndexOf("VALOR DO PRODUTO"));
 
         var splits = itemsTxt.split("   ");
@@ -280,9 +296,10 @@ function ExtractData(pageTxt) {
 
         let telhado = pageTxt.substring(
             pageTxt.lastIndexOf("TELHADO") + 7,
-            pageTxt.lastIndexOf("E)"));
+            pageTxt.lastIndexOf("ITENS"));
 
         telhado = telhado.replace("TELHADO", "");
+        telhado = telhado.replace(/(\S\))/gm, "");
         telhado = telhado.trim();
 
         orcamento.telhado = telhado;
@@ -295,11 +312,13 @@ function ExtractData(pageTxt) {
     if (pageTxt.includes("VALIDADE")) {
 
         let validade = pageTxt.substring(
-            pageTxt.lastIndexOf("VALIDADE") + 8,
-            pageTxt.lastIndexOf("B)"));
+            pageTxt.indexOf("VALIDADE") + 8,
+            pageTxt.indexOf("B)"));
 
         validade = validade.replace("VALIDADE", "");
         validade = validade.trim();
+
+        console.log(validade);
 
         let parts = validade.split('/');
 

@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="pt-br">
-
 <head>
     <title>Follmann Solar - Gerador de Orçamentos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
     <style>
         .page {
             width: 210mm;
@@ -121,7 +121,7 @@
         div.MsoBodyText {
             margin: 0in;
             text-autospace: none;
-            font-size: 14.0pt;
+            font-size: 13.0pt;
             font-family: "Arial", sans-serif;
         }
 
@@ -377,7 +377,7 @@
                                             <span class="small fw-bold">Representante:</span>
                                             <br />
                                             <select class="form-control form-control-sm mt-1" id="representante" name="representante">
-                                                <option>Matriz</option>
+                                                <option value="">Matriz</option>
                                                 <option value="Rudi">Rudi</option>
                                                 <option value="Roseli Borchert">Rosi</option>
                                             </select>
@@ -387,9 +387,11 @@
                                             <br />
                                             <select class="form-control form-control-sm mt-1 txtIpt" id="cidade" name="cidade">
                                                 <option></option>
-                                                <option value="Medianeira">Medianeira</option>
-                                                <option value="Itaipulândia">Itaipulândia</option>
                                                 <option value="Foz do Iguaçu">Foz do Iguaçu</option>
+                                                <option value="Itaipulândia">Itaipulândia</option>
+                                                <option value="Medianeira">Medianeira</option>
+                                                <option value="Missal">Missal</option>
+                                                <option value="Serranópolis do Iguaçu">Serranópolis do Iguaçu</option>
                                             </select>
                                         </div>
                                     </div>
@@ -400,7 +402,7 @@
                                             <input type="text" class="form-control form-control-sm mt-1 numberIpt" id="numeroPlacas" />
                                         </div>
                                         <div class="col-12 col-md-3">
-                                            <span class="small fw-bold">Potência Pico:</span>
+                                            <span class="small fw-bold">Potência Placas:</span>
                                             <br />
                                             <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="potenciaPlacas" />
                                         </div>
@@ -475,10 +477,10 @@
                                                 </tbody>
                                                 <tfoot style="font-weight: bold;">
                                                     <tr style="border-right: 1px solid black; padding-right: 10px">
-                                                        <td colspan="4" align="right">
+                                                        <td colspan="3" align="right">
                                                             TOTAL:
                                                         </td>
-                                                        <td align="right" style="padding-right:10px">
+                                                        <td colspan="2" align="right" style="padding-right:10px">
                                                             R$ <span id="valorCotacaoViewSpan">000,00</span>
                                                         </td>
                                                     </tr>
@@ -591,7 +593,7 @@
                     <b>
                         <span lang=PT
                               style='font-size:10.0pt;font-family:"Calibri",sans-serif'>
-                            KIT SOLAR <span id="potenciaPicoSpan"></span> KWP. Telha <span id="telhaSpan"></span>
+                            KIT SOLAR <span id="potenciaPicoSpan"></span> KWP. Telha <span id="telhadoSpan"></span>
                             .  
                         </span>
                     </b>
@@ -655,7 +657,7 @@
                         <br />
                         PROPOMOS UM SISTEMA GERADOR COM PRODUÇÃO MENSAL ESTIMADA DE
                         <br />
-                        <u><span lang=PT><span id="geracaoMensalSpan"></span> KWh.</span></u>
+                        <u><span lang=PT><span id="geracaoMensalSpan"></span> kWh.</span></u>
                     </span>
                 </h2>
                 <div style="text-align: center;">
@@ -692,32 +694,32 @@
                 <div style="margin-left:15px;margin-right:15px; text-align:center">
                     <p class=MsoNormal style=''>
                         <b>
-                            <span style='font-size:14.0pt;line-height:150%;color:red'>INVESTIMENTO TOTAL </span>
+                            <span style='font-size:13.0pt;line-height:150%;color:red'>INVESTIMENTO TOTAL </span>
                         </b>
                     </p>
 
                     <p class=MsoNormal style=''>
                         <b>
                             <span lang=PT
-                                  style='font-size:14.0pt;line-height:150%;color:red'>R$ <span id="valorOrcamentoSpan">000,00</span></span>
+                                  style='font-size:13.0pt;line-height:150%;color:red'>R$ <span id="valorOrcamentoSpan">000,00</span></span>
                         </b>
                     </p>
                     <p class=MsoNormal style=''>
                         <b>
-                            <span style='font-size:14.0pt;line-height:150%;color:red'>&nbsp;</span>
+                            <span style='font-size:13.0pt;line-height:150%;color:red'>&nbsp;</span>
                         </b>
                     </p>
 
                     <p class=MsoNormal style='margin-right:5.0pt;line-height:150%'>
                         <b>
                             <span lang=PT
-                                  style='font-size:14.0pt;line-height:150%;color:red'>&nbsp;</span>
+                                  style='font-size:13.0pt;line-height:150%;color:red'>&nbsp;</span>
                         </b>
                     </p>
 
                     <p class=MsoNormal style='margin-right:5.0pt;line-height:150%'>
                         <b>
-                            <span style='font-size:14.0pt;line-height:150%;color:red' id="valorExtensoSpan">Valor por Extenso</span>
+                            <span style='font-size:13.0pt;line-height:150%;color:red' id="valorExtensoSpan">Valor por Extenso</span>
                         </b>
                     </p>
                 </div>
@@ -728,12 +730,12 @@
 margin-left:2.0in;margin-bottom:.0001pt;line-height:150%'>
                 <b>
                     <span lang=PT
-                          style='font-size:14.0pt;line-height:150%'>&nbsp;</span>
+                          style='font-size:13.0pt;line-height:150%'>&nbsp;</span>
                 </b>
             </p>
 
 
-            <span lang=PT style='font-size:14.0pt;font-family:"Arial",sans-serif'>
+            <span lang=PT style='font-size:13.0pt;font-family:"Arial",sans-serif'>
                 <br clear=all
                     style='page-break-before:always'>
             </span>
@@ -868,13 +870,13 @@ text-indent:35.45pt;line-height:107%'>
             <p class=MsoListParagraph style='margin-top:13.25pt;margin-right:83.85pt;
 margin-bottom:0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in;
 line-height:103%'>
-                <span lang=PT style='font-size:14.0pt;line-height:103%;
+                <span lang=PT style='font-size:13.0pt;line-height:103%;
 font-family:Symbol'>
                     ·<span style='font:7.0pt "Times New Roman"'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 </span>
-                <span lang=PT style='font-size:14.0pt;line-height:103%'>
+                <span lang=PT style='font-size:13.0pt;line-height:103%'>
                     Elaboração
                     <span style='letter-spacing:-.15pt'>da </span>documentação técnica dentro das
                     normas técnicas da concessionária de energia;<span style='letter-spacing:-.25pt'>
@@ -884,33 +886,33 @@ font-family:Symbol'>
 
             <p class=MsoListParagraph style='margin-top:.05pt'>
                 <span lang=PT
-                      style='font-size:14.0pt;font-family:Symbol'>
+                      style='font-size:13.0pt;font-family:Symbol'>
                     ·<span style='font:7.0pt "Times New Roman"'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 </span>
-                <span lang=PT style='font-size:14.0pt'>Registro do projeto no CREA;</span>
+                <span lang=PT style='font-size:13.0pt'>Registro do projeto no CREA;</span>
             </p>
 
             <p class=MsoListParagraph>
-                <span lang=PT style='font-size:14.0pt;font-family:
+                <span lang=PT style='font-size:13.0pt;font-family:
 Symbol'>
                     ·<span style='font:7.0pt "Times New Roman"'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 </span>
-                <span lang=PT style='font-size:14.0pt'>Equipamentos certificados;</span>
+                <span lang=PT style='font-size:13.0pt'>Equipamentos certificados;</span>
             </p>
 
             <p class=MsoListParagraph style='margin-top:.1pt;margin-right:65.25pt;
 margin-bottom:0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in;
 line-height:normal'>
-                <span lang=PT style='font-size:14.0pt;font-family:Symbol'>
+                <span lang=PT style='font-size:13.0pt;font-family:Symbol'>
                     ·<span style='font:7.0pt "Times New Roman"'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 </span>
-                <span lang=PT style='font-size:14.0pt'>
+                <span lang=PT style='font-size:13.0pt'>
                     Desembaraço do projeto
                     junto à concessionária <span style='letter-spacing:-.15pt'>de </span>energia
                     local;
@@ -919,12 +921,12 @@ line-height:normal'>
 
             <p class=MsoListParagraph style='margin-top:4.0pt'>
                 <span lang=PT
-                      style='font-size:14.0pt;font-family:Symbol'>
+                      style='font-size:13.0pt;font-family:Symbol'>
                     ·<span style='font:7.0pt "Times New Roman"'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 </span>
-                <span lang=PT style='font-size:14.0pt'>
+                <span lang=PT style='font-size:13.0pt'>
                     Entrega - logística <span style='letter-spacing:-.15pt'>de </span>entrega dos<span style='letter-spacing:
 .2pt'> </span>produtos;
                 </span>
@@ -932,12 +934,12 @@ line-height:normal'>
 
             <p class=MsoListParagraph style='line-height:16.9pt'>
                 <span lang=PT
-                      style='font-size:14.0pt;font-family:Symbol'>
+                      style='font-size:13.0pt;font-family:Symbol'>
                     ·<span style='font:7.0pt "Times New Roman"'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 </span>
-                <span lang=PT style='font-size:14.0pt'>
+                <span lang=PT style='font-size:13.0pt'>
                     Sistema de monitoramento
                     web da geração <span style='letter-spacing:-.15pt'>de</span><span style='letter-spacing:-.3pt'>
                     </span>energia;
@@ -946,12 +948,12 @@ line-height:normal'>
 
             <p class=MsoListParagraph style='margin-right:65.45pt;text-indent:-.25in;
 line-height:normal'>
-                <span lang=PT style='font-size:14.0pt;font-family:Symbol'>
+                <span lang=PT style='font-size:13.0pt;font-family:Symbol'>
                     ·<span style='font:7.0pt "Times New Roman"'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 </span>
-                <span lang=PT style='font-size:14.0pt'>
+                <span lang=PT style='font-size:13.0pt'>
                     Instalação<span style='letter-spacing:-.35pt'>
                     </span>por<span style='letter-spacing:-.45pt'> </span>equipe<span style='letter-spacing:-.35pt'>
                     </span>experiente<span style='letter-spacing:
@@ -964,13 +966,13 @@ line-height:normal'>
             <p class=MsoListParagraph style='margin-top:.15pt;margin-right:111.0pt;
 margin-bottom:0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in;
 line-height:103%'>
-                <span lang=PT style='font-size:14.0pt;line-height:103%;
+                <span lang=PT style='font-size:13.0pt;line-height:103%;
 font-family:Symbol'>
                     ·<span style='font:7.0pt "Times New Roman"'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 </span>
-                <span lang=PT style='font-size:14.0pt;line-height:103%'>
+                <span lang=PT style='font-size:13.0pt;line-height:103%'>
                     Monitoramento   do    processo   
                     de    liberação <span style='letter-spacing:-.3pt'>para </span>compensação <span style='letter-spacing:-.15pt'>de </span>energia pela concessionária<span style='letter-spacing:-.35pt'>
                     </span>local;
@@ -979,12 +981,12 @@ font-family:Symbol'>
 
             <p class=MsoListParagraph style='line-height:13.9pt'>
                 <span lang=PT
-                      style='font-size:14.0pt;font-family:Symbol'>
+                      style='font-size:13.0pt;font-family:Symbol'>
                     ·<span style='font:7.0pt "Times New Roman"'>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </span>
                 </span>
-                <span lang=PT style='font-size:14.0pt'>
+                <span lang=PT style='font-size:13.0pt'>
                     Atendimento e garantia em
                     todo o<span style='letter-spacing:-.1pt'> </span>Brasil.
                 </span>
@@ -1305,11 +1307,11 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
             </p>
 
             <p class=MsoNormal>
-                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
             </p>
 
             <p class=MsoNormal>
-                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
             </p>
 
         </div>
@@ -1317,16 +1319,16 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
         <div class="page">
 
             <p class=MsoNormal>
-                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
             </p>
             <p class=MsoNormal>
-                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
             </p>
             <p class=MsoNormal>
-                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
             </p>
             <p class=MsoNormal>
-                <span lang=PT style='font-size:14.0pt'>&nbsp;</span>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
             </p>
             <!--Valmir-->
             <p class=MsoBodyText align=center>
@@ -1346,7 +1348,7 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
             </p>
 
             <!--Representante-->
-            <div class="representanteShow" style="display: none; margin-top: 4cm">
+            <div class="representanteShow" style="margin-top: 4cm">
                 <p class=MsoBodyText align=center>
                     _________________________________________
                     <br clear=ALL>
@@ -1358,7 +1360,9 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
 
                 <p class=MsoBodyText align=center style='text-align:center'>
                     <b>
-                        <span lang=PT style='font-size:15.5pt' id="representanteSpan"></span>
+                        <span lang=PT style='font-size:15.5pt'>
+                            <span id="representanteSpan"></span> - Representante Comercial
+                        </span>
                     </b>
                 </p>
             </div>
