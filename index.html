@@ -292,6 +292,8 @@
                         return false;
                     }
 
+                    orcamento.financiamento = [];
+
                     for (let i = 0; i < lines.length; i += 2) {
                         let valor = Number(lines[i].replace("R$", "").replace("mês", "").replace(".", "").replace(",", ".").trim());
                         let parcelas = Number(lines[i + 1].replace("parcelas", "").trim());
