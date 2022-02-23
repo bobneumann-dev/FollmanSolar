@@ -4,6 +4,49 @@ var DataArr = [];
 PDFJS.workerSrc = '';
 var orcamento = {};
 
+function RealToNumber(real) {
+    return Number(real.replace("R$ ", ""));
+}
+
+function RealParaNumero(valor) {
+    return Number(valor.replace("R$ ", ""));
+}
+
+//Somar nova linha
+function Somar() {
+
+    let soma = 0;
+
+    orcamento.items.forEach(function (item, i) {
+        item.total = item.quantidade * item.valor;
+        soma = soma + item.total;
+
+    });
+
+    orcamento.valorCotacao = soma;
+    orcamento.valorMaoDeObra = soma * 0.3;
+    orcamento.valorOrcamento = soma * 1.3;
+
+    AtualizarItems(orcamento);
+    AtualizarOrcamento(orcamento);
+
+}
+
+function SomarTotal(orcamento) {
+    let total = 0;
+
+    orcamento.items.forEach(v => {
+        v.total = v.valor * v.quantidade;
+        total += v.total;
+    });
+
+    orcamento.valorCotacao   = total;
+    orcamento.valorMaoDeObra = total * 0.3;
+    orcamento.valorOrcamento = orcamento.valorCotacao + orcamento.valorMaoDeObra;
+
+    AtualizarItems(orcamento);
+    AtualizarOrcamento(orcamento);
+}
 
 function SetDateInput(input, date) {
     $("#" + input).val(date.toISOString().split("T")[0]);
@@ -99,7 +142,7 @@ function AtualizarOrcamento(orcamento) {
     IptRefresh("numeroPlacas", orcamento);
     $("#potenciaPlacasSpan").text(orcamento.potenciaPlacas.toUpperCase().replace("W", "").replace("P", ""));
     $("#geracaoMensalSpan").text(orcamento.geracaoMensal.toLocaleString());
-    $("#valorOrcamentoSpan").text(orcamento.valorOrcamento.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+    $("#valorOrcamentoSpan").text(orcamento.valorOrcamento.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
     $("#valorExtensoSpan").text(TitleCase(ValorPorExtensoReal(orcamento.valorOrcamento)));
 
     //Pagina 5
@@ -119,11 +162,12 @@ function AtualizarOrcamento(orcamento) {
             let tr = $("<tr></tr>");
 
             tr.append('<td width="30%">&nbsp;</td>');
-            tr.append('<td width="40%" align=center style="border:1px solid black;"><b><span style="color:#dc146a;">' + v.parcelas + ' parcelas</span> de R$ ' + v.mensal.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) + '</b></td>');
+            tr.append('<td width="40%" align=center style="border:1px solid black;"><b><span style="color:#dc146a;">' + v.parcelas + ' parcelas</span> de R$ ' + v.mensal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }) + '</b></td>');
             tr.append('<td width="30%">&nbsp;</td>');
 
             $("#financiamentoTable").append(tr);
         });
+
     }
 
 
@@ -140,26 +184,27 @@ function AtualizarOrcamento(orcamento) {
         $(".representanteHide").show();
     }
 
-
+    AtualizarTitulo();
 }
 
 function AtualizarItems(orcamento) {
     $("#itemsViewBody").empty();
 
     //Tabela de Items
-    orcamento.items.forEach((v) => {
+    orcamento.items.forEach((v, i, a) => {
         let tr = $("<tr style='border:1px solid black;'></tr>");
 
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.quantidade + '</td>');
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.item + '</td>');
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.modelo + '</td>');
-        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:right">' + v.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) + '</td>');
-        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:right">' + v.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) + '</td>');
+        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:right">' + v.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }) + '</td>');
+        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:right">' + v.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL',minimumFractionDigits: 2 }) + '</td>');
+        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:right"><button class="btn btn-xs btn-warning" onclick ="ModalProdutos(' + i + ')"><i class="fa fa-edit"></i><button class="btn btn-xs btn-danger" onclick ="DelProduto(' + i + ')"><i class="fa fa-times"></i></td>');
 
         $("#itemsViewBody").append(tr);
     });
 
-    $("#valorCotacaoViewSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+    $("#valorCotacaoViewSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
 
 }
 
@@ -280,8 +325,8 @@ function ExtractData(pageTxt) {
                 quantidade: Number(splits[j]),
                 item: splits[j + 1],
                 modelo: splits[j + 2],
-                valor: splits[j + 3],
-                total: splits[j + 4]
+                valor: RealToNumber(splits[j + 3]),
+                total: RealToNumber(splits[j + 4])
             });
         }
 

@@ -18,6 +18,14 @@
             background: white;
         }
 
+        .btn-xs {
+            padding: .1rem .1rem !important;
+            font-size: .6rem !important;
+            border-radius: .2rem !important;
+            margin: 0.1em;
+            height: 2em;
+            width: 2em;
+        }
         .app {
             display: block;
         }
@@ -48,6 +56,7 @@
         }
     </style>
     <style>
+
         /* Font Definitions */
         @font-face {
             font-family: Wingdings;
@@ -213,10 +222,26 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     <script src="pdf.js"></script>
     <script src="orcamento.js"></script>
     <script src="extenso.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+
+        function NumeroFormValido(valor) {
+            let convert = valor.replace(".", "").replace(",", ".");
+
+            return !Number.isNaN(Number(convert));
+        }
+
+        function AtualizarTitulo() {
+            document.title = "Orçamento Follmann - " + orcamento.cliente + " - " + orcamento.numeroPlacas + " Placas - " + orcamento.telhado;
+        }
+
         function InitInputs() {
             let hoje = new Date().toISOString().split("T")[0];
 
@@ -314,7 +339,117 @@
                 event.preventDefault();
                 return false;
             });
+
+
+            $("#editForm").submit(function (event) {
+
+                if (!NumeroFormValido($('#valorUn').val())) {
+                    alert("Valor Unitário Invalido");
+                }
+                else {
+                    SaveItens($("#itemIndex").val());
+                }
+                
+                event.preventDefault();
+                return false;
+            });
+
+            $("#addForm").submit(function (event) {
+
+                if (!NumeroFormValido($('#valorUn2').val())) {
+                    alert("Valor Unitário Invalido");
+                }
+                else {                
+                    orcamento.items.push({
+                        quantidade: Number($("#qtd2").val()),
+                        item: $("#item2").val(),
+                        modelo: $("#modelo2").val(),
+                        valor: RealParaNumero($("#valorUn2").val().replace(".", "").replace(",", ".")),
+                        total: $("#valorTotal2").val(),
+                    });
+
+                    Somar();
+                    PreencherCampos(orcamento, false);
+                    $("#adicionarModal").modal("hide");
+                }
+
+                event.preventDefault();
+                return false;
+            });
         }
+
+        function Pdf(idElement) {
+
+            let print = document.getElementById(idElement); //$("#PrintDiv")
+            var opt = {
+                margin: 3,
+                filename: 'Orçamento.pdf',
+
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 1,
+                    useCORS: true,
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            };
+            // New Promise-based usage:
+            html2pdf()
+                .set(opt)
+                .from(print)
+                .save()
+                .then(function () { alert("OK") });
+        }
+
+        function ModalProdutos(index) {
+            let item = orcamento.items[index];
+            $("#produtoModal").modal("show");
+            $('#qtd').val(item.quantidade);
+            $('#item').val(item.item);
+            $('#modelo').val(item.modelo);
+            $('#valorUn').val(item.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+            $('#itemIndex').val(index);
+
+        }
+
+        function DelProduto(index) {
+            if (window.confirm("Deseja mesmo deletar este item?")) {
+                orcamento.items.splice(index, 1);
+                Somar();
+            }
+        }
+
+
+        function ModalAdicionar() {
+
+            $("#adicionarModal").modal("show");
+            $('#qtd2').val(1);
+            $('#item2').val("");
+            $('#modelo2').val("");
+            $('#valorUn2').val("");
+            $('#valorTotal2').val("");
+
+
+        }
+
+        function SaveItens(index) {
+
+            orcamento.items[index].quantidade = Number($('#qtd').val());
+            orcamento.items[index].item = $('#item').val();
+            orcamento.items[index].modelo = $('#modelo').val();
+            orcamento.items[index].valor = RealToNumber($('#valorUn').val().replace(".", "").replace(",", "."));
+            orcamento.items[index].total = orcamento.items[index].valor * orcamento.items[index].quantidade;
+
+            AtualizarItems(orcamento);
+            Somar();
+            PreencherCampos(orcamento);
+
+            $("#produtoModal").modal("hide");
+        }
+
 
         //Aguarda Carregar o DOM
         $(document).ready(function () {
@@ -389,10 +524,16 @@
                                             <br />
                                             <select class="form-control form-control-sm mt-1 txtIpt" id="cidade" name="cidade">
                                                 <option></option>
+                                                <option value="Cascavel">Cascavel</option>
+                                                <option value="Céu Azul">Céu Azul</option>
                                                 <option value="Foz do Iguaçu">Foz do Iguaçu</option>
                                                 <option value="Itaipulândia">Itaipulândia</option>
+                                                <option value="Marechal Candido Rondon">Marechal Candido Rondon</option>
                                                 <option value="Medianeira">Medianeira</option>
                                                 <option value="Missal">Missal</option>
+                                                <option value="Santa Helena">Santa Helena</option>
+                                                <option value="Santa Terezinha de Itaipu">Santa Terezinha de Itaipu</option>
+                                                <option value="São Miguel do Iguaçu">São Miguel do Iguaçu</option>
                                                 <option value="Serranópolis do Iguaçu">Serranópolis do Iguaçu</option>
                                             </select>
                                         </div>
@@ -456,23 +597,22 @@
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Investimento total:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1" id="valorOrcamento" disabled/>
+                                            <input type="text" class="form-control form-control-sm mt-1" id="valorOrcamento" disabled />
                                         </div>
                                     </div>
-
-
 
                                     <!--Items-->
                                     <div class="row mt-4">
                                         <div class="col-12 small">
                                             <table class="small" width="100%" style="border: 1px solid black; border-collapse: collapse;" cellpadding="0" cellspacing="0">
-                                                <thead>
+                                                <thead style="border:1px solid black;">
                                                     <tr>
                                                         <th style="border-right:1px solid black;">Qtd</th>
                                                         <th style="border-right:1px solid black;">Item</th>
                                                         <th style="border-right:1px solid black;">Modelo</th>
                                                         <th style="border-right:1px solid black;">Valor Un.</th>
                                                         <th style="border-right:1px solid black;">Valor</th>
+                                                        <th>&nbsp;</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="itemsViewBody">
@@ -485,9 +625,15 @@
                                                         <td colspan="2" align="right" style="padding-right:10px">
                                                             R$ <span id="valorCotacaoViewSpan">000,00</span>
                                                         </td>
+                                                        <td>&nbsp;</td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12" style="text-align: right;">
+                                            <button type="button" class="btn btn-sm btn-success" onclick="ModalAdicionar()">+</button>
                                         </div>
                                     </div>
                                     <hr />
@@ -516,7 +662,7 @@
         </div>
     </div>
 
-    <div class="printArea">
+    <div id="printDiv" class="printArea">
         <!--Page 1-->
         <div class="page">
             <div class=WordSection1>
@@ -650,97 +796,99 @@
         </div>
         <!--Page 2-->
         <div class="page">
-            <div style="margin-left:15px;margin-right:15px; text-align:left">
-
-                <h2>
-                    <span lang=PT>
-                        SISTEMA COMPLETO CONTENDO <span id="numeroPlacasSpan"></span> PLACAS IMPORTADAS COM POTÊNCIA DE <span id="potenciaPlacasSpan"></span> Wp CADA.
-                        <br />
-                        <br />
-                        PROPOMOS UM SISTEMA GERADOR COM PRODUÇÃO MENSAL ESTIMADA DE
-                        <br />
-                        <u><span lang=PT><span id="geracaoMensalSpan"></span> kWh.</span></u>
-                    </span>
-                </h2>
-                <div style="text-align: center;">
-                    <h2>
-                        <span lang=PT>&nbsp;</span>
-                    </h2>
+            <div class=WordSection1>
+                <div style="margin-left:70px;margin-right:10px">
 
                     <h2>
-
-                        <span lang=PT>&nbsp;</span>
+                        <span lang=PT>
+                            SISTEMA COMPLETO CONTENDO <span id="numeroPlacasSpan"></span> PLACAS IMPORTADAS COM POTÊNCIA DE <span id="potenciaPlacasSpan"></span> Wp CADA.
+                            <br />
+                            <br />
+                            PROPOMOS UM SISTEMA GERADOR COM PRODUÇÃO MENSAL ESTIMADA DE
+                            <br />
+                            <u><span lang=PT><span id="geracaoMensalSpan"></span> kWh.</span></u>
+                        </span>
                     </h2>
+                    <div style="text-align: center;">
+                        <h2>
+                            <span lang=PT>&nbsp;</span>
+                        </h2>
+
+                        <h2>
+
+                            <span lang=PT>&nbsp;</span>
+                        </h2>
+                    </div>
+                    <div style="border:2px solid #DDDDDD;text-align:left">
+                        <ul>
+                            <li>Mão de obra especializada para a instalação;</li>
+                            <li>Homologação;</li>
+                            <li>Contratos;</li>
+                            <li>Liberação do sistema fotovoltaíco;</li>
+                        </ul>
+                        <br />
+                        <p class="MsoBodyText" align="center" style="text-align:center">
+                            <b>
+                                <span lang="PT" style="color:black">
+                                    R$<span style="letter-spacing:-.15pt"> </span><span id="valorMaoDeObraSpan"></span>
+                                </span>
+                            </b>
+                        </p>
+                        <br />
+                    </div>
+
+                    <br clear=ALL>
+                    <br clear=ALL>
+                    <br clear=ALL>
+                    <div style="margin-left:15px;margin-right:15px; text-align:center">
+                        <p class=MsoNormal style=''>
+                            <b>
+                                <span style='font-size:13.0pt;line-height:150%;color:red'>INVESTIMENTO TOTAL </span>
+                            </b>
+                        </p>
+
+                        <p class=MsoNormal style=''>
+                            <b>
+                                <span lang=PT
+                                      style='font-size:13.0pt;line-height:150%;color:red'>R$ <span id="valorOrcamentoSpan">000,00</span></span>
+                            </b>
+                        </p>
+                        <p class=MsoNormal style=''>
+                            <b>
+                                <span style='font-size:13.0pt;line-height:150%;color:red'>&nbsp;</span>
+                            </b>
+                        </p>
+
+                        <p class=MsoNormal style='margin-right:5.0pt;line-height:150%'>
+                            <b>
+                                <span lang=PT
+                                      style='font-size:13.0pt;line-height:150%;color:red'>&nbsp;</span>
+                            </b>
+                        </p>
+
+                        <p class=MsoNormal style='margin-right:5.0pt;line-height:150%'>
+                            <b>
+                                <span style='font-size:13.0pt;line-height:150%;color:red' id="valorExtensoSpan">Valor por Extenso</span>
+                            </b>
+                        </p>
+                    </div>
+
                 </div>
-                <div style="border:2px solid #DDDDDD;margin-left:15px;margin-right:15px; text-align:left">
-                    <ul>
-                        <li>Mão de obra especializada para a instalação;</li>
-                        <li>Homologação;</li>
-                        <li>Contratos;</li>
-                        <li>Liberação do sistema fotovoltaíco;</li>
-                    </ul>
-                    <br />
-                    <p class="MsoBodyText" align="center" style="text-align:center">
-                        <b>
-                            <span lang="PT" style="color:black">
-                                R$<span style="letter-spacing:-.15pt"> </span><span id="valorMaoDeObraSpan"></span>
-                            </span>
-                        </b>
-                    </p>
-                    <br />
-                </div>
 
-                <br clear=ALL>
-                <br clear=ALL>
-                <br clear=ALL>
-                <div style="margin-left:15px;margin-right:15px; text-align:center">
-                    <p class=MsoNormal style=''>
-                        <b>
-                            <span style='font-size:13.0pt;line-height:150%;color:red'>INVESTIMENTO TOTAL </span>
-                        </b>
-                    </p>
-
-                    <p class=MsoNormal style=''>
-                        <b>
-                            <span lang=PT
-                                  style='font-size:13.0pt;line-height:150%;color:red'>R$ <span id="valorOrcamentoSpan">000,00</span></span>
-                        </b>
-                    </p>
-                    <p class=MsoNormal style=''>
-                        <b>
-                            <span style='font-size:13.0pt;line-height:150%;color:red'>&nbsp;</span>
-                        </b>
-                    </p>
-
-                    <p class=MsoNormal style='margin-right:5.0pt;line-height:150%'>
-                        <b>
-                            <span lang=PT
-                                  style='font-size:13.0pt;line-height:150%;color:red'>&nbsp;</span>
-                        </b>
-                    </p>
-
-                    <p class=MsoNormal style='margin-right:5.0pt;line-height:150%'>
-                        <b>
-                            <span style='font-size:13.0pt;line-height:150%;color:red' id="valorExtensoSpan">Valor por Extenso</span>
-                        </b>
-                    </p>
-                </div>
-
-            </div>
-
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
+                <p class=MsoNormal style='margin-top:0in;margin-right:5.0pt;margin-bottom:0in;
 margin-left:2.0in;margin-bottom:.0001pt;line-height:150%'>
-                <b>
-                    <span lang=PT
-                          style='font-size:13.0pt;line-height:150%'>&nbsp;</span>
-                </b>
-            </p>
+                    <b>
+                        <span lang=PT
+                              style='font-size:13.0pt;line-height:150%'>&nbsp;</span>
+                    </b>
+                </p>
 
 
-            <span lang=PT style='font-size:13.0pt;font-family:"Arial",sans-serif'>
-                <br clear=all
-                    style='page-break-before:always'>
-            </span>
+                <span lang=PT style='font-size:13.0pt;font-family:"Arial",sans-serif'>
+                    <br clear=all
+                        style='page-break-before:always'>
+                </span>
+            </div>
         </div>
         <!--Page 3-->
         <div class="page">
@@ -821,10 +969,7 @@ text-indent:35.45pt;line-height:107%'>
                     </span>
                 </p>
 
-                <p class=MsoBodyText style='margin-top:.55pt'>
-                    <span lang=PT style='font-size:
-18.5pt'>&nbsp;</span>
-                </p>
+
             </div>
         </div>
         <!--Page 4-->
@@ -994,28 +1139,6 @@ font-family:Symbol'>
                 </span>
             </p>
 
-
-            <h1>
-                <span lang=PT>Alteração no projeto:</span>
-            </h1>
-
-            <p class=MsoBodyText style='margin-top:1.6pt;margin-right:65.15pt;margin-bottom:
-0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:
-35.3pt;line-height:107%'>
-                <span lang=PT>
-                    Toda e qualquer modificação do projeto <span style='letter-spacing:-.15pt'>
-                        ou
-                    </span>serviço inicial, solicitado pelo
-                    cliente, que implique em alterações de<span style='letter-spacing:-2.35pt'> </span>características
-                    específicas, funções adicionais, reinstalação, ampliação ou outros itens não
-                    especificados, serão considerados como adicionais ao produto, devendo seguir
-                    cronograma <span style='letter-spacing:-.15pt'>de </span>execução e alocação <span style='letter-spacing:-.15pt'>de </span>recursos, através <span style='letter-spacing:-.15pt'>
-                        de
-                        nova
-                    </span>proposta técnica e<span style='letter-spacing:-.2pt'> </span>comercial.
-                </span>
-            </p>
-
         </div>
         <!--Page 5-->
         <div class="page">
@@ -1128,51 +1251,33 @@ font-family:Symbol'>
                 </span>
             </p>
 
+            <p class=MsoBodyText style='margin-top:.05pt'>
+                <span lang=PT style='font-size:
+22.0pt'>&nbsp;</span>
+            </p>
 
+
+            <h1>
+                <span lang=PT>Alteração no projeto:</span>
+            </h1>
+
+            <p class=MsoBodyText style='margin-top:1.6pt;margin-right:65.15pt;margin-bottom:0in;margin-left:65.0pt;margin-bottom:.0001pt;text-align:justify;text-indent:35.3pt;line-height:107%'>
+                <span lang=PT>
+                    Toda e qualquer modificação do projeto <span style='letter-spacing:-.15pt'>
+                        ou
+                    </span>serviço inicial, solicitado pelo
+                    cliente, que implique em alterações de<span style='letter-spacing:-2.35pt'> </span>características
+                    específicas, funções adicionais, reinstalação, ampliação ou outros itens não
+                    especificados, serão considerados como adicionais ao produto, devendo seguir
+                    cronograma <span style='letter-spacing:-.15pt'>de </span>execução e alocação <span style='letter-spacing:-.15pt'>de </span>recursos, através <span style='letter-spacing:-.15pt'>
+                        de
+                        nova
+                    </span>proposta técnica e<span style='letter-spacing:-.2pt'> </span>comercial.
+                </span>
+            </p>
         </div>
         <!--Page 6-->
         <div class="page">
-            <h1 align=left style='text-align:left'>
-                <span lang=PT>
-                    Condições de pagamento:
-                </span>
-            </h1>
-
-            <p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:
-0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in'>
-                <a name="_Hlk92441116"></a>
-                <a name="_Hlk92439478">
-                    <span lang=PT style='font-family:
-Symbol'>
-                        ·<span style='font:7.0pt "Times New Roman"'>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </span>
-                    </span><span lang=PT>À Vista</span>
-                </a>
-            </p>
-            <div id="FinanciamentoDiv">
-                <p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in'>
-                    <span lang=PT style='font-family:Symbol'>
-                        ·<span style='font:7.0pt "Times New Roman"'>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </span>
-                    </span>
-                    <span lang=PT>
-                        Simulação de Financiamento Solar (BV) com carência
-                        de 60 dias:
-                    </span>
-                </p>
-
-                <p class=MsoBodyText align=center style='margin-top:1.55pt;text-align:center'>
-                    <span lang=PT>
-                        <img width=27
-                             height=45 id="Imagem 15" src="image007.jpg">
-                    </span>
-                </p>
-                <br />
-                <table width="100%" cellpadding="0" cellspacing="0" id="financiamentoTable"></table>
-            </div>
-            <br />
             <h1 align=left style='text-align:left'>
                 <span lang=PT>Termos de garantia:</span>
             </h1>
@@ -1422,6 +1527,8 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                         <span lang=PT>
                             Sicredi<span style='letter-spacing:.2pt'>
                             </span>C/C: 82605-2 &nbsp; AG: 0710
+                            <br />
+                            Banco do Brasil <span style='letter-spacing:.2pt'></span>C/C:548-7 &nbsp; AG:8179-5
                         </span>
                         <br />
                         <span lang=PT>
@@ -1465,8 +1572,139 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                 </p>
             </div>
         </div>
+        <!--Page 8-->
+        <div class="page">
+            <h1 align=left style='text-align:left'>
+                <span lang=PT>
+                    Condições de pagamento:
+                </span>
+            </h1>
 
+            <p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in'>
+                <a name="_Hlk92441116"></a>
+                <a name="_Hlk92439478">
+                    <span lang=PT style='font-family:Symbol'>
+                        ·<span style='font:7.0pt "Times New Roman"'>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                    </span><span lang=PT>À Vista</span>
+                </a>
+            </p>
+            <div id="FinanciamentoDiv">
+                <p class=MsoBodyText style='margin-top:1.55pt;margin-right:0in;margin-bottom:0in;margin-left:101.0pt;margin-bottom:.0001pt;text-indent:-.25in'>
+                    <span lang=PT style='font-family:Symbol'>
+                        ·<span style='font:7.0pt "Times New Roman"'>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                    </span>
+                    <span lang=PT>
+                        Simulação de Financiamento Solar (BV) com carência
+                        de 60 dias:
+                    </span>
+                </p>
+
+                <p class=MsoBodyText align=center style='margin-top:1.55pt;text-align:center'>
+                    <span lang=PT>
+                        <img width=27
+                             height=45 id="Imagem 15" src="image007.jpg">
+                    </span>
+                </p>
+                <br />
+                <table width="100%" cellpadding="0" cellspacing="0" id="financiamentoTable"></table>
+            </div>
+        </div>
     </div>
+
+    <!--Modal-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="produtoModal" aria-labelledby="produtoModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="produtoModal">Editar itens:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancelar"></button>
+                </div>
+                <form id="editForm">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control form-control-sm mt-1" id="itemIndex" />
+                        <div class="row mt-1">
+                            <div class="col-12 col-md-12">
+                                <span class="small fw-bold">Qtd.:</span>
+                                <br />
+                                <input type="number" class="form-control form-control-sm mt-1" id="qtd" min="1" required/>
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <span class="small fw-bold">Item:</span>
+                                <br />
+                                <input type="text" class="form-control form-control-sm mt-1" id="item" required/>
+                            </div>
+
+                            <div class="col-12 col-md-12">
+                                <span class="small fw-bold">Modelo:</span>
+                                <br />
+                                <input type="text" class="form-control form-control-sm mt-1" id="modelo" required/>
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <span class="small fw-bold">Valor un.:</span>
+                                <br />
+                                <input type="text" class="form-control form-control-sm mt-1" id="valorUn" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="saveButton">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!--Modal_Adicionar-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="adicionarModal" aria-labelledby="adicionarModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adicionarModal">Adicionar itens:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancelar"></button>
+                </div>
+                <form id="addForm">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control form-control-sm mt-1" id="itemIndex." />
+                        <div class="row mt-1">
+                            <div class="col-12 col-md-12">
+                                <span class="small fw-bold">Qtd.:</span>
+                                <br />
+                                <input type="text" class="form-control form-control-sm mt-1" id="qtd2" min="1" value="1" required />
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <span class="small fw-bold">Item:</span>
+                                <br />
+                                <input type="text" class="form-control form-control-sm mt-1" id="item2" required/>
+                            </div>
+
+                            <div class="col-12 col-md-12">
+                                <span class="small fw-bold">Modelo:</span>
+                                <br />
+                                <input type="text" class="form-control form-control-sm mt-1" id="modelo2" required/>
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <span class="small fw-bold">Valor un.:</span>
+                                <br />
+                                <input type="text" class="form-control form-control-sm mt-1" id="valorUn2" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="addButton">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
 </body>
 
 </html>
