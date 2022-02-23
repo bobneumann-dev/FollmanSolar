@@ -27,6 +27,7 @@ function Somar() {
     orcamento.valorMaoDeObra = soma * 0.3;
     orcamento.valorOrcamento = soma * 1.3;
 
+    PreencherCampos(orcamento, false);
     AtualizarItems(orcamento);
     AtualizarOrcamento(orcamento);
 

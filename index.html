@@ -282,12 +282,12 @@
                 if (valorCotacao == "")
                     orcamento.valorCotacao = 0;
                 else
-                    orcamento.valorCotacao = Number(valorCotacao.replace('.', '').replace(',', '.'));
+                    orcamento.valorCotacao = Number(valorCotacao.replace("R$").replace('.', '').replace(',', '.').trim());
 
                 if (valorMaoDeObra == "")
                     orcamento.valorMaoDeObra = 0;
                 else
-                    orcamento.valorMaoDeObra = Number(valorMaoDeObra.replace('.', '').replace(',', '.'));
+                    orcamento.valorMaoDeObra = Number(valorMaoDeObra.replace("R$").replace('.', '').replace(',', '.').trim());
 
                 orcamento.valorOrcamento = orcamento.valorCotacao + orcamento.valorMaoDeObra;
                 $("#valorOrcamento").val(orcamento.valorOrcamento.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
@@ -591,7 +591,7 @@
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Valor cotação:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1 valueIpt" id="valorCotacao" />
+                                            <input type="text" class="form-control form-control-sm mt-1 valueIpt" id="valorCotacao" disabled/>
                                         </div>
 
                                         <div class="col-12 col-md-3">
@@ -623,7 +623,7 @@
                                                             TOTAL:
                                                         </td>
                                                         <td colspan="2" align="right" style="padding-right:10px">
-                                                            R$ <span id="valorCotacaoViewSpan">000,00</span>
+                                                            <span id="valorCotacaoViewSpan">000,00</span>
                                                         </td>
                                                         <td>&nbsp;</td>
                                                     </tr>
@@ -785,7 +785,7 @@
                                     TOTAL:
                                 </td>
                                 <td align="right" style="padding-right:10px">
-                                    R$ <span id="valorCotacaoSpan">000,00</span>
+                                    <span id="valorCotacaoSpan">000,00</span>
                                 </td>
                             </tr>
                         </tfoot>
@@ -830,7 +830,7 @@
                         <p class="MsoBodyText" align="center" style="text-align:center">
                             <b>
                                 <span lang="PT" style="color:black">
-                                    R$<span style="letter-spacing:-.15pt"> </span><span id="valorMaoDeObraSpan"></span>
+                                    <span style="letter-spacing:-.15pt"> </span><span id="valorMaoDeObraSpan"></span>
                                 </span>
                             </b>
                         </p>
@@ -850,7 +850,7 @@
                         <p class=MsoNormal style=''>
                             <b>
                                 <span lang=PT
-                                      style='font-size:13.0pt;line-height:150%;color:red'>R$ <span id="valorOrcamentoSpan">000,00</span></span>
+                                      style='font-size:13.0pt;line-height:150%;color:red'><span id="valorOrcamentoSpan">000,00</span></span>
                             </b>
                         </p>
                         <p class=MsoNormal style=''>
