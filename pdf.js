@@ -123,8 +123,8 @@ function AtualizarOrcamento(orcamento) {
     $("#validadeSpan").text(new Date(orcamento.validade).toLocaleDateString());
     $("#dataOrcamentoExtensoSpan").text(new Date(orcamento.dataOrcamento).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }))
     
-    $("#valorMaoDeObraSpan").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
-    $("#valorCotacaoSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+    $("#valorMaoDeObraSpan").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
+    $("#valorCotacaoSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
 
     //Tabela de Items
     $("#itemsBody").empty();
@@ -198,7 +198,7 @@ function AtualizarItems(orcamento) {
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.quantidade + '</td>');
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.item + '</td>');
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.modelo + '</td>');
-        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:right">' + v.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }) + '</td>');
+        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:right">' + v.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }) + '</td>');       
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:right">' + v.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL',minimumFractionDigits: 2 }) + '</td>');
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:right"><button class="btn btn-xs btn-warning" onclick ="ModalProdutos(' + i + ')"><i class="fa fa-edit"></i><button class="btn btn-xs btn-danger" onclick ="DelProduto(' + i + ')"><i class="fa fa-times"></i></td>');
 
@@ -262,7 +262,7 @@ function PreencherCampos(d, completo) {
 
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
-    console.log(pageTxt);
+    //console.log(pageTxt);
 
     //POTÊNCIA kWp  8.18 kWp  LINHAS
     if (pageTxt.includes("CIA kWp")) {
@@ -279,7 +279,7 @@ function ExtractData(pageTxt) {
         orcamento.potenciaPico = potenciaPico;
     }
     else {
-        console.log("K");
+        //console.log("K");
     }
 
     //Extrair Valor Total
@@ -289,21 +289,21 @@ function ExtractData(pageTxt) {
             pageTxt.lastIndexOf("VALOR DO PRODUTO") + 16,
             pageTxt.lastIndexOf("CONDIÇ"));
 
-        console.log(total);
+        //console.log(total);
 
         total = total.replace("R$", "");
         total = total.replace(".", "");
         total = total.replace(",", ".");
         total = total.replace(/(\S\))/gm, "");
         total = total.trim();
-        console.log(total);
+        //console.log(total);
 
         let value = Number(total);
 
         orcamento.valorCotacao = value;
     }
     else {
-        console.log('-');
+        //console.log('-');
     }
 
     //Extrair Items
@@ -334,7 +334,7 @@ function ExtractData(pageTxt) {
         orcamento.items = items;
     }
     else {
-        console.log("I");
+        //console.log("I");
     }
 
     //Telhado
@@ -348,10 +348,10 @@ function ExtractData(pageTxt) {
         telhado = telhado.replace(/(\S\))/gm, "");
         telhado = telhado.trim();
 
-        orcamento.telhado = telhado;
+        orcamento.telhado = "Telhado: " + telhado;
     }
     else {
-        console.log("T");
+        //console.log("T");
     }
 
     //Validade
@@ -364,14 +364,14 @@ function ExtractData(pageTxt) {
         validade = validade.replace("VALIDADE", "");
         validade = validade.trim();
 
-        console.log(validade);
+        //console.log(validade);
 
         let parts = validade.split('/');
 
         orcamento.validade = new Date(parts[2] + "-" + parts[1] + "-" + parts[0]);
     }
     else {
-        console.log("V");
+        //console.log("V");
     }
 
     //Orçamentos    
@@ -384,7 +384,157 @@ function ExtractData(pageTxt) {
     AtualizarItems(orcamento);
     PreencherCampos(orcamento, false);
 
-    console.log(orcamento);
+    //console.log(orcamento);
+}
+
+function ExtractData2(pageTxt) {
+    orcamento = DefaultObj();
+    console.log("Pdf 2");
+    console.log(pageTxt);
+
+    //POTÊNCIA kWp  8.18 kWp  LINHAS
+    if (pageTxt.includes("Potência:")) {
+
+        let kwp = pageTxt.substring(
+            pageTxt.lastIndexOf("Potência:") + 9,
+            pageTxt.lastIndexOf("kWp"));
+
+        kwp = kwp.toUpperCase();
+        kwp = kwp.replace("KWP", "");
+        kwp = kwp.replace(",", ".");
+        kwp = kwp.trim();
+        let potenciaPico = Number(kwp);
+
+        orcamento.potenciaPico = potenciaPico;
+    }
+    else {
+        //console.log("K");
+    }
+
+    //Extrair Valor Total
+    if (pageTxt.includes("VALOR TOTAL:")) {
+
+        let total = pageTxt.substring(
+            pageTxt.lastIndexOf("VALOR TOTAL:") + 12,
+            pageTxt.lastIndexOf("Observações"));
+
+        //console.log(total);
+
+        total = total.replace("R$", "");
+        total = total.replace(".", "");
+        total = total.replace(",", ".");
+        total = total.replace(/(\S\))/gm, "");
+        total = total.trim();
+        //console.log(total);
+
+        let value = Number(total);
+
+        orcamento.valorCotacao = value;
+    }
+    else {
+        //console.log('-');
+    }
+
+    //Extrair Items
+    if (pageTxt.includes("Itens Inclusos")) {
+
+        let itemsTxt = pageTxt.substring(
+            pageTxt.lastIndexOf("Itens Inclusos") + 14,
+            pageTxt.lastIndexOf("VALOR TOTAL:"));
+
+        var splits = itemsTxt.split("\n");
+
+        //console.log(splits);
+        //console.log(itemsTxt);
+
+        //Correção Algoritmo Detecção
+        itemsTxt = itemsTxt.replace(" MPPT", "MPPT");
+
+        var splits = itemsTxt.split(" ");
+        splits.shift();
+        splits.shift();
+        splits.shift();
+
+        let itemName = "";
+        let qtd = 1;
+        let items = [];
+        splits.forEach((v) => {
+
+            if (isNaN(v)) {
+                //Não é um número isolado
+                itemName += v + " ";
+            }
+            else {
+                //É um número isolado
+                qtd = Number(v);
+
+                items.push({
+                    quantidade: qtd,
+                    item: itemName,
+                    modelo: itemName.split(' ')[0],
+                    valor: 0,
+                    total: 0
+                });
+
+                itemName = "";
+            }
+        });
+
+        //Remove ultima linha, que vem lixo
+        items.pop();
+        
+        orcamento.items = items;
+    }
+    else {
+        //console.log("I");
+    }
+
+    //Telhado
+    if (pageTxt.includes("Tipo de Estrutura:")) {
+
+        let telhado = pageTxt.substring(
+            pageTxt.lastIndexOf("Tipo de Estrutura:") + 18,
+            pageTxt.lastIndexOf("Itens Inclusos"));
+
+        telhado = telhado.trim();
+
+        orcamento.telhado = telhado;
+    }
+    else {
+        //console.log("T");
+    }
+
+    //Validade
+    if (pageTxt.includes("Validade Orçamento")) {
+
+        let validade = pageTxt.substring(
+            pageTxt.indexOf("Validade Orçamento:") + 19,
+            pageTxt.indexOf("Potência"));
+
+        validade = validade.replace("Validade Orçamento:", "");
+        validade = validade.trim();
+
+        console.log(validade);
+
+        let parts = validade.split('/');
+
+        orcamento.validade = new Date(parts[2] + "-" + parts[1] + "-" + parts[0]);
+    }
+    else {
+        //console.log("V");
+    }
+
+    //Orçamentos    
+    orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.3;
+    orcamento.valorOrcamento = orcamento.valorMaoDeObra + orcamento.valorCotacao;
+
+    ExtrairInfPlacas(orcamento.items);
+
+    AtualizarOrcamento(orcamento);
+    AtualizarItems(orcamento);
+    PreencherCampos(orcamento, false);
+
+    //console.log(orcamento);
 }
 
 function ExtractText() {
@@ -394,6 +544,16 @@ function ExtractText() {
     // console.log(input.files[0]);
     fReader.onloadend = function (event) {
         convertDataURIToBinary(event.target.result);
+    }
+}
+
+function ExtractText2() {
+    var input = document.getElementById("file2-id");
+    var fReader = new FileReader();
+    fReader.readAsDataURL(input.files[0]);
+    // console.log(input.files[0]);
+    fReader.onloadend = function (event) {
+        convertDataURIToBinary2(event.target.result);
     }
 }
 
@@ -427,6 +587,20 @@ function convertDataURIToBinary(dataURI) {
         array[i] = raw.charCodeAt(i);
     }
     pdfAsArray(array)
+
+}
+function convertDataURIToBinary2(dataURI) {
+
+    var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+    var base64 = dataURI.substring(base64Index);
+    var raw = window.atob(base64);
+    var rawLength = raw.length;
+    var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+    for (var i = 0; i < rawLength; i++) {
+        array[i] = raw.charCodeAt(i);
+    }
+    pdfAsArray2(array)
 
 }
 
@@ -478,6 +652,40 @@ function pdfAsArray(pdfAsArray) {
             }
 
             ExtractData(pageText);
+        });
+
+    }, function (reason) {
+        // PDF loading error
+        console.error(reason);
+    });
+}
+
+
+function pdfAsArray2(pdfAsArray) {
+
+    PDFJS.getDocument(pdfAsArray).then(function (pdf) {
+
+        var pdfDocument = pdf;
+        // Create an array that will contain our promises
+        var pagesPromises = [];
+
+        for (var i = 0; i < pdf.pdfInfo.numPages; i++) {
+            // Required to prevent that i is always the total of pages
+            (function (pageNumber) {
+                // Store the promise of getPageText that returns the text of a page
+                pagesPromises.push(getPageText(pageNumber, pdfDocument));
+            })(i + 1);
+        }
+
+        // Execute all the promises
+        Promise.all(pagesPromises).then(function (pagesText) {
+            let pageText = "";
+
+            for (var pageNum = 0; pageNum < pagesText.length; pageNum++) {
+                pageText += pagesText[pageNum];
+            }
+
+            ExtractData2(pageText);
         });
 
     }, function (reason) {
