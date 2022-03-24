@@ -87,6 +87,8 @@ function TitleCase(str) {
 
 function DefaultObj() {
     return {
+        "forncedorGuid": "Bedin",
+        "fornecedor": "BEDIN SOLAR",
         "cliente": "",
         "representante": null,
         "cidade": "",
@@ -125,6 +127,12 @@ function AtualizarOrcamento(orcamento) {
     
     $("#valorMaoDeObraSpan").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
     $("#valorCotacaoSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
+
+    //Fornecedor
+    $("#fornecedorSpan").text(orcamento.fornecedor.toUpperCase());
+
+    $(".fornecedorBancario").hide();
+    $("#bancario" + orcamento.forncedorGuid).show();
 
     //Tabela de Items
     $("#itemsBody").empty();
@@ -391,6 +399,9 @@ function ExtractData2(pageTxt) {
     orcamento = DefaultObj();
     console.log("Pdf 2");
     console.log(pageTxt);
+
+    orcamento.fornecedor = "FOCO ENERGIA";
+    orcamento.forncedorGuid = "Foco";
 
     //POTÊNCIA kWp  8.18 kWp  LINHAS
     if (pageTxt.includes("Potência:")) {
