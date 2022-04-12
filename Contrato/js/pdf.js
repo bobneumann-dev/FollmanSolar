@@ -61,42 +61,6 @@ function RealParaNumero(valor) {
     return Number(valor.replace("R$ ", ""));
 }
 
-//Somar nova linha
-function Somar() {
-
-    let soma = 0;
-
-    orcamento.items.forEach(function (item, i) {
-        item.total = item.quantidade * item.valor;
-        soma = soma + item.total;
-
-    });
-
-    orcamento.valorCotacao = soma;
-    orcamento.valorMaoDeObra = soma * 0.3;
-    orcamento.valorOrcamento = soma * 1.3;
-
-    PreencherCampos(orcamento, false);
-    AtualizarItems(orcamento);
-    AtualizarOrcamento(orcamento);
-
-}
-
-function SomarTotal(orcamento) {
-    let total = 0;
-
-    orcamento.items.forEach(v => {
-        v.total = v.valor * v.quantidade;
-        total += v.total;
-    });
-
-    orcamento.valorCotacao   = total;
-    orcamento.valorMaoDeObra = total * 0.3;
-    orcamento.valorOrcamento = orcamento.valorCotacao + orcamento.valorMaoDeObra;
-
-    AtualizarItems(orcamento);
-    AtualizarOrcamento(orcamento);
-}
 
 function SetDateInput(input, date) {
     $("#" + input).val(date.toISOString().split("T")[0]);
@@ -136,6 +100,7 @@ function TitleCase(str) {
 
 function GetEstadoCivilStr(estadoCivil, pronome) {
     return estadosCivis.filter(f => f.pronome == pronome)[0].estados.filter(f => f.name == estadoCivil)[0].value;
+    
 }
 
 function DefaultObj() {
@@ -175,16 +140,29 @@ function IptRefresh(input, data) {
 }
 
 function AtualizarOrcamento(orcamento) {
-    //Pagina 1
-    IptRefresh("cliente", orcamento);
-    IptRefresh("cidade", orcamento);
-    IptRefresh("telhado", orcamento);
-    $("#potenciaPicoSpan").text((orcamento.potenciaPico).toFixed(2));
-    $("#validadeSpan").text(new Date(orcamento.validade).toLocaleDateString());
-    $("#dataOrcamentoExtensoSpan").text(new Date(orcamento.dataOrcamento).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }))
+    $("#clienteSpan").text(orcamento.cliente);
+    $("#nacionalidadeSpan").text(orcamento.nacionalidade);
+    $("#estadoCivilSpan").text(GetEstadoCivilStr(orcamento.estadoCivil, orcamento.pronomeTratamento));
+    $("#documentoSpan").text(orcamento.documento);
+    $("#cidadeSpan").text(orcamento.cidade);
+    $("#cepSpan").text(orcamento.cep);
+    $("#valorNumerico").text(orcamento.valorOrcamento.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
+    $("#valorPorExtenso").text(TitleCase(ValorPorExtensoReal(orcamento.valorOrcamento)));
+    $("#valorNumerico1").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
+    $("#valorPorExtenso1").text(TitleCase(ValorPorExtensoReal(orcamento.valorCotacao)));
+    $("#valorNumerico2").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
+    $("#valorPorExtenso2").text(TitleCase(ValorPorExtensoReal(orcamento.valorMaoDeObra)));
+    $("#valorNumerico3").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
+
+    if (orcamento.forncedorGuid == "Bedin") {
+        $("#bedin1").show();
+        $("#foco1").hide();
+   }
+   else {
+    $("#foco1").show();
+    $("#bedin1").hide();
     
-    $("#valorMaoDeObraSpan").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
-    $("#valorCotacaoSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
+   }
 
     //Fornecedor
     $("#fornecedorSpan").text(orcamento.fornecedor.toUpperCase());
@@ -193,16 +171,17 @@ function AtualizarOrcamento(orcamento) {
     $("#bancario" + orcamento.forncedorGuid).show();
 
     //Tabela de Items
-    $("#itemsBody").empty();
+    $("#itemsViewBody1").empty();    
 
+    //Tabela de Items
     orcamento.items.forEach((v) => {
         let tr = $("<tr style='border:1px solid black;'></tr>");
 
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.quantidade + '</td>');
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.item + '</td>');
-        tr.append('<td style="padding-left:10px;text-align:center">' + v.modelo + '<span class="color:white">;</span></td>');
+        tr.append('<td style="padding-left:10px;text-align:center">' + v.modelo + '</td>');
 
-        $("#itemsBody").append(tr);
+        $("#itemsViewBody1").append(tr);        
     });
 
     //Pagina 2
@@ -216,46 +195,14 @@ function AtualizarOrcamento(orcamento) {
     $("#validade2Span").text(new Date(orcamento.validade).toLocaleDateString());
     $("#clienteFirmaSpan").text(orcamento.cliente);
 
-    //financiamento
-    if (orcamento.financiamento.length == 0) {
-        $("#FinanciamentoDiv").hide();
-    }
-    else {
-        $("#FinanciamentoDiv").show();
-        $("#financiamentoTable").empty();
-
-        orcamento.financiamento.forEach((v) => {
-
-            let tr = $("<tr></tr>");
-
-            tr.append('<td width="30%">&nbsp;</td>');
-            tr.append('<td width="40%" align=center style="border:1px solid black;"><b><span style="color:#dc146a;">' + v.parcelas + ' parcelas</span> de R$ ' + v.mensal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }) + '</b></td>');
-            tr.append('<td width="30%">&nbsp;</td>');
-
-            $("#financiamentoTable").append(tr);
-        });
-
-    }
-
-
-    //Representante
-    if (orcamento.representante != null && orcamento.representante != "") {
-
-        IptRefresh("representante", orcamento);
-
-        $(".representanteShow").show();
-        $(".representanteHide").hide();
-    }
-    else {
-        $(".representanteShow").hide();
-        $(".representanteHide").show();
-    }
+    //Data
+    $("#dataContratoSpan").text(new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }));
 
     AtualizarTitulo();
 }
 
 function AtualizarItems(orcamento) {
-    $("#itemsViewBody").empty();
+    $("#itemsViewBody").empty();    
 
     //Tabela de Items
     orcamento.items.forEach((v) => {
@@ -265,8 +212,10 @@ function AtualizarItems(orcamento) {
         tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.item + '</td>');
         tr.append('<td style="padding-left:10px;text-align:center">' + v.modelo + '</td>');
 
-        $("#itemsViewBody").append(tr);
+        $("#itemsViewBody").append(tr);        
     });
+
+   
 
     $("#valorCotacaoViewSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
 
@@ -309,14 +258,6 @@ function PreencherCampos(d, completo) {
         //SetDateInput("dataOrcamento", d.dataOrcamento);
     }
 
-    //Pdf
-    //SetDateInput("validade", d.validade);
-    //$("#telhado").val(d.telhado);
-    //$("#numeroPlacas").val(d.numeroPlacas);
-    //$("#potenciaPlacas").val(d.potenciaPlacas);
-    //$("#potenciaPico").val(d.potenciaPico.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
-    //$("#geracaoMensal").val(d.geracaoMensal);
-
     //Numeros
     $("#valorCotacao").val(d.valorCotacao.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
     $("#valorMaoDeObra").val(d.valorMaoDeObra.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
@@ -326,7 +267,7 @@ function PreencherCampos(d, completo) {
 
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
-    //console.log(pageTxt);
+    console.log(pageTxt);
 
     //Cliente/Cidade
     if (pageTxt.includes("Cliente:")) {
@@ -362,7 +303,7 @@ function ExtractData(pageTxt) {
 
         let total = pageTxt.substring(
             pageTxt.indexOf("T O T AL:") + 9,
-            pageTxt.indexOf("SISTEMA"));
+            pageTxt.indexOf(";"));
 
         //console.log(total);
 
@@ -448,7 +389,7 @@ function ExtractData(pageTxt) {
     }
     
 
-    //AtualizarOrcamento(orcamento);
+    AtualizarOrcamento(orcamento);
     AtualizarItems(orcamento);
     PreencherCampos(orcamento, true);
 

@@ -91,7 +91,7 @@ function DefaultObj() {
         "fornecedor": "BEDIN SOLAR",
         "cliente": "",
         "nacionalidade": "brasileiro",
-        "estadoCivil": "casado",
+        "estadoCivil": "c",
         "documento": "",
         "cep": "",
         "representante": null,
@@ -127,7 +127,7 @@ function AtualizarOrcamento(orcamento) {
     IptRefresh("telhado", orcamento);
     $("#potenciaPicoSpan").text((orcamento.potenciaPico).toFixed(2));
     $("#validadeSpan").text(new Date(orcamento.validade).toLocaleDateString());
-    $("#dataOrcamentoExtensoSpan").text(new Date(orcamento.dataOrcamento).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }))
+    $("#dataOrcamentoExtensoSpan").text(new Date(orcamento.dataOrcamento).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }));
     
     $("#valorMaoDeObraSpan").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
     $("#valorCotacaoSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
@@ -217,7 +217,7 @@ function AtualizarItems(orcamento) {
         $("#itemsViewBody").append(tr);
     });
 
-    $("#valorCotacaoViewSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
+    $("#valorCotacaoViewSpan").text( orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }) + "<span style='color:white'>;</span>");
 
 }
 
