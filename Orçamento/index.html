@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8" />
     <style>
+        
         .page {
             width: 210mm;
             height: 297mm;
@@ -16,6 +17,7 @@
                 border: 1px #D3D3D3 solid;
             */
             background: white;
+            -webkit-print-color-adjust: exact;
         }
 
         .btn-xs {
@@ -509,7 +511,7 @@
                                         <div class="col-12">
                                             <span class="small fw-bold">Cliente:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cliente" name="cliente" />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cliente" name="cliente" />                                            
                                         </div>
                                     </div>
                                     <div class="row mt-1">
@@ -717,6 +719,7 @@
                                               style='font-size:15.5pt;font-family:"Arial",sans-serif'>
                                             Cliente: <span id="clienteSpan"></span>
                                         </span>
+                                        <span style="color:white">;</span>
                                     </b>
                                 </p>
                             </td>
@@ -1714,7 +1717,6 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
             </div>
         </div>
     </div>
-    </div>
 
     <!--Modal_Adicionar-->
     <div class="modal fade" tabindex="-1" role="dialog" id="adicionarModal" aria-labelledby="adicionarModal" aria-hidden="true">
@@ -1726,7 +1728,7 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                 </div>
                 <form id="addForm">
                     <div class="modal-body">
-                        <input type="hidden" class="form-control form-control-sm mt-1" id="itemIndex." />
+                        <input type="hidden" class="form-control form-control-sm mt-1" id="itemIndex" />
                         <div class="row mt-1">
                             <div class="col-12 col-md-12">
                                 <span class="small fw-bold">Qtd.:</span>
@@ -1758,7 +1760,6 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                 </form>
             </div>
         </div>
-    </div>
     </div>
 
 </body>

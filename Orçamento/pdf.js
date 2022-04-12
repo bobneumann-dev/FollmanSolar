@@ -90,6 +90,10 @@ function DefaultObj() {
         "forncedorGuid": "Bedin",
         "fornecedor": "BEDIN SOLAR",
         "cliente": "",
+        "nacionalidade": "brasileiro",
+        "estadoCivil": "casado",
+        "documento": "",
+        "cep": "",
         "representante": null,
         "cidade": "",
 
@@ -140,9 +144,9 @@ function AtualizarOrcamento(orcamento) {
     orcamento.items.forEach((v) => {
         let tr = $("<tr style='border:1px solid black;'></tr>");
 
-        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.quantidade + '</td>');
-        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.item + '</td>');
-        tr.append('<td style="padding-left:10px;text-align:center">' + v.modelo + '</td>');
+        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.quantidade + '<span style="color:white">~</span></td>');
+        tr.append('<td style="border-right:1px solid black;padding-left:10px;text-align:center">' + v.item + '<span style="color:white">~</span></td>');
+        tr.append('<td style="padding-left:10px;text-align:center">' + v.modelo + '<span style="color:white">;</span></td>');
 
         $("#itemsBody").append(tr);
     });
