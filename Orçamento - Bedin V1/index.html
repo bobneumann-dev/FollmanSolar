@@ -257,9 +257,9 @@
             
 
             $(".txtIpt").on('change', function (event) {
-                console.log("txtIpt Change Event");
+                ////console.log("txtIpt Change Event");
                 let target = $(event.target);
-                console.log(target);
+                ////console.log(target);
                 orcamento[target.attr('id')] = target.val();
                 AtualizarOrcamento(orcamento);
             });
@@ -303,6 +303,8 @@
             //valueIpt
 
             $("#representante").on('change', function () {
+                //console.log("Representante Change Event");
+
                 let representante = $("#representante").val();
                 AtualizarRepresentante(representante);
             });
@@ -524,7 +526,7 @@
                                             <select class="form-control form-control-sm mt-1" id="representante" name="representante">
                                                 <option value="">Matriz</option>
                                                 <option value="Rudi">Rudi</option>
-                                                <option value="Roseli Borchert" data-img="Assinatura_Rose.png">Rosi</option>
+                                                <option value="Roseli Borchert">Rosi</option>
                                                 <option value="Luiz Antônio Fernandes">Luiz Antônio Fernandes</option>
                                             </select>
                                         </div>
@@ -579,25 +581,14 @@
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Estrutura:</span>
                                             <br />
-                                            <select class="form-control form-control-sm txtIpt" id="telhado">
-                                                <option value="Telha romana/americana">Telha Romana/Americana</option>
-                                                <option value="Telha de fibrocimento">Telha Fibrocimento</option>
-                                                <option value="Telha de fibrocimento - Madeira">Telha Fibrocimento - Madeira</option>
-                                                <option value="Aluzinco Trapezoidal">Aluzinco Trapezoidal</option>
-                                                <option value="Ao Solo - Biposte">Ao Solo - Biposte</option>
-                                                <option value="Ao Solo - Monoposte">Ao Solo - Monoposte</option>
-                                                <option value="Telha Zipada">Telha Zipada</option>
-                                                <option value="Sem Estrutura">Sem Estrutura</option>
-                                            </select>
-                                            <!--<input type="text" class="form-control form-control-sm txtIpt" id="telhado" />-->
+                                            <input type="text" class="form-control form-control-sm txtIpt" id="telhado" />
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Origem Placas:</span>
                                             <br />
                                             <select class="form-control form-control-sm mt-1 txtIpt" id="origemPlacas" name="origemPlacas">
+                                                <option value="NACIONAIS">Nacional</option>
                                                 <option value="IMPORTADAS">Importada</option>
-                                                <option value="NACIONAIS FINAME 3785086">Nacional 3785086</option>
-                                                <option value="NACIONAIS FINAME 3785093">Nacional 3785093</option>
                                             </select>
                                         </div>
                                         <div class="col-12 col-md-3">
@@ -1458,9 +1449,20 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
         </div>
         <!--Page 7-->
         <div class="page">
+
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
+            </p>
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
+            </p>
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
+            </p>
+            <p class=MsoNormal>
+                <span lang=PT style='font-size:13.0pt'>&nbsp;</span>
+            </p>
             <!--Valmir-->
-            <center><img src="assinatura_Valmir.png" /></center>
-            <br />
             <p class=MsoBodyText align=center>
                 _________________________________________
                 <br clear=ALL>
@@ -1479,9 +1481,6 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
 
             <!--Representante-->
             <div class="representanteShow" style="margin-top: 4cm">
-
-                <center><img id="assinaturaRepresentante" width="150px" /></center>
-
                 <p class=MsoBodyText align=center>
                     _________________________________________
                     <br clear=ALL>
@@ -1533,7 +1532,7 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
             </p>
 
             <!--FOOTER-->
-            <div style='margin-top:2.5cm'>
+            <div style='margin-top:4.5cm'>
                 <div class="row">
                     <div class="col-6 fornecedorBancario" id="bancarioBedin">
                         <p class=MsoNormal align=center>

@@ -1,7 +1,7 @@
 
 function ExtrairInfPlacas(items) {
 
-    let item = items.find(element => element.modelo.includes('Painéis') || element.modelo.includes('Módulo'));
+    let item = items.find(element => element.modelo.includes('dulo'));
 
     if (item != undefined) {
 

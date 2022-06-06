@@ -58,15 +58,11 @@ function TrocarCidade(novaCidade) {
 }
 
 function AtualizarRepresentante(representante) {
-    $("#assinaturaRepresentante").hide();
-
     if (representante != '' && representante != null) {
-        orcamento.representante = representante;        
+        orcamento.representante = representante;
 
         if (representante == 'Roseli Borchert') {
             TrocarCidade("Itaipulândia");
-            $("#assinaturaRepresentante").prop('src', 'Assinatura_Rose.png');
-            $("#assinaturaRepresentante").show();
         }
     }
     else {
@@ -99,7 +95,7 @@ function DefaultObj() {
         "cep": "",
         "representante": null,
         "cidade": "",
-        "origemPlacas": "IMPORTADAS",
+        "origemPlacas": "NACIONAIS",
 
         "dataOrcamento": new Date(),
         "validade": new Date("0001-01-01"),
@@ -279,89 +275,106 @@ function PreencherCampos(d, completo) {
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
     
-    console.log(pageTxt);    
+    console.log(pageTxt.split('\n'));    
+
+    //POTÊNCIA kWp  8.18 kWp  LINHAS
+    if (pageTxt.includes("CIA kWp")) {
+
+        let kwp = pageTxt.substring(
+            pageTxt.lastIndexOf("CIA kWp") + 7,
+            pageTxt.lastIndexOf("LINHAS"));
+
+        kwp = kwp.toUpperCase();
+        kwp = kwp.replace("KWP", "");
+        kwp = kwp.trim();
+        let potenciaPico = Number(kwp);
+
+        orcamento.potenciaPico = potenciaPico;
+    }
+    else {
+        //console.log("K");
+    }
+
+    //Extrair Valor Total
+    if (pageTxt.includes("VALOR DO PRODUTO")) {
+
+        let total = pageTxt.substring(
+            pageTxt.lastIndexOf("VALOR DO PRODUTO") + 16,
+            pageTxt.lastIndexOf("CONDIÇ"));
+
+        //console.log(total);
+
+        total = total.replace("R$", "");
+        total = total.replace(".", "");
+        total = total.replace(",", ".");
+        total = total.replace(/(\S\))/gm, "");
+        total = total.trim();
+        //console.log(total);
+
+        let value = Number(total);
+
+        orcamento.valorCotacao = value;
+    }
+    else {
+        //console.log('-');
+    }
 
     //Extrair Items
-    //OK
-    if (pageTxt.includes("Descrição Tipo Quantidade")) {
-        const categorias = ["Painéis", 
-                            "Terminal-Final", 
-                            "Terminal-Intermediario", 
-                            "Perfil", 
-                            "Conector", 
-                            "Cabos", 
-                            "Inversores", 
-                            "String-box",
-                            "Transformadores",
-                            "Mesa-Ao-Solo",
-                            "Emenda",
-                            "Suporte" ];      
-                            
-        const normalizar = [
-            {
-                str: "Terminal Final",
-                replace: "Terminal-Final"
-            },
-            {
-                str: "Terminal Intermediario",
-                replace: "Terminal-Intermediario"
-            },
-            {
-                str: "Mesa-Ao Solo",
-                replace: "Mesa-Ao Solo"
-            },
-        ];
+    if (pageTxt.includes("VALOR DO PRODUTO")) {
 
-        let itemsTxtStr = pageTxt.substring(
-            pageTxt.lastIndexOf("Descrição Tipo Quantidade") + 26,
-            pageTxt.lastIndexOf("END. ENTREGA:"))
-        
-        //Normalizar categorias
-        normalizar.forEach(v => itemsTxtStr = itemsTxtStr.replace(v.str, v.replace));
+        let itemsTxt = pageTxt.substring(
+            pageTxt.lastIndexOf("ITENS DO PROJETO") + 16,
+            pageTxt.lastIndexOf("VALOR DO PRODUTO"));
 
-        let itemsTxt = itemsTxtStr.split(' ');
+        var splits = itemsTxt.split("   ");
+        splits.shift();
 
-        //console.log(itemsTxt);
+        let nItems = splits.length / 5;
         let items = [];
-        let itemName = "";
 
-        for (let i = 0; i < itemsTxt.length; i++) {
-            
-            if(categorias.includes(itemsTxt[i]))
-            {
-                items.push({
-                    quantidade: Number(itemsTxt[i + 1]),
-                    item: itemName.trimEnd(),
-                    modelo: itemsTxt[i],
-                    valor: 0,
-                    total: 0
-                });
+        for (let i = 0; i < nItems; i++) {
+            let j = i * 5;
 
-                itemName = "";
-                i++; //Pular próxima que é a quantidade e ja foi capturado
-            }
-            else
-            {
-                itemName += itemsTxt[i] + ' ';
-            }
-          
+            items.push({
+                quantidade: Number(splits[j]),
+                item: splits[j + 1],
+                modelo: splits[j + 2],
+                valor: RealToNumber(splits[j + 3]),
+                total: RealToNumber(splits[j + 4])
+            });
         }
 
         orcamento.items = items;
     }
     else {
         //console.log("I");
-    } 
-    
+    }
+
+    //Telhado
+    if (pageTxt.includes("TELHADO")) {
+
+        let telhado = pageTxt.substring(
+            pageTxt.lastIndexOf("TELHADO") + 7,
+            pageTxt.lastIndexOf("ITENS"));
+
+        telhado = telhado.replace("TELHADO", "");
+        telhado = telhado.replace(/(\S\))/gm, "");
+        telhado = telhado.trim();
+
+        orcamento.telhado = "Telhado: " + telhado;
+    }
+    else {
+        //console.log("T");
+    }
+
     //Validade
-    //OK
-    if (pageTxt.includes("Validade:")) {
+    if (pageTxt.includes("VALIDADE")) {
 
         let validade = pageTxt.substring(
-            pageTxt.indexOf("Validade:") + 10,
-            pageTxt.indexOf("M.L.BEDIN R MORRETES"));
+            pageTxt.indexOf("VALIDADE") + 8,
+            pageTxt.indexOf("B)"));
 
-        validade = validade.replace("Validade: ", "");
+        validade = validade.replace("VALIDADE", "");
         validade = validade.trim();
 
         //console.log(validade);
@@ -373,50 +386,6 @@ function ExtractData(pageTxt) {
     else {
         //console.log("V");
     }
-
-    //Potência
-    if (pageTxt.includes("Dados do Orçamento")) {
-
-        let kwp = pageTxt.substring(
-            pageTxt.lastIndexOf("Dados do Orçamento") + 18,
-            pageTxt.lastIndexOf("KWP:"));
-
-        kwp = kwp.toUpperCase();
-        kwp = kwp.trim();
-        kwps = kwp.split(' ');
-        
-        let potenciaPico = Number(kwps[kwps.length - 1].replace(',', '.'));
-
-        orcamento.potenciaPico = potenciaPico;
-    }
-    else {
-        //console.log("K");
-    }
-
-    //Extrair Valor Total
-    if (pageTxt.includes("Total:")) {
-
-        let total = pageTxt.substring(
-            pageTxt.lastIndexOf("Total:") + 6,
-            pageTxt.lastIndexOf("No valor"));
-
-        console.log(total);
-
-        total = total.replace("R$", "");
-        total = total.replaceAll(".", "");
-        total = total.replace(",", ".");
-        total = total.replace(/(\S\))/gm, "");
-        total = total.trim();
-        console.log(total);
-
-        let value = Number(total);
-
-        orcamento.valorCotacao = value;
-    }
-    else {
-        //console.log('-');
-    }
-
 
     //Orçamentos    
     orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.3;
@@ -663,11 +632,11 @@ function getPageText(pageNum, PDFDocumentInstance) {
             pdfPage.getTextContent().then(function (textContent) {
                 var textItems = textContent.items;
                 var finalString = "";
-                //console.log(textItems);
+
                 // Concatenate the string of the item to the final string
                 for (var i = 0; i < textItems.length; i++) {
                     var item = textItems[i];
-                    
+
                     finalString += item.str + " ";
                 }
 

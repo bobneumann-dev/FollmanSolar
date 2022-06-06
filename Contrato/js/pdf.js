@@ -71,21 +71,6 @@ function TrocarCidade(novaCidade) {
     orcamento.cidade = novaCidade;
 }
 
-function AtualizarRepresentante(representante) {
-    if (representante != '' && representante != null) {
-        orcamento.representante = representante;
-
-        if (representante == 'Roseli Borchert') {
-            TrocarCidade("Itaipulândia");
-        }
-    }
-    else {
-        orcamento.representante = null;
-    }
-
-    AtualizarOrcamento(orcamento);
-}
-
 function TitleCase(str) {
     var splitStr = str.toLowerCase().split(' ');
 
@@ -267,7 +252,7 @@ function PreencherCampos(d, completo) {
 
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
-    console.log(pageTxt);
+    //console.log(pageTxt);
 
     //Cliente/Cidade
     if (pageTxt.includes("Cliente:")) {
@@ -303,9 +288,10 @@ function ExtractData(pageTxt) {
 
         let total = pageTxt.substring(
             pageTxt.indexOf("T O T AL:") + 9,
-            pageTxt.indexOf(";"));
+            pageTxt.indexOf("SISTEMA COMPLETO"));
 
-        //console.log(total);
+        total = total.substring(0, total.indexOf(";"));
+        console.log(total);
 
         total = total.replace("R$", "");
         total = total.replace(".", "");
