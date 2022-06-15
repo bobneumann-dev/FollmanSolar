@@ -534,20 +534,6 @@
                                             
                                             <select class="form-control form-control-sm mt-1 txtIpt" id="cidade" name="cidade">
                                                 <option></option>
-                                                <!--
-                                                <option value="Cascavel">Cascavel</option>
-                                                <option value="Céu Azul">Céu Azul</option>
-                                                <option value="Curitiba">Curitiba</option>
-                                                <option value="Foz do Iguaçu">Foz do Iguaçu</option>
-                                                <option value="Itaipulândia">Itaipulândia</option>
-                                                <option value="Marechal Candido Rondon">Marechal Candido Rondon</option>
-                                                <option value="Matelândia">Matelândia</option>
-                                                <option value="Medianeira">Medianeira</option>
-                                                <option value="Missal">Missal</option>
-                                                <option value="Santa Helena">Santa Helena</option>
-                                                <option value="Santa Terezinha de Itaipu">Santa Terezinha de Itaipu</option>
-                                                <option value="São Miguel do Iguaçu">São Miguel do Iguaçu</option>
-                                                <option value="Serranópolis do Iguaçu">Serranópolis do Iguaçu</option> -->
                                             </select>
                                             
                                         </div>
@@ -1517,7 +1503,7 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
             </div>
             <!--Representante Fim-->
             <!--Cliente-->
-            <p class=MsoBodyText style='margin-top:4cm' align=center>
+            <p class=MsoBodyText style='margin-top:2cm' align=center>
                 _________________________________________
                 <br clear=ALL>
             </p>
@@ -1589,14 +1575,14 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                         </p>
                         <p class=MsoNormal align=center>
                             <b>
-                                <span lang=PT>CNPJ: 31.075.819/0001-41</span>
+                                <span lang=PT>CNPJ: <span id="cnpjSpan">31.075.819/0001-41</span></span>
                             </b>
                         </p>
 
                         <p class=MsoNormal align=center>
                             <b>
                                 <span lang=PT>Banco </span>
-                                <span lang=PT>
+                                <span lang=PT id="contaBancariaSpan">
                                     Sicredi<span style='letter-spacing:.2pt'>
                                     </span>C/C: 82605-2 &nbsp; AG: 0710
                                     <br />
@@ -1605,7 +1591,7 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                                 <br />
                                 <span lang=PT>
                                     <span>
-                                        Nome: Neusa Genir da Silva Follmann ME
+                                        Nome: <span id="nomeBancarioSpan">Neusa Genir da Silva Follmann ME</span>
                                     </span>
                                 </span>
                                 <br />
@@ -1615,14 +1601,13 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                         <p class=MsoNormal align=center>
                             <b>
                                 <span lang=PT>
-                                    CEP: 85885-000
+                                    CEP: <span id="cepSpan">85885-000</span>
                                 </span>
                             </b>
                             <br clear=ALL>
                             <b>
                                 <span lang=PT>
-                                    Avenida Independência,
-                                    1108, Flor da Serra <br /> Serranópolis do Iguaçu, PR.
+                                    <span id="enderecoSpan">Avenida Independência,1108, Flor da Serra <br /> Serranópolis do Iguaçu, PR.</span>
                                 </span>
                             </b>
                         </p>
@@ -1635,13 +1620,11 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
                             </span>
                             <br />
                             <span lang=PT>
-                                <a href="mailto:E-mail:%20follmannenergiasolar@outlook.com">
                                     <b>
                                         <span>
-                                            E-mail:follmannenergiasolar@outlook.com
+                                            E-mail: <span id="emailSpan">follmannenergiasolar@outlook.com</span>
                                         </span>
                                     </b>
-                                </a>
                             </span>
                         </p>
 

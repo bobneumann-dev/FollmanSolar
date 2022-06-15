@@ -67,10 +67,26 @@ function AtualizarRepresentante(representante) {
             TrocarCidade("Itaipulândia");
             $("#assinaturaRepresentante").prop('src', 'Assinatura_Rose.png');
             $("#assinaturaRepresentante").show();
+            $("#emailSpan").text("follmannenergiasolar2@gmail.com");
+            $("#enderecoSpan").html("Av. Tôrres, 1862 - Centro <br /> Itaipulândia - PR.");
+            $("#cepSpan").text("85880-000");
+            $("#nomeBancarioSpan").text("Neusa Genir da Silva Follmann");
+            $("#contaBancariaSpan").html(`Sicredi<span style='letter-spacing:.2pt'>
+                                    </span>C/C: 36492-9 &nbsp; AG: 0710`);
+            $("#cnpjSpan").text("31.075.819/0002-22");
         }
     }
     else {
         orcamento.representante = null;
+        $("#emailSpan").text("follmannenergiasolar@gmail.com");
+        $("#enderecoSpan").html("Avenida Independência, 1108, Flor da Serra <br /> Serranópolis do Iguaçu, PR.");
+        $("#cepSpan").text("85885-000");
+        $("#nomeBancarioSpan").text("Neusa Genir da Silva Follmann ME");
+        $("#contaBancariaSpan").html(`  Sicredi<span style='letter-spacing:.2pt'>
+                                    </span>C/C: 82605-2 &nbsp; AG: 0710
+                                    <br />
+                                    Banco do Brasil <span style='letter-spacing:.2pt'></span>C/C:548-7 &nbsp; AG:8179-5`);
+        $("#cnpjSpan").text("31.075.819/0001-41");
     }
 
     AtualizarOrcamento(orcamento);
