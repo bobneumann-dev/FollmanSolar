@@ -324,7 +324,7 @@ function ExtractData(pageTxt) {
             },
             {
                 str: "Mesa-Ao Solo",
-                replace: "Mesa-Ao Solo"
+                replace: "Mesa-Ao-Solo"
             },
         ];
 
