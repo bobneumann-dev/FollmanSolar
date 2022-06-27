@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <title>Follmann Solar - Gerador de Contratos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <style>
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 10mm;
+            margin: 3mm auto;
+            /*
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                border: 1px #D3D3D3 solid;
+                border: 1px solid black;
+            */
+            border: 0px;
+            background: white;
+        }
+
+        .btn-xs {
+            padding: .1rem .1rem !important;
+            font-size: .6rem !important;
+            border-radius: .2rem !important;
+            margin: 0.1em;
+            height: 2em;
+            width: 2em;
+        }
+
+        .app {
+            display: block;
+        }
+
+        .printArea {
+            display: none;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                box-shadow: 0;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: 0;
+                border: 0px;
+            }
+
+            .app {
+                display: none;
+            }
+
+            .printArea {
+                display: block;
+            }
+        }
+    </style>
+    <style>
+        /* Font Definitions */
+        @font-face
+           {font-family:"Cambria Math";
+           panose-1:2 4 5 3 5 4 6 3 2 4;}
+       @font-face
+           {font-family:Calibri;
+           panose-1:2 15 5 2 2 2 4 3 2 4;}
+        /* Style Definitions */
+        p.MsoNormal, li.MsoNormal, div.MsoNormal
+           {margin-top:0in;
+           margin-right:0in;
+           margin-bottom:8.0pt;
+           margin-left:0in;
+           line-height:107%;
+           font-size:11.0pt;
+           font-family:"Calibri",sans-serif;
+           color:black;}
+       h1
+           {mso-style-link:"Heading 1 Char";
+           margin-top:0in;
+           margin-right:0in;
+           margin-bottom:4.15pt;
+           margin-left:25.5pt;
+           text-align:center;
+           line-height:107%;
+           page-break-after:avoid;
+           font-size:16.0pt;
+           font-family:"Times New Roman",serif;
+           color:black;
+           font-weight:normal;}
+       h2
+           {mso-style-link:"Heading 2 Char";
+           margin-top:0in;
+           margin-right:0in;
+           margin-bottom:0in;
+           margin-left:153.1pt;
+           line-height:107%;
+           page-break-after:avoid;
+           font-size:12.0pt;
+           font-family:"Times New Roman",serif;
+           color:black;
+           font-weight:normal;}
+       span.Heading2Char
+           {mso-style-name:"Heading 2 Char";
+           mso-style-link:"Heading 2";
+           font-family:"Times New Roman",serif;
+           color:black;}
+       span.Heading1Char
+           {mso-style-name:"Heading 1 Char";
+           mso-style-link:"Heading 1";
+           font-family:"Times New Roman",serif;
+           color:black;}
+       .MsoChpDefault
+           {font-family:"Calibri",sans-serif;}
+       .MsoPapDefault
+           {margin-bottom:8.0pt;
+           line-height:107%;}
+       @page WordSection1
+           {size:595.3pt 841.9pt;
+           margin:37.95pt 54.05pt 35.5pt 28.45pt;}
+       div.WordSection1
+           {page:WordSection1;}
+        /* List Definitions */
+        ol
+           {margin-bottom:0in;}
+       ul
+           {margin-bottom:0in;}
+
+       </style>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/all.css" rel="stylesheet"  />
+
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script src="js/pdf.js"></script>
+    <script src="js/documento.js"></script>
+    <script src="js/extenso.js"></script>
+    <script src="js/jquery.mask.min.js"></script>
+
+    <script>
+
+        function NumeroFormValido(valor) {
+            let convert = valor.replace(".", "").replace(",", ".");
+
+            return !Number.isNaN(Number(convert));
+        }
+
+        function AtualizarTitulo() {
+            document.title = "documentos - " + documento.cliente;
+        }
+
+        function InitInputs() {
+            let hoje = new Date().toISOString().split("T")[0];
+
+            $("#datadocumento").val(hoje);
+            $("#validade").val(hoje);
+        }
+
+        function InitEvents() {
+
+            $(".txtIpt").on('change', function (event) {
+                ////console.log("txtIpt Change Event");
+                let target = $(event.target);
+                ////console.log(target);
+                documento[target.attr('id')] = target.val();
+                AtualizarDocumento(documento);
+            });
+
+            $(".numberIpt").on('change', function (event) {
+                //console.log("numberIpt Change Event");
+                let target = $(event.target);
+                //console.log(target);
+                documento[target.attr('id')] = Number(target.val().replace('.', '').replace(',', '.'));
+                Atualizardocumento(documento);
+            });
+
+            $(".dateIpt").on('change', function (event) {
+                //console.log("dateIpt Change Event");
+                let target = $(event.target);
+                //console.log(target);
+                documento[target.attr('id')] = new Date(target.val());
+                Atualizardocumento(documento);
+            });
+
+            
+        }
+
+       
+
+
+        //Aguarda Carregar o DOM
+        $(document).ready(function () {
+            InitInputs();
+            InitEvents();
+
+            //data
+            var data = new Date();
+            var dia = String(data.getDate()).padStart(2, '0');
+            var ano = data.getFullYear();
+            var meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+            var mess = String(data.getMonth() + 1).padStart(2, '0');
+
+            $('#dia').text(dia);
+            $('#diaC').text(dia);
+            $('#anoT').text(ano);
+            $('#mes').text(meses[parseInt(mess)-1]);
+            $('#mesC').text(meses[parseInt(mess)-1]);
+
+
+
+
+            //Mascara documentos
+            $('#cep').mask('00000-000');
+            $('#cpfT').mask('000.000.000-00');
+            $('#rgT').mask('00.000.000-0');
+            $('#telefoneT').mask('(00) 00000-0000');
+            $('#cpfC').mask('000.000.000-00');
+            $('#rgC').mask('00.000.000-0');
+            $('#telefoneC').mask('(00) 00000-0000');
+            $('#dataNas').mask('(00/00/0000');
+
+
+            
+
+
+            var options = {
+                onKeyPress: function (doc, e, field, options) {
+                    var masks = ['000.000.000-000', '00.000.000/0000-00'];
+                    var mask = (doc.length > 14) ? masks[1] : masks[0];
+                    $('#documento').mask(mask, options);
+                }
+            };
+
+
+
+            $('#documento').mask('000.000.000-000', options);
+            AtualizarDocumento(documento);
+        });
+
+    </script>
+
+    <div id="appDiv" class="app">
+
+        <!--Form-->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <div class="row">
+                        <div class="col-12">
+                            <header class="clearfix ms-2 mb-2">
+                                <div id="logo">
+                                    <img src="images/image001.png">
+                                </div>
+                            </header>
+
+                        </div>
+                    </div>
+                    <!--Gerador-->
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!--Botões-->
+                                    <h4 class="mb-0 fw-bold text-center">
+                                        Ficha de inscrição
+                                    </h4>
+                                    <br/>
+
+                                    <div class="row">
+                                        <div class="col-12 col-md-8">
+                                            <span class="small fw-bold">Nome do Titular:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="nomeDoTitular" name="cliente" />
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Telefone:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="telefoneT" name="documento" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <span class="small fw-bold">Endereço:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="endereço" name="cliente" />
+                                        </div>
+                                        <div class="col-12 col-md-2">
+                                            <span class="small fw-bold">Nº:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="n" name="documento" />
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">CEP:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cep" name="documento" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <span class="small fw-bold">Bairro/Vila:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="bairro" name="cliente" />
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <span class="small fw-bold">Ponto de referência:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="referencia" name="documento" />
+                                        </div>                                        
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">RG:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="rgT" name="cliente" />
+                                        </div>
+                                        <div class="col-12 col-md-2">
+                                            <span class="small fw-bold">Órgão emissor:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="orgaoEmissorT" name="documento" />
+                                        </div> 
+                                        <div class="col-12 col-md-2">
+                                            <span class="small fw-bold">U.F:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="ufT" name="cliente" />
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">CPF:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cpfT" name="documento" />
+                                        </div>                                        
+                                    </div>
+
+
+                                    <div class="row">
+                                        
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Sexo:</span>
+                                            <br />
+                                            <select class="form-control form-control-sm mt-1 txtIpt" id="sexo" name="sexo">
+                                                <option value="o">Masculino</option>
+                                                <option value="a">Feminino</option>
+                                                <option value="x">Não definido</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Estado Civil:</span>
+                                            <br />
+                                            <select class="form-control form-control-sm mt-1 txtIpt" id="estadoCivil" name="estadoCivil">
+                                                <option value="c">Casado</option>
+                                                <option value="u">União Estável</option>
+                                                <option value="s">Solteiro</option>
+                                                <option value="v">Viuvo</option>
+                                                <option value="d">Divorciado</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Profissão:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="profissaoT" name="documento" />
+                                        </div> 
+                                    </div>
+                               
+                                    <div class="row mt-1">
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Número da Matricula do Lote:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="matricula" />
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Número da Certidão Negativa:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="negativa" />
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Tipo:</span>
+                                            <select class="form-control form-control-sm mt-1 txtIpt" id="tipo" name="estadoCivil">
+                                                <option value="i">Instalação</option>
+                                                <option value="m">Ampliação</option>
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+                                    <hr>
+                                    
+                                    <div class="row mt-1">
+                                        <div class="col-12 ">
+                                    <h6 class="mb-0 fw-bold text-center">
+                                        Dados cônjuge
+                                    </h6>
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="row mt-1">
+                                        <div class="col-12 col-md-8">
+                                            <span class="small fw-bold">Nome do Cônjuge:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="nomeConjuge" />
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">Data Nasc.:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="dataNas" />
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">RG:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="rgC" />
+                                        </div>
+                                        <div class="col-12 col-md-2">
+                                            <span class="small fw-bold">Órgão Emissor: </span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="orgaoEmissorC" />
+                                        </div>
+                                        <div class="col-12 col-md-2">
+                                            <span class="small fw-bold">U.F: </span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="ufC" />                                            
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <span class="small fw-bold">CPF:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cpfC" />
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12 col-md-6">
+                                            <span class="small fw-bold">Telefone:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="telefoneC" />
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <span class="small fw-bold">Profissão:</span>
+                                            <br />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="profissaoC" />
+                                        </div>
+                                    </div>
+
+                                    <!--Items-->                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="printDiv" class="printArea">
+        <!--PAGE 1-->
+        <div class="page">
+            <div class="page">
+                <p class=MsoNormal style='margin-top:0in;margin-right:357.7pt;margin-bottom:
+                0in;margin-left:0in'><img width=110 height=109
+                src="images/image001.jpg" align=left hspace=12><span style='font-size:
+                12.0pt;line-height:107%;font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:0in;margin-left:72.85pt;text-align:center'><span
+                style='font-size:16.0pt;line-height:107%;font-family:"Times New Roman",serif'> 
+                </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                margin-left:72.85pt;text-align: center;font-weight: bold;'><span style='font-size:16.0pt;line-height:107%;font-family:
+                "Times New Roman",serif'>MUNICÍPIO DE ITAIPULÂNDIA </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:33.2pt;margin-left:72.85pt;text-align:center;font-weight: bold;'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>Estado
+                do Paraná </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:12.8pt;
+                margin-left:90.35pt'><u><span style='font-size:12.0pt;line-height:107%;
+                font-family:"Times New Roman",serif;font-weight: bold;'>MODELO DE DECLARAÇÃO DE VERACIDADE NAS
+                INFORMAÇÕES</span></u><span style='font-size:12.0pt;line-height:107%;
+                font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:.15in;margin-left:54.5pt;text-align:center;text-indent:-.5pt'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;font-weight: bold;'>PROGRAMA
+                LUZ SOLAR PARA TODOS  </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:12.8pt;
+                margin-left:56.65pt'><span style='font-size:12.0pt;line-height:107%;font-family:
+                "Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:1.7pt;margin-bottom:.4pt;
+                margin-left:56.4pt;text-align:justify;text-justify:inter-ideograph;text-indent:
+                -.5pt;line-height:111%'><span style='font-size:12.0pt;line-height:111%;
+                font-family:"Times New Roman",serif'>Eu, <b id="nomeDoTitularSpan"></b>
+                residente e domiciliado na rua <b id="endereçoSpan"></b>, nº <b id="nSpan"></b>, CEP: <b id="cepSpan"></b></span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:1.7pt;margin-bottom:12.3pt;
+                margin-left:56.4pt;text-align:justify;text-justify:inter-ideograph;text-indent:
+                -.5pt;line-height:111%'><span style='font-size:12.0pt;line-height:111%;
+                font-family:"Times New Roman",serif'>Bairro <b id="bairroSpan"></b>,
+                Município de Itaipulândia, portador da CI/RG sob nº:<b id="rgTSpan"> </b>,
+                e do CPF sob o nº:<b id="cpfTSpan">                        </b>, para fins de habilitar ao processo
+                de inscrições para recebimento de fomento referente ao <b>Programa Luz Solar Para
+                Todos</b>, com a disponibilização de informações e entrega de documentação, podendo
+                responder cível e criminalmente sob as penas da Lei, DECLARO (A):  </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:1.7pt;margin-bottom:.4pt;
+                margin-left:56.4pt;text-align:justify;text-justify:inter-ideograph;text-indent:
+                -.5pt;line-height:111%'><span style='font-size:12.0pt;line-height:111%;
+                font-family:"Times New Roman",serif'>1- Que toda a documentação e informações
+                por mim prestadas e disponibilizadas são verdadeiras e ausentes de quaisquer
+                vícios ou irregularidades;</span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:27.85pt;margin-bottom:
+                .4pt;margin-left:65.9pt;text-align:justify;text-justify:inter-ideograph;
+                text-indent:-10.0pt;line-height:111%'><span style='font-size:12.0pt;line-height:
+                111%;font-family:"Times New Roman",serif'>2- </span><span style='font-size:12.0pt;line-height:111%;font-family:"Times New Roman",serif'>
+                Que inexiste qualquer fato impeditivo à realização da minha inscrição;</span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:27.85pt;margin-bottom:
+                0pt;margin-left:65.9pt;text-align:justify;text-justify:inter-ideograph;
+                text-indent:-10.0pt;line-height:111%'><span style='font-size:12.0pt;line-height:
+                111%;font-family:"Times New Roman",serif'>3- </span><span style='font-size:12.0pt;line-height:111%;font-family:"Times New Roman",serif'>
+                Que estou de acordo com as normas de enquadramento e seleção; </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:27.85pt;margin-bottom:
+                12.4pt;margin-left:65.9pt;text-align:justify;text-justify:inter-ideograph;
+                text-indent:-10.0pt;line-height:111%'><span style='font-size:12.0pt;line-height:
+                111%;font-family:"Times New Roman",serif'>4- </span><span style='font-size:12.0pt;line-height:111%;font-family:"Times New Roman",serif'>
+                Que me comprometo a comunicar a ocorrência de fatos supervenientes.</span></p>
+                <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:12.8pt;
+                margin-left:56.65pt'><span style='font-size:12.0pt;line-height:107%;font-family:
+                "Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:12.8pt;margin-left:54.6pt;text-align:center;text-indent:-.5pt'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>Por
+                ser verdade, firmo a presente declaração. </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:12.8pt;margin-left:57.35pt;text-align:center'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal align=right style='margin-top:0in;margin-right:2.45pt;
+                margin-bottom:12.95pt;margin-left:0in;text-align:right'><span style='font-size:
+                12.0pt;line-height:107%;font-family:"Times New Roman",serif'>Itaipulândia, <span id = "dia"></span>
+                de <span id = "mes"></span> de <span id = "anoT"></span>. </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:12.8pt;margin-left:57.35pt;text-align:center'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:12.8pt;margin-left:57.35pt;text-align:center'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:.1pt;
+                margin-bottom:0in;margin-left:0pt;text-align:center;text-indent:-.5pt'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>_____________________________
+                </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:.05pt;
+                margin-bottom:.15pt;margin-left:0pt;text-align:center;text-indent:-.5pt'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;font-weight: bold;'>Assinatura
+                </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:.15pt;
+                margin-bottom:.15pt;margin-left:0pt;text-align:center;text-indent:-.5pt'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;font-weight: bold;'>RG
+                Nº <b id = "rgTASpan"></b> </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:108.6pt;margin-left:57.35pt;text-align:center'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:0in;margin-left:57.2pt;text-align:center'><span style='font-size:
+                10.0pt;line-height:107%;font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.15pt;
+                margin-left:0pt;text-indent:-.5pt;text-align: center;'><span style='font-size:10.0pt;
+                line-height:107%;font-family:"Times New Roman",serif'>Rua São Miguel do Iguaçu,
+                1891 – Centro – Itaipulândia – Paraná </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.15pt;
+                margin-left:0pt;text-indent:-.5pt;text-align: center;'><span style='font-size:10.0pt;
+                line-height:107%;font-family:"Times New Roman",serif'>CEP: 85880000 – Telefone
+                (45) 35598000 - CNPJ: 95.725.057/0001-64 </span></p>
+            </div>
+    
+            
+                
+                
+
+<!--Doc certo-->
+
+
+
+        <!-- PAGE 2-->
+        <div class="page">
+           
+                <div class="row">
+                    <div class="col-3">
+                        <img width=110 height=109 src="images/image002.png"
+                        align=left hspace=12>
+                    </div>
+                    <div class="col-6" style="text-align: center; font-weight: bold;">
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0pt;margin-bottom:3.45pt;
+                        margin-left:0pt'><span style='font-size:16.0pt;line-height:107%;font-family:
+                        "Times New Roman",serif'>MUNICÍPIO DE ITAIPULÂNDIA </span></p>
+                        
+                        <p class=MsoNormal style='margin-top:0in;margin-right:3.9pt;margin-bottom:28.65pt;
+                        margin-left:25.3pt'><span style='font-family:"Times New Roman",serif'>Estado do
+                        Paraná </span></p>
+                    </div>
+                    <div class="col-3">
+                        <img width=141 height=84 src="images/image003.jpg"
+                        align=left hspace=12>
+                    </div>
+                </div>
+                
+                
+                <h4 style="text-align:center">FICHA DE INSCRIÇÃO </h4>
+                
+                <h5 style='margin-left:155.9pt'>PROGRAMA LUZ SOLAR PARA TODOS<br/>
+                (<b class="tipoX" id="tipoX_i">X</b>) INSTALAÇÃO               (<b class="tipoX" id="tipoX_m">X</b>) AMPLIAÇÃO </h5>
+              
+                
+                
+                <table class=TableGrid border=0 cellspacing=0 cellpadding=0 align=left
+                 width=100% style='width:100%;border-collapse:collapse;margin-left:-2.25pt;
+                 margin-right:-2.25pt'>
+                 <tr style='height:26.9pt'>
+                  <td width=482 colspan=9 valign=top style='width:361.4pt;border:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:26.9pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>01-Nome do titular: </span><br/>
+                   <span id="nomeDoTitularTab"></span>
+                  </p>
+                  </td>
+                  <td width=180 colspan=2 valign=top style='width:134.65pt;border:solid black 1.0pt;
+                  border-left:none;padding:2.3pt 9.0pt 0in 0in;height:26.9pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:.5pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>02-Telefone:  </span><br/>
+                   <span id="telefoneTSpan"></span></p>
+                  </td>
+                 </tr>
+                 <tr style='height:27.0pt'>
+                  <td width=482 colspan=9 valign=top style='width:361.4pt;border:solid black 1.0pt;
+                  border-top:none;padding:2.3pt 9.0pt 0in 0in;height:27.0pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>03-Endereço: </span><br/>
+                   <span id="endereçoTab"></span></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:3.65pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                  <td width=63 valign=top style='width:47.5pt;border-top:none;border-left:none;
+                  border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;padding:2.3pt 9.0pt 0in 0in;
+                  height:27.0pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:-.95pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> 04-Nº.: </span><br/>
+                     <span id="nTab"></span></p>
+                  </td>
+                  <td width=116 valign=top style='width:87.1pt;border-top:none;border-left:
+                  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:27.0pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:2.1pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>05-CEP: </span><br/>
+                   <span id="cepTab"></span></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:2.05pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                 </tr>
+                 <tr style='height:28.55pt'>
+                  <td width=274 colspan=2 valign=top style='width:205.5pt;border:solid black 1.0pt;
+                  border-top:none;padding:2.3pt 9.0pt 0in 0in;height:28.55pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>06-Bairro/vila: </span><br/>
+                   <span id="bairroTab"></span></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                  <td width=387 colspan=9 valign=top style='width:290.5pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:28.55pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:.95pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>07-Ponto de referência: </span><br/>
+                   <span id="referenciaSpan"></span></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:.95pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                 </tr>
+                 <tr style='height:28.7pt'>
+                  <td width=198 valign=top style='width:148.75pt;border:solid black 1.0pt;
+                  border-top:none;padding:2.3pt 9.0pt 0in 0in;height:28.7pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>08-RG: </span><br/>
+                   <span id="rgTab"></span></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>  </span></p>
+                  </td>
+                  <td width=142 colspan=4 valign=top style='width:106.3pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:28.7pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:1.45pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>09-Ógão Emissor: </span><br/>
+                   <span id="orgaoEmissorTSpan"></span></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.45pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                  <td width=76 colspan=2 valign=top style='width:56.75pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:28.7pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:-1.0pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>10-U.F.: </span><br/>
+                   <span id="ufTSpan"></span></p>
+                  </td>
+                  <td width=246 colspan=4 valign=top style='width:184.2pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:28.7pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:-1.1pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>11-CPF: </span><br/>
+                   <span id="cpfTTab"></span></p>
+                  </td>
+                 </tr>
+                 <tr style='height:20.75pt'>
+                  <td width=661 colspan=11 valign=top style='width:496.0pt;border:solid black 1.0pt;
+                  border-top:none;padding:2.3pt 9.0pt 0in 0in;height:20.75pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.1pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>07-Sexo: (<b class="sexoX" id="sexoX_o">X</b>) Masculino   (<b class="sexoX" id="sexoX_a">X</b>) Feminino  
+                  (<b class="sexoX" id="sexoX_x">X</b>) Não definido  </span></p>
+                  </td>
+                 </tr>
+                 <tr style='height:31.3pt'>
+                  <td width=317 colspan=4 valign=top style='width:237.65pt;border:solid black 1.0pt;
+                  border-top:none;padding:2.3pt 9.0pt 0in 0in;height:31.3pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:2.8pt;margin-bottom:
+                  0in;margin-left:1.4pt;text-align:justify;text-justify:inter-ideograph;
+                  line-height:normal'><span style='font-size:10.0pt;font-family:"Times New Roman",serif'>13-Estado
+                  Civil:    (<b class="estadoCivilX" id="estadoCivilX_c">X</b>) Casado  (<b class="estadoCivilX" id="estadoCivilX_u">X</b>) União Estável (<b class="estadoCivilX" id="estadoCivilX_s">X</b>) Solteiro           
+                  (<b class="estadoCivilX" id="estadoCivilX_v">X</b>) Viúvo     (<b class="estadoCivilX" id="estadoCivilX_d">X</b>) Sep/Divorciado </span></p>
+                  </td>
+                  <td width=344 colspan=7 valign=top style='width:258.35pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:31.3pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:-.95pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> 14-Profissão: </span><br/>
+                   <span id="profissaoTSpan"></p>
+                  </td>
+                 </tr>
+                 <tr style='height:31.25pt'>
+                  <td width=317 colspan=4 valign=top style='width:237.65pt;border:solid black 1.0pt;
+                  border-top:none;padding:2.3pt 9.0pt 0in 0in;height:31.25pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>15-Número da Matricula do Lote: </span><br/>
+                   <span id="matriculaSpan"></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                  <td width=344 colspan=7 valign=top style='width:258.35pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:31.25pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:-.95pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> 16-Número da Certidão Negativa: </span><br/>
+                   <span id="negativaSpan"></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:-.95pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                 </tr>
+                 <tr style='height:13.8pt'>
+                  <td width=661 colspan=11 valign=top style='width:496.0pt;border:solid black 1.0pt;
+                  border-top:none;background:#B2B2B2;padding:2.3pt 9.0pt 0in 0in;height:13.8pt'>
+                  <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                  margin-bottom:0in;margin-left:.9pt;text-align:center;line-height:normal'><span
+                  style='font-size:10.0pt;font-family:"Times New Roman",serif;font-weight: bold;'>DADOS DO CÔNJUGE
+                  </span></p>
+                  </td>
+                 </tr>
+                 <tr style='height:27.05pt'>
+                  <td width=444 colspan=8 valign=top style='width:333.05pt;border:solid black 1.0pt;
+                  border-top:none;padding:2.3pt 9.0pt 0in 0in;height:27.05pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>15-Nome do Cônjuge: </span><br/>
+                   <span id="nomeConjugeSpan"></span></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                  <td width=217 colspan=3 valign=top style='width:162.95pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:27.05pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.45pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>16-Data Nasc.: </span><br/>
+                   <span id="dataNasSpan"></span></p>
+                  </td>
+                 </tr>
+                 <tr style='height:27.0pt'>
+                  <td width=198 valign=top style='width:148.75pt;border:solid black 1.0pt;
+                  border-top:none;padding:2.3pt 9.0pt 0in 0in;height:27.0pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>17-RG: </span><br/>
+                   <span id="rgCSpan"></span></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:3.65pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                  <td width=142 colspan=4 valign=top style='width:106.3pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:27.0pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.45pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>18-Órgão Emissor: </span><br/>
+                   <span id="orgaoEmissorCSpan"></span></p>
+                  </td>
+                  <td width=66 valign=top style='width:49.55pt;border-top:none;border-left:
+                  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:27.0pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:.35pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>19-U.F.: </span><br/>
+                   <span id="ufCSpan"></span></p>
+                  </td>
+                  <td width=255 colspan=5 valign=top style='width:191.4pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:27.0pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.75pt;
+                  margin-left:1.45pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>20-CPF: </span><br/>
+                   <span id="cpfCSpan"></span></p>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.45pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'> </span></p>
+                  </td>
+                 </tr>
+                 <tr style='height:30.6pt'>
+                  <td width=283 colspan=3 valign=top style='width:212.45pt;border:solid black 1.0pt;
+                  border-top:none;padding:2.3pt 9.0pt 0in 0in;height:30.6pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:1.4pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>21-Telefone: </span><br/>
+                   <span id="telefoneCSpan"></span></p>
+                  </td>
+                  <td width=378 colspan=8 valign=top style='width:283.55pt;border-top:none;
+                  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+                  padding:2.3pt 9.0pt 0in 0in;height:30.6pt'>
+                  <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                  margin-left:.35pt;line-height:normal'><span style='font-size:10.0pt;
+                  font-family:"Times New Roman",serif'>22-Profissão: </span><br/>
+                   <span id="profissaoCSpan"></span></p>
+                  </td>
+                 </tr>
+                 <tr height=0>
+                  <td width=198 style='border:none'></td>
+                  <td width=76 style='border:none'></td>
+                  <td width=9 style='border:none'></td>
+                  <td width=34 style='border:none'></td>
+                  <td width=23 style='border:none'></td>
+                  <td width=66 style='border:none'></td>
+                  <td width=10 style='border:none'></td>
+                  <td width=28 style='border:none'></td>
+                  <td width=38 style='border:none'></td>
+                  <td width=63 style='border:none'></td>
+                  <td width=116 style='border:none'></td>
+                 </tr>
+                </table>
+                
+                <p class=MsoNormal style='margin-bottom:171.15pt'>&nbsp;</p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:11.5pt;
+                margin-left:26.05pt;text-indent:-.5pt;line-height:103%'><span style='font-size:
+                12.0pt;line-height:103%;font-family:"Times New Roman",serif'>Através deste,
+                requeremos o incentivo estabelecido pelo Programam Luz Solar Para Todos,
+                conforme Lei Municipal.  </span></p>
+                
+                <p class=MsoNormal align=right style='margin-top:0in;margin-right:.05pt;
+                margin-bottom:12.8pt;margin-left:0in;text-align:right'><span style='font-size:
+                12.0pt;line-height:107%;font-family:"Times New Roman",serif'>                                 
+                Data, <span id = "diaC"></span> de <span id = "mesC"></span> de 2022.                 </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:0in;margin-left:.4in;text-align:center'><span style='font-size:
+                12.0pt;line-height:107%;font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.5pt;
+                margin-left:165.45pt;text-indent:-.5pt;line-height:103%'><span
+                style='font-size:12.0pt;line-height:103%;font-family:"Times New Roman",serif'>_______________________________
+                </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:28.25pt;
+                margin-bottom:.15pt;margin-left:54.5pt;text-align:center;text-indent:-.5pt'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>Assinatura
+                do Titular </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:28.55pt;
+                margin-bottom:.15pt;margin-left:54.5pt;text-align:center;text-indent:-.5pt'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>RG
+                nº <b id = "rgTA2Span"></b></span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:0in;margin-left:.4in;text-align:center'><span style='font-size:
+                12.0pt;line-height:107%;font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:0in;
+                margin-bottom:0in;margin-left:.4in;text-align:center'><span style='font-size:
+                12.0pt;line-height:107%;font-family:"Times New Roman",serif'> </span></p>
+                
+                <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:.5pt;
+                margin-left:165.45pt;text-indent:-.5pt;line-height:103%'><span
+                style='font-size:12.0pt;line-height:103%;font-family:"Times New Roman",serif'>_______________________________
+                </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:28.5pt;
+                margin-bottom:.15pt;margin-left:54.5pt;text-align:center;text-indent:-.5pt'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>Assinatura
+                do Cônjuge </span></p>
+                
+                <p class=MsoNormal align=center style='margin-top:0in;margin-right:28.55pt;
+                margin-bottom:.15pt;margin-left:54.5pt;text-align:center;text-indent:-.5pt'><span
+                style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>RG
+                nº <b id = "rgCASpan"></b> </span></p>
+                
+                <p class=MsoNormal style='margin-bottom:171.15pt'>&nbsp;</p>
+                       
+
+        </div>
+        
+
+</body>
+
+</html>

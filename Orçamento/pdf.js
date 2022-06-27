@@ -414,7 +414,7 @@ function ExtractData(pageTxt) {
 
         let total = pageTxt.substring(
             pageTxt.lastIndexOf("Total:") + 6,
-            pageTxt.lastIndexOf("No valor"));
+            pageTxt.lastIndexOf("1. No valor"));
 
         console.log(total);
 
