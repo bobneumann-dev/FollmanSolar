@@ -288,10 +288,9 @@ function ExtractData(pageTxt) {
 
         let total = pageTxt.substring(
             pageTxt.indexOf("T O T AL:") + 9,
-            pageTxt.indexOf("SISTEMA COMPLETO"));
+            pageTxt.indexOf("SISTEMA COMPLETO"));        
 
         total = total.substring(0, total.indexOf(";"));
-        console.log(total);
 
         total = total.replace("R$", "");
         total = total.replace(".", "");
@@ -348,9 +347,12 @@ function ExtractData(pageTxt) {
             pageTxt.lastIndexOf("Q TD ITEM MODEL O") + 17,
             pageTxt.lastIndexOf(" T O T AL:"));
 
+
         var splits = itemsTxt.split(";");
-        splits.shift();
-        splits.pop();        
+        //splits.shift();
+        splits.pop();
+
+        console.log(splits);
 
         let items = [];
         for (let i = 0; i < splits.length; i++) {
@@ -386,7 +388,7 @@ function ExtractText() {
     var input = document.getElementById("file-id");
     var fReader = new FileReader();
     fReader.readAsDataURL(input.files[0]);
-     console.log(input.files[0]);
+     //console.log(input.files[0]);
     fReader.onloadend = function (event) {
         convertDataURIToBinary(event.target.result);
     }

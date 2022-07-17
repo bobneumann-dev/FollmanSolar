@@ -17,6 +17,9 @@ var estadosCivis = [
         }, {
             "name": "u",
             "value": "União Estável" 
+        },{
+            "name": "n",
+            "value": "" 
         }]
     },
     {
@@ -36,6 +39,9 @@ var estadosCivis = [
         }, {
             "name": "u",
             "value": "União Estável" 
+        },{
+            "name": "n",
+            "value": "" 
         }]
     },
     {
@@ -55,8 +61,34 @@ var estadosCivis = [
         },{
             "name": "u",
             "value": "União Estável" 
+        },{
+            "name": "n",
+            "value": "" 
         }]
-    }];
+    },
+    {
+        pronome: "n", //Nulo
+        estados: [{
+            "name": "c",
+            "value": ""
+        }, {
+            "name": "v",
+            "value": ""
+        }, {
+            "name": "s",
+            "value": ""
+        }, {
+            "name": "d",
+            "value": ""   
+        }, {
+            "name": "u",
+            "value": "" 
+        },{
+            "name": "n",
+            "value": "" 
+        }]
+    },
+];
 
 
 function SetDateInput(input, date) {
@@ -94,12 +126,12 @@ function DefaultObj() {
         "orgaoEmissorT":"",
         "ufT":"",
         "cpfT":"",
-        "sexo":"o",
-        "estadoCivil":"c",
+        "sexo":"n",
+        "estadoCivil":"n",
         "profissaoT":"",
         "matricula":"",
         "negativa":"",
-        "tipo":"i",
+        "tipo":"n",
 
         "nomeConjuge":"",
         "dataNas":"",

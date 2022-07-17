@@ -333,7 +333,7 @@ function ExtractData(pageTxt) {
             pageTxt.lastIndexOf("END. ENTREGA:"))
         
         //Normalizar categorias
-        normalizar.forEach(v => itemsTxtStr = itemsTxtStr.replace(v.str, v.replace));
+        normalizar.forEach(v => itemsTxtStr = itemsTxtStr.replaceAll(v.str, v.replace));
 
         let itemsTxt = itemsTxtStr.split(' ');
 
@@ -414,7 +414,7 @@ function ExtractData(pageTxt) {
 
         let total = pageTxt.substring(
             pageTxt.lastIndexOf("Total:") + 6,
-            pageTxt.lastIndexOf("1. No valor"));
+            pageTxt.indexOf("1)"));
 
         console.log(total);
 

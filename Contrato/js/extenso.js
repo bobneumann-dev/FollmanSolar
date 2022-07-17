@@ -27,7 +27,7 @@ function ValorPorExtensoReal(valor) {
 	let real = Math.trunc(valor) + "";
 	let centavos = Math.trunc((valor * 100) % 100) + "";
 
-	console.log(centavos);
+	//console.log(centavos);
 
 	output = real.extenso() + " reais";
 
