@@ -252,7 +252,7 @@ function PreencherCampos(d, completo) {
 
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
-    //console.log(pageTxt);
+    console.log(pageTxt);
 
     //Cliente/Cidade
     if (pageTxt.includes("Cliente:")) {

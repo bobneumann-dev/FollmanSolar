@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Orçamento"
+    "\\Contrato",
+    "\\Contrato\\js",
+    "\\Documentos\\js"
   ],
-  "SelectedNode": "\\Orçamento\\orcamento.js",
+  "SelectedNode": "\\Contrato",
   "PreviewInSolutionExplorer": false
 }
