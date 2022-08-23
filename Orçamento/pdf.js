@@ -295,8 +295,6 @@ function PreencherCampos(d, completo) {
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
     
-    console.log(pageTxt);    
-
     //Extrair Items
     //OK
     if (pageTxt.includes("Descrição Tipo Quantidade")) {
@@ -337,7 +335,6 @@ function ExtractData(pageTxt) {
 
         let itemsTxt = itemsTxtStr.split(' ');
 
-        //console.log(itemsTxt);
         let items = [];
         let itemName = "";
 

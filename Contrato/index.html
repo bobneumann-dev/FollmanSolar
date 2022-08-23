@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="pt-br">
+
 <head>
     <title>Follmann Solar - Gerador de Contratos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,9 +10,9 @@
             width: 210mm;
             height: 297mm;
             padding: 10mm;
-            margin: 3mm auto;
-            /*
-                border-radius: 5px;
+            margin: 0mm auto;
+
+            /*border-radius: 5px;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
                 border: 1px #D3D3D3 solid;
                 border: 1px solid black;
@@ -44,7 +45,7 @@
             }
 
             .page {
-                margin: 0;
+                margin: 0mm;
                 box-shadow: 0;
                 border: 0px;
             }
@@ -59,7 +60,6 @@
         }
     </style>
     <style>
-
         /* Font Definitions */
         @font-face {
             font-family: Wingdings;
@@ -215,18 +215,21 @@
         }
     </style>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/all.css" rel="stylesheet"  />
+    <link href="css/all.css" rel="stylesheet" />
 
 </head>
 
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"></script>
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
     <script src="js/pdf.js"></script>
     <script src="js/orcamento.js"></script>
@@ -380,6 +383,52 @@
                 event.preventDefault();
                 return false;
             });
+
+            $("#tipoContrato").on('change', () => {
+                let val = $("#tipoContrato").val();
+
+                if (val == "1") {
+                    $("#cnpj").text("31.075.819/0001-41");
+                    $("#cnpj2").text("31.075.819/0001-41");
+                    $("#endereco").html("<b><u>AVENIDA INDEPENDÊNCIA, Nº 1108, </u></b>Bairro <b><u>FLOR DA SERRA</u></b>");
+                    $("#cep").text("85885-000");
+                    $("#conta").text("36492-9");
+                    $("#cidadeContrato").text("Serranópolis do Iguaçu - PR");
+                    $("#cidadeFilial").text("SERRANÓPOLIS DO IGUAÇU");
+                    $("#assinaturaPrincipal").prop('src', "images/assinatura_Valmir.png");
+
+                    $("#contratatado1Div").show();
+                    $("#contratatado2Div").hide();
+
+                    $("#clausulasPadrao").show();
+                    $("#clausulasPrefeitura").hide();
+                }
+                else {
+                    $("#cnpj").text("31.075.819/0002-22");
+                    $("#cnpj2").text("31.075.819/0002-22");
+                    $("#endereco").html("<b><u>AVENIDA TORRES, Nº 1862, </u></b> Bairro <b><u>CENTRO</u></b>");
+                    $("#cep").text("85880-000");
+                    $("#conta").text("36492-9");
+                    $("#cidadeContrato").text("Itaipulândia - PR");
+                    $("#assinaturaPrincipal").prop('src', "images/assinatura_Itaipulandia.png");
+
+                    $("#contratatado2Div").show();
+                    $("#contratatado1Div").hide();
+                    $("#cidadeFilial").text("ITAIPULÂNDIA");
+
+                    if (val == "2") {
+                        $("#clausulasPadrao").show();
+                        $("#clausulasPrefeitura").hide();
+                    }
+                    else {
+                        $("#clausulasPadrao").hide();
+                        $("#clausulasPrefeitura").show();
+                    }
+                }
+
+                //GOTO
+
+            });
         }
 
         function Pdf(idElement) {
@@ -501,15 +550,20 @@
                                     <!--Botões-->
                                     <div class="row">
                                         <div class="col-12 d-flex justify-content-end">
-                                            <input type="file" id="file-id" name="file_name" onchange="ExtractText();" style="display:none" accept=".pdf">
-                                            <input type="file" id="importJson" onchange="ImportarOrcamento();" style="display:none" accept=".json">
-                                            <button type="button" class="btn btn-danger btn-sm ms-2" onclick="$('#file-id').trigger('click');">
+                                            <input type="file" id="file-id" name="file_name" onchange="ExtractText();"
+                                                style="display:none" accept=".pdf">
+                                            <input type="file" id="importJson" onchange="ImportarOrcamento();"
+                                                style="display:none" accept=".json">
+                                            <button type="button" class="btn btn-danger btn-sm ms-2"
+                                                onclick="$('#file-id').trigger('click');">
                                                 <i class="fa fa-file-pdf"></i>
                                             </button>
-                                            <button type="button" class="btn btn-info btn-sm ms-2 text-white" onclick="$('#importJson').trigger('click');">
+                                            <button type="button" class="btn btn-info btn-sm ms-2 text-white"
+                                                onclick="$('#importJson').trigger('click');">
                                                 <i class="fa fa-file-import"></i>
                                             </button>
-                                            <button type="button" class="btn btn-success btn-sm ms-2 me-2 text-white" onclick="DownloadJson(orcamento, orcamento.cliente);">
+                                            <button type="button" class="btn btn-success btn-sm ms-2 me-2 text-white"
+                                                onclick="DownloadJson(orcamento, orcamento.cliente);">
                                                 <i class="fa fa-download"></i>
                                             </button>
                                         </div>
@@ -518,29 +572,36 @@
                                         Criar Contrato
                                     </h4>
                                     <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-12 col-md-6">
                                             <span class="small fw-bold">Modelo Contrato:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cliente" name="cliente" />
+                                            <select class="form-control form-control-sm mt-1" id="tipoContrato">
+                                                <option value="1">Serranópolis</option>
+                                                <option value="2">Itaipulândia</option>
+                                                <option value="4">Itaipulândia-Prefeitura</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
                                             <span class="small fw-bold">Cliente:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cliente" name="cliente" />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt"
+                                                id="cliente" name="cliente" />
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">CPF/CNPJ:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="documento" name="documento" />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt"
+                                                id="documento" name="documento" />
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Gênero:</span>
                                             <br />
-                                            <select class="form-control form-control-sm mt-1 txtIpt" id="pronomeTratamento" name="pronomeTratamento">
+                                            <select class="form-control form-control-sm mt-1 txtIpt"
+                                                id="pronomeTratamento" name="pronomeTratamento">
                                                 <option value="o">Masculino</option>
                                                 <option value="a">Feminino</option>
                                             </select>
@@ -548,12 +609,14 @@
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Nacionalidade:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="nacionalidade" name="nacionalidade" />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt"
+                                                id="nacionalidade" name="nacionalidade" />
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Estado Civil:</span>
                                             <br />
-                                            <select class="form-control form-control-sm mt-1 txtIpt" id="estadoCivil" name="estadoCivil">
+                                            <select class="form-control form-control-sm mt-1 txtIpt" id="estadoCivil"
+                                                name="estadoCivil">
                                                 <option value="c">Casado</option>
                                                 <option value="s">Solteiro</option>
                                                 <option value="v">Viuvo</option>
@@ -565,25 +628,425 @@
                                         <div class="col-12 col-md-6">
                                             <span class="small fw-bold">CEP:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cep" name="cep" />
+                                            <input type="text" class="form-control form-control-sm mt-1 txtIpt" id="cep"
+                                                name="cep" />
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <span class="small fw-bold">Cidade:</span>
                                             <br />
-                                            <select class="form-control form-control-sm mt-1 txtIpt" id="cidade" name="cidade">
+                                            <select class="form-control form-control-sm mt-1 txtIpt" id="cidade"
+                                                name="cidade">
                                                 <option></option>
+                                                <option value="Abatiá">Abatiá</option>
+                                                <option value="Adrianópolis">Adrianópolis</option>
+                                                <option value="Agudos do Sul">Agudos do Sul</option>
+                                                <option value="Almirante Tamandaré">Almirante Tamandaré</option>
+                                                <option value="Altamira do Paraná">Altamira do Paraná</option>
+                                                <option value="Alto Paraná">Alto Paraná</option>
+                                                <option value="Alto Piquiri">Alto Piquiri</option>
+                                                <option value="Altônia">Altônia</option>
+                                                <option value="Alvorada do Sul">Alvorada do Sul</option>
+                                                <option value="Amaporã">Amaporã</option>
+                                                <option value="Ampére">Ampére</option>
+                                                <option value="Anahy">Anahy</option>
+                                                <option value="Andirá">Andirá</option>
+                                                <option value="Ângulo">Ângulo</option>
+                                                <option value="Antonina">Antonina</option>
+                                                <option value="Antônio Olinto">Antônio Olinto</option>
+                                                <option value="Apucarana">Apucarana</option>
+                                                <option value="Arapongas">Arapongas</option>
+                                                <option value="Arapoti">Arapoti</option>
+                                                <option value="Arapuã">Arapuã</option>
+                                                <option value="Araruna">Araruna</option>
+                                                <option value="Araucária">Araucária</option>
+                                                <option value="Ariranha do Ivaí">Ariranha do Ivaí</option>
+                                                <option value="Assaí">Assaí</option>
+                                                <option value="Assis Chateaubriand">Assis Chateaubriand</option>
+                                                <option value="Astorga">Astorga</option>
+                                                <option value="Atalaia">Atalaia</option>
+                                                <option value="Balsa Nova">Balsa Nova</option>
+                                                <option value="Bandeirantes">Bandeirantes</option>
+                                                <option value="Barbosa Ferraz">Barbosa Ferraz</option>
+                                                <option value="Barra do Jacaré">Barra do Jacaré</option>
+                                                <option value="Barracão">Barracão</option>
+                                                <option value="Bela Vista da Caroba">Bela Vista da Caroba</option>
+                                                <option value="Bela Vista do Paraíso">Bela Vista do Paraíso</option>
+                                                <option value="Bituruna">Bituruna</option>
+                                                <option value="Boa Esperança">Boa Esperança</option>
+                                                <option value="Boa Esperança do Iguaçu">Boa Esperança do Iguaçu</option>
+                                                <option value="Boa Ventura de São Roque">Boa Ventura de São Roque
+                                                </option>
+                                                <option value="Boa Vista da Aparecida">Boa Vista da Aparecida</option>
+                                                <option value="Bocaiúva do Sul">Bocaiúva do Sul</option>
+                                                <option value="Bom Jesus do Sul">Bom Jesus do Sul</option>
+                                                <option value="Bom Sucesso">Bom Sucesso</option>
+                                                <option value="Bom Sucesso do Sul">Bom Sucesso do Sul</option>
+                                                <option value="Borrazópolis">Borrazópolis</option>
+                                                <option value="Braganey">Braganey</option>
+                                                <option value="Brasilândia do Sul">Brasilândia do Sul</option>
+                                                <option value="Cafeara">Cafeara</option>
+                                                <option value="Cafelândia">Cafelândia</option>
+                                                <option value="Cafezal do Sul">Cafezal do Sul</option>
+                                                <option value="Califórnia">Califórnia</option>
+                                                <option value="Cambará">Cambará</option>
+                                                <option value="Cambé">Cambé</option>
+                                                <option value="Cambira">Cambira</option>
+                                                <option value="Campina da Lagoa">Campina da Lagoa</option>
+                                                <option value="Campina do Simão">Campina do Simão</option>
+                                                <option value="Campina Grande do Sul">Campina Grande do Sul</option>
+                                                <option value="Campo Bonito">Campo Bonito</option>
+                                                <option value="Campo do Tenente">Campo do Tenente</option>
+                                                <option value="Campo Largo">Campo Largo</option>
+                                                <option value="Campo Magro">Campo Magro</option>
+                                                <option value="Campo Mourão">Campo Mourão</option>
+                                                <option value="Cândido de Abreu">Cândido de Abreu</option>
+                                                <option value="Candói">Candói</option>
+                                                <option value="Cantagalo">Cantagalo</option>
+                                                <option value="Capanema">Capanema</option>
+                                                <option value="Capitão Leônidas Marques">Capitão Leônidas Marques
+                                                </option>
+                                                <option value="Carambeí">Carambeí</option>
+                                                <option value="Carlópolis">Carlópolis</option>
                                                 <option value="Cascavel">Cascavel</option>
+                                                <option value="Castro">Castro</option>
+                                                <option value="Catanduvas">Catanduvas</option>
+                                                <option value="Centenário do Sul">Centenário do Sul</option>
+                                                <option value="Cerro Azul">Cerro Azul</option>
                                                 <option value="Céu Azul">Céu Azul</option>
+                                                <option value="Chopinzinho">Chopinzinho</option>
+                                                <option value="Cianorte">Cianorte</option>
+                                                <option value="Cidade Gaúcha">Cidade Gaúcha</option>
+                                                <option value="Clevelândia">Clevelândia</option>
+                                                <option value="Colombo">Colombo</option>
+                                                <option value="Colorado">Colorado</option>
+                                                <option value="Congonhinhas">Congonhinhas</option>
+                                                <option value="Conselheiro Mairinck">Conselheiro Mairinck</option>
+                                                <option value="Contenda">Contenda</option>
+                                                <option value="Corbélia">Corbélia</option>
+                                                <option value="Cornélio Procópio">Cornélio Procópio</option>
+                                                <option value="Coronel Domingos Soares">Coronel Domingos Soares</option>
+                                                <option value="Coronel Vivida">Coronel Vivida</option>
+                                                <option value="Corumbataí do Sul">Corumbataí do Sul</option>
+                                                <option value="Cruz Machado">Cruz Machado</option>
+                                                <option value="Cruzeiro do Iguaçu">Cruzeiro do Iguaçu</option>
+                                                <option value="Cruzeiro do Oeste">Cruzeiro do Oeste</option>
+                                                <option value="Cruzeiro do Sul">Cruzeiro do Sul</option>
+                                                <option value="Cruzmaltina">Cruzmaltina</option>
                                                 <option value="Curitiba">Curitiba</option>
+                                                <option value="Curiúva">Curiúva</option>
+                                                <option value="Diamante d'Oeste">Diamante d'Oeste</option>
+                                                <option value="Diamante do Norte">Diamante do Norte</option>
+                                                <option value="Diamante do Sul">Diamante do Sul</option>
+                                                <option value="Dois Vizinhos">Dois Vizinhos</option>
+                                                <option value="Douradina">Douradina</option>
+                                                <option value="Doutor Camargo">Doutor Camargo</option>
+                                                <option value="Doutor Ulysses">Doutor Ulysses</option>
+                                                <option value="Enéas Marques">Enéas Marques</option>
+                                                <option value="Engenheiro Beltrão">Engenheiro Beltrão</option>
+                                                <option value="Entre Rios do Oeste">Entre Rios do Oeste</option>
+                                                <option value="Esperança Nova">Esperança Nova</option>
+                                                <option value="Espigão Alto do Iguaçu">Espigão Alto do Iguaçu</option>
+                                                <option value="Farol">Farol</option>
+                                                <option value="Faxinal">Faxinal</option>
+                                                <option value="Fazenda Rio Grande">Fazenda Rio Grande</option>
+                                                <option value="Fênix">Fênix</option>
+                                                <option value="Fernandes Pinheiro">Fernandes Pinheiro</option>
+                                                <option value="Figueira">Figueira</option>
+                                                <option value="Flor da Serra do Sul">Flor da Serra do Sul</option>
+                                                <option value="Floraí">Floraí</option>
+                                                <option value="Floresta">Floresta</option>
+                                                <option value="Florestópolis">Florestópolis</option>
+                                                <option value="Flórida">Flórida</option>
+                                                <option value="Formosa do Oeste">Formosa do Oeste</option>
                                                 <option value="Foz do Iguaçu">Foz do Iguaçu</option>
+                                                <option value="Foz do Jordão">Foz do Jordão</option>
+                                                <option value="Francisco Alves">Francisco Alves</option>
+                                                <option value="Francisco Beltrão">Francisco Beltrão</option>
+                                                <option value="General Carneiro">General Carneiro</option>
+                                                <option value="Godoy Moreira">Godoy Moreira</option>
+                                                <option value="Goioerê">Goioerê</option>
+                                                <option value="Goioxim">Goioxim</option>
+                                                <option value="Grandes Rios">Grandes Rios</option>
+                                                <option value="Guaíra">Guaíra</option>
+                                                <option value="Guairaçá">Guairaçá</option>
+                                                <option value="Guamiranga">Guamiranga</option>
+                                                <option value="Guapirama">Guapirama</option>
+                                                <option value="Guaporema">Guaporema</option>
+                                                <option value="Guaraci">Guaraci</option>
+                                                <option value="Guaraniaçu">Guaraniaçu</option>
+                                                <option value="Guarapuava">Guarapuava</option>
+                                                <option value="Guaraqueçaba">Guaraqueçaba</option>
+                                                <option value="Guaratuba">Guaratuba</option>
+                                                <option value="Honório Serpa">Honório Serpa</option>
+                                                <option value="Ibaiti">Ibaiti</option>
+                                                <option value="Ibema">Ibema</option>
+                                                <option value="Ibiporã">Ibiporã</option>
+                                                <option value="Icaraíma">Icaraíma</option>
+                                                <option value="Iguaraçu">Iguaraçu</option>
+                                                <option value="Iguatu">Iguatu</option>
+                                                <option value="Imbaú">Imbaú</option>
+                                                <option value="Imbituva">Imbituva</option>
+                                                <option value="Inácio Martins">Inácio Martins</option>
+                                                <option value="Inajá">Inajá</option>
+                                                <option value="Indianópolis">Indianópolis</option>
+                                                <option value="Ipiranga">Ipiranga</option>
+                                                <option value="Iporã">Iporã</option>
+                                                <option value="Iracema do Oeste">Iracema do Oeste</option>
+                                                <option value="Irati">Irati</option>
+                                                <option value="Iretama">Iretama</option>
+                                                <option value="Itaguajé">Itaguajé</option>
                                                 <option value="Itaipulândia">Itaipulândia</option>
-                                                <option value="Marechal Candido Rondon">Marechal Candido Rondon</option>
+                                                <option value="Itambaracá">Itambaracá</option>
+                                                <option value="Itambé">Itambé</option>
+                                                <option value="Itapejara d'Oeste">Itapejara d'Oeste</option>
+                                                <option value="Itaperuçu">Itaperuçu</option>
+                                                <option value="Itaúna do Sul">Itaúna do Sul</option>
+                                                <option value="Ivaí">Ivaí</option>
+                                                <option value="Ivaiporã">Ivaiporã</option>
+                                                <option value="Ivaté">Ivaté</option>
+                                                <option value="Ivatuba">Ivatuba</option>
+                                                <option value="Jaboti">Jaboti</option>
+                                                <option value="Jacarezinho">Jacarezinho</option>
+                                                <option value="Jaguapitã">Jaguapitã</option>
+                                                <option value="Jaguariaíva">Jaguariaíva</option>
+                                                <option value="Jandaia do Sul">Jandaia do Sul</option>
+                                                <option value="Janiópolis">Janiópolis</option>
+                                                <option value="Japira">Japira</option>
+                                                <option value="Japurá">Japurá</option>
+                                                <option value="Jardim Alegre">Jardim Alegre</option>
+                                                <option value="Jardim Olinda">Jardim Olinda</option>
+                                                <option value="Jataizinho">Jataizinho</option>
+                                                <option value="Jesuítas">Jesuítas</option>
+                                                <option value="Joaquim Távora">Joaquim Távora</option>
+                                                <option value="Jundiaí do Sul">Jundiaí do Sul</option>
+                                                <option value="Juranda">Juranda</option>
+                                                <option value="Jussara">Jussara</option>
+                                                <option value="Kaloré">Kaloré</option>
+                                                <option value="Lapa">Lapa</option>
+                                                <option value="Laranjal">Laranjal</option>
+                                                <option value="Laranjeiras do Sul">Laranjeiras do Sul</option>
+                                                <option value="Leópolis">Leópolis</option>
+                                                <option value="Lidianópolis">Lidianópolis</option>
+                                                <option value="Lindoeste">Lindoeste</option>
+                                                <option value="Loanda">Loanda</option>
+                                                <option value="Lobato">Lobato</option>
+                                                <option value="Londrina">Londrina</option>
+                                                <option value="Luiziana">Luiziana</option>
+                                                <option value="Lunardelli">Lunardelli</option>
+                                                <option value="Lupionópolis">Lupionópolis</option>
+                                                <option value="Mallet">Mallet</option>
+                                                <option value="Mamborê">Mamborê</option>
+                                                <option value="Mandaguaçu">Mandaguaçu</option>
+                                                <option value="Mandaguari">Mandaguari</option>
+                                                <option value="Mandirituba">Mandirituba</option>
+                                                <option value="Manfrinópolis">Manfrinópolis</option>
+                                                <option value="Mangueirinha">Mangueirinha</option>
+                                                <option value="Manoel Ribas">Manoel Ribas</option>
+                                                <option value="Marechal Cândido Rondon">Marechal Cândido Rondon</option>
+                                                <option value="Maria Helena">Maria Helena</option>
+                                                <option value="Marialva">Marialva</option>
+                                                <option value="Marilândia do Sul">Marilândia do Sul</option>
+                                                <option value="Marilena">Marilena</option>
+                                                <option value="Mariluz">Mariluz</option>
+                                                <option value="Maringá">Maringá</option>
+                                                <option value="Mariópolis">Mariópolis</option>
+                                                <option value="Maripá">Maripá</option>
+                                                <option value="Marmeleiro">Marmeleiro</option>
+                                                <option value="Marquinho">Marquinho</option>
+                                                <option value="Marumbi">Marumbi</option>
+                                                <option value="Matelândia">Matelândia</option>
+                                                <option value="Matinhos">Matinhos</option>
+                                                <option value="Mato Rico">Mato Rico</option>
+                                                <option value="Mauá da Serra">Mauá da Serra</option>
                                                 <option value="Medianeira">Medianeira</option>
+                                                <option value="Mercedes">Mercedes</option>
+                                                <option value="Mirador">Mirador</option>
+                                                <option value="Miraselva">Miraselva</option>
                                                 <option value="Missal">Missal</option>
+                                                <option value="Moreira Sales">Moreira Sales</option>
+                                                <option value="Morretes">Morretes</option>
+                                                <option value="Munhoz de Melo">Munhoz de Melo</option>
+                                                <option value="Nossa Senhora das Graças">Nossa Senhora das Graças
+                                                </option>
+                                                <option value="Nova Aliança do Ivaí">Nova Aliança do Ivaí</option>
+                                                <option value="Nova América da Colina">Nova América da Colina</option>
+                                                <option value="Nova Aurora">Nova Aurora</option>
+                                                <option value="Nova Cantu">Nova Cantu</option>
+                                                <option value="Nova Esperança">Nova Esperança</option>
+                                                <option value="Nova Esperança do Sudoeste">Nova Esperança do Sudoeste
+                                                </option>
+                                                <option value="Nova Fátima">Nova Fátima</option>
+                                                <option value="Nova Laranjeiras">Nova Laranjeiras</option>
+                                                <option value="Nova Londrina">Nova Londrina</option>
+                                                <option value="Nova Olímpia">Nova Olímpia</option>
+                                                <option value="Nova Prata do Iguaçu">Nova Prata do Iguaçu</option>
+                                                <option value="Nova Santa Bárbara">Nova Santa Bárbara</option>
+                                                <option value="Nova Santa Rosa">Nova Santa Rosa</option>
+                                                <option value="Nova Tebas">Nova Tebas</option>
+                                                <option value="Novo Itacolomi">Novo Itacolomi</option>
+                                                <option value="Ortigueira">Ortigueira</option>
+                                                <option value="Ourizona">Ourizona</option>
+                                                <option value="Ouro Verde do Oeste">Ouro Verde do Oeste</option>
+                                                <option value="Paiçandu">Paiçandu</option>
+                                                <option value="Palmas">Palmas</option>
+                                                <option value="Palmeira">Palmeira</option>
+                                                <option value="Palmital">Palmital</option>
+                                                <option value="Palotina">Palotina</option>
+                                                <option value="Paraíso do Norte">Paraíso do Norte</option>
+                                                <option value="Paranacity">Paranacity</option>
+                                                <option value="Paranaguá">Paranaguá</option>
+                                                <option value="Paranapoema">Paranapoema</option>
+                                                <option value="Paranavaí">Paranavaí</option>
+                                                <option value="Pato Bragado">Pato Bragado</option>
+                                                <option value="Pato Branco">Pato Branco</option>
+                                                <option value="Paula Freitas">Paula Freitas</option>
+                                                <option value="Paulo Frontin">Paulo Frontin</option>
+                                                <option value="Peabiru">Peabiru</option>
+                                                <option value="Perobal">Perobal</option>
+                                                <option value="Pérola">Pérola</option>
+                                                <option value="Pérola d'Oeste">Pérola d'Oeste</option>
+                                                <option value="Piên">Piên</option>
+                                                <option value="Pinhais">Pinhais</option>
+                                                <option value="Pinhal de São Bento">Pinhal de São Bento</option>
+                                                <option value="Pinhalão">Pinhalão</option>
+                                                <option value="Pinhão">Pinhão</option>
+                                                <option value="Piraí do Sul">Piraí do Sul</option>
+                                                <option value="Piraquara">Piraquara</option>
+                                                <option value="Pitanga">Pitanga</option>
+                                                <option value="Pitangueiras">Pitangueiras</option>
+                                                <option value="Planaltina do Paraná">Planaltina do Paraná</option>
+                                                <option value="Planalto">Planalto</option>
+                                                <option value="Ponta Grossa">Ponta Grossa</option>
+                                                <option value="Pontal do Paraná">Pontal do Paraná</option>
+                                                <option value="Porecatu">Porecatu</option>
+                                                <option value="Porto Amazonas">Porto Amazonas</option>
+                                                <option value="Porto Barreiro">Porto Barreiro</option>
+                                                <option value="Porto Rico">Porto Rico</option>
+                                                <option value="Porto Vitória">Porto Vitória</option>
+                                                <option value="Prado Ferreira">Prado Ferreira</option>
+                                                <option value="Pranchita">Pranchita</option>
+                                                <option value="Presidente Castelo Branco">Presidente Castelo Branco
+                                                </option>
+                                                <option value="Primeiro de Maio">Primeiro de Maio</option>
+                                                <option value="Prudentópolis">Prudentópolis</option>
+                                                <option value="Quarto Centenário">Quarto Centenário</option>
+                                                <option value="Quatiguá">Quatiguá</option>
+                                                <option value="Quatro Barras">Quatro Barras</option>
+                                                <option value="Quatro Pontes">Quatro Pontes</option>
+                                                <option value="Quedas do Iguaçu">Quedas do Iguaçu</option>
+                                                <option value="Querência do Norte">Querência do Norte</option>
+                                                <option value="Quinta do Sol">Quinta do Sol</option>
+                                                <option value="Quitandinha">Quitandinha</option>
+                                                <option value="Ramilândia">Ramilândia</option>
+                                                <option value="Rancho Alegre">Rancho Alegre</option>
+                                                <option value="Rancho Alegre d'Oeste">Rancho Alegre d'Oeste</option>
+                                                <option value="Realeza">Realeza</option>
+                                                <option value="Rebouças">Rebouças</option>
+                                                <option value="Renascença">Renascença</option>
+                                                <option value="Reserva">Reserva</option>
+                                                <option value="Reserva do Iguaçu">Reserva do Iguaçu</option>
+                                                <option value="Ribeirão Claro">Ribeirão Claro</option>
+                                                <option value="Ribeirão do Pinhal">Ribeirão do Pinhal</option>
+                                                <option value="Rio Azul">Rio Azul</option>
+                                                <option value="Rio Bom">Rio Bom</option>
+                                                <option value="Rio Bonito do Iguaçu">Rio Bonito do Iguaçu</option>
+                                                <option value="Rio Branco do Ivaí">Rio Branco do Ivaí</option>
+                                                <option value="Rio Branco do Sul">Rio Branco do Sul</option>
+                                                <option value="Rio Negro">Rio Negro</option>
+                                                <option value="Rolândia">Rolândia</option>
+                                                <option value="Roncador">Roncador</option>
+                                                <option value="Rondon">Rondon</option>
+                                                <option value="Rosário do Ivaí">Rosário do Ivaí</option>
+                                                <option value="Sabáudia">Sabáudia</option>
+                                                <option value="Salgado Filho">Salgado Filho</option>
+                                                <option value="Salto do Itararé">Salto do Itararé</option>
+                                                <option value="Salto do Lontra">Salto do Lontra</option>
+                                                <option value="Santa Amélia">Santa Amélia</option>
+                                                <option value="Santa Cecília do Pavão">Santa Cecília do Pavão</option>
+                                                <option value="Santa Cruz Monte Castelo">Santa Cruz Monte Castelo
+                                                </option>
+                                                <option value="Santa Fé">Santa Fé</option>
                                                 <option value="Santa Helena">Santa Helena</option>
-                                                <option value="Santa Terezinha de Itaipu">Santa Terezinha de Itaipu</option>
+                                                <option value="Santa Inês">Santa Inês</option>
+                                                <option value="Santa Isabel do Ivaí">Santa Isabel do Ivaí</option>
+                                                <option value="Santa Izabel do Oeste">Santa Izabel do Oeste</option>
+                                                <option value="Santa Lúcia">Santa Lúcia</option>
+                                                <option value="Santa Maria do Oeste">Santa Maria do Oeste</option>
+                                                <option value="Santa Mariana">Santa Mariana</option>
+                                                <option value="Santa Mônica">Santa Mônica</option>
+                                                <option value="Santa Tereza do Oeste">Santa Tereza do Oeste</option>
+                                                <option value="Santa Terezinha de Itaipu">Santa Terezinha de Itaipu
+                                                </option>
+                                                <option value="Santana do Itararé">Santana do Itararé</option>
+                                                <option value="Santo Antônio da Platina">Santo Antônio da Platina
+                                                </option>
+                                                <option value="Santo Antônio do Caiuá">Santo Antônio do Caiuá</option>
+                                                <option value="Santo Antônio do Paraíso">Santo Antônio do Paraíso
+                                                </option>
+                                                <option value="Santo Antônio do Sudoeste">Santo Antônio do Sudoeste
+                                                </option>
+                                                <option value="Santo Inácio">Santo Inácio</option>
+                                                <option value="São Carlos do Ivaí">São Carlos do Ivaí</option>
+                                                <option value="São Jerônimo da Serra">São Jerônimo da Serra</option>
+                                                <option value="São João">São João</option>
+                                                <option value="São João do Caiuá">São João do Caiuá</option>
+                                                <option value="São João do Ivaí">São João do Ivaí</option>
+                                                <option value="São João do Triunfo">São João do Triunfo</option>
+                                                <option value="São Jorge d'Oeste">São Jorge d'Oeste</option>
+                                                <option value="São Jorge do Ivaí">São Jorge do Ivaí</option>
+                                                <option value="São Jorge do Patrocínio">São Jorge do Patrocínio</option>
+                                                <option value="São José da Boa Vista">São José da Boa Vista</option>
+                                                <option value="São José das Palmeiras">São José das Palmeiras</option>
+                                                <option value="São José dos Pinhais">São José dos Pinhais</option>
+                                                <option value="São Manoel do Paraná">São Manoel do Paraná</option>
+                                                <option value="São Mateus do Sul">São Mateus do Sul</option>
                                                 <option value="São Miguel do Iguaçu">São Miguel do Iguaçu</option>
+                                                <option value="São Pedro do Iguaçu">São Pedro do Iguaçu</option>
+                                                <option value="São Pedro do Ivaí">São Pedro do Ivaí</option>
+                                                <option value="São Pedro do Paraná">São Pedro do Paraná</option>
+                                                <option value="São Sebastião da Amoreira">São Sebastião da Amoreira
+                                                </option>
+                                                <option value="São Tomé">São Tomé</option>
+                                                <option value="Sapopema">Sapopema</option>
+                                                <option value="Sarandi">Sarandi</option>
+                                                <option value="Saudade do Iguaçu">Saudade do Iguaçu</option>
+                                                <option value="Sengés">Sengés</option>
                                                 <option value="Serranópolis do Iguaçu">Serranópolis do Iguaçu</option>
+                                                <option value="Sertaneja">Sertaneja</option>
+                                                <option value="Sertanópolis">Sertanópolis</option>
+                                                <option value="Siqueira Campos">Siqueira Campos</option>
+                                                <option value="Sulina">Sulina</option>
+                                                <option value="Tamarana">Tamarana</option>
+                                                <option value="Tamboara">Tamboara</option>
+                                                <option value="Tapejara">Tapejara</option>
+                                                <option value="Tapira">Tapira</option>
+                                                <option value="Teixeira Soares">Teixeira Soares</option>
+                                                <option value="Telêmaco Borba">Telêmaco Borba</option>
+                                                <option value="Terra Boa">Terra Boa</option>
+                                                <option value="Terra Rica">Terra Rica</option>
+                                                <option value="Terra Roxa">Terra Roxa</option>
+                                                <option value="Tibagi">Tibagi</option>
+                                                <option value="Tijucas do Sul">Tijucas do Sul</option>
+                                                <option value="Toledo">Toledo</option>
+                                                <option value="Tomazina">Tomazina</option>
+                                                <option value="Três Barras do Paraná">Três Barras do Paraná</option>
+                                                <option value="Tunas do Paraná">Tunas do Paraná</option>
+                                                <option value="Tuneiras do Oeste">Tuneiras do Oeste</option>
+                                                <option value="Tupãssi">Tupãssi</option>
+                                                <option value="Turvo">Turvo</option>
+                                                <option value="Ubiratã">Ubiratã</option>
+                                                <option value="Umuarama">Umuarama</option>
+                                                <option value="União da Vitória">União da Vitória</option>
+                                                <option value="Uniflor">Uniflor</option>
+                                                <option value="Uraí">Uraí</option>
+                                                <option value="Ventania">Ventania</option>
+                                                <option value="Vera Cruz do Oeste">Vera Cruz do Oeste</option>
+                                                <option value="Verê">Verê</option>
+                                                <option value="Vila Alta">Vila Alta</option>
+                                                <option value="Virmond">Virmond</option>
+                                                <option value="Vitorino">Vitorino</option>
+                                                <option value="Wenceslau Braz">Wenceslau Braz</option>
+                                                <option value="Xambrê">Xambrê</option>
                                             </select>
                                         </div>
                                     </div>
@@ -591,25 +1054,30 @@
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Valor mão de obra:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1 valueIpt" id="valorMaoDeObra" />
+                                            <input type="text" class="form-control form-control-sm mt-1 valueIpt"
+                                                id="valorMaoDeObra" />
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Valor cotação:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1 valueIpt" id="valorCotacao" />
+                                            <input type="text" class="form-control form-control-sm mt-1 valueIpt"
+                                                id="valorCotacao" />
                                         </div>
 
                                         <div class="col-12 col-md-3">
                                             <span class="small fw-bold">Investimento total:</span>
                                             <br />
-                                            <input type="text" class="form-control form-control-sm mt-1" id="valorOrcamento" disabled />
+                                            <input type="text" class="form-control form-control-sm mt-1"
+                                                id="valorOrcamento" disabled />
                                         </div>
                                     </div>
 
                                     <!--Items-->
                                     <div class="row mt-4">
                                         <div class="col-12 small">
-                                            <table class="small" width="100%" style="border: 1px solid black; border-collapse: collapse;" cellpadding="0" cellspacing="0">
+                                            <table class="small" width="100%"
+                                                style="border: 1px solid black; border-collapse: collapse;"
+                                                cellpadding="0" cellspacing="0">
                                                 <thead style="border:1px solid black;">
                                                     <tr>
                                                         <th style="border-right:1px solid black;">Qtd</th>
@@ -648,8 +1116,7 @@
         <div class="page">
             <p class=MsoNormal>
                 <span lang=PT-BR>
-                    <img width=276 height=150 id="Picture 3"
-                         src="images/image001.png">
+                    <img width=276 height=150 id="Picture 3" src="images/image001.png">
                 </span>
             </p>
             <br />
@@ -662,36 +1129,43 @@
             <p class=MsoNormal><span lang=PT-BR>&nbsp;</span></p>
 
             <p class=MsoNormal style='text-indent:35.4pt'>
-                <span lang=PT-BR
-                      style='font-size:14.0pt;line-height:107%'>&nbsp;</span>
+                <span lang=PT-BR style='font-size:14.0pt;line-height:107%'>&nbsp;</span>
             </p>
 
             <br clear=ALL>
 
             <p class=MsoNormal style='text-align:justify'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:107%;font-family:"Arial",sans-serif'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:107%;font-family:"Arial",sans-serif'>
                     Pelo
                     presente instrumento particular, designada simplesmente <b>
                         CONTRATADA, <u>
                             FOLLMANN
                             ENERGIA SOLAR.
                         </u>
-                    </b>CNPJ <b><u>31.075.819/0001-41.</u></b> S<span style='letter-spacing:-.15pt'>ituada na <b><u>AVENIDA INDEPENDÊNCIA, </u></b></span><b>
+                    </b>CNPJ <b><u id="cnpj">31.075.819/0001-41.</u></b>
+                    <span style='letter-spacing:-.15pt'>Situada na </span>
+                    <span id="endereco">
+                        <b><u>AVENIDA INDEPENDÊNCIA, Nº 1108,</u></b>Bairro <b><u>FLOR DA SERRA</u></b>
+                    </span>
+                    ,Cidade
+                    <span style='letter-spacing:.65pt'>
+                        de 
+                        <b>
+                            <u id="cidadeFilial">SERRANÓPOLIS DO IGUAÇU</u>
+                        </b>
+                    </span>,                                       
+                    <b>
                         <u>
-                            Nº<span style='letter-spacing:-.15pt'> 1108</span>,
+                            PR
                         </u>
-                    </b>Bairro <b><u>FLOR DA SERRA</u></b>,
-                    Cidade<span style='letter-spacing:.65pt'>
-                        de <b><u>SERRANÓPOLIS DO</u></b>
-                        <b><u>IGUAÇU</u></b>
-                    </span><b><u>,PR,</u></b>
-                    CEP<b><u> 85885-000</u> </b>de outro lado o <b>
+                    </b>,
+                    CEP&nbsp;<b><u id="cep">85885-000</u> </b>de outro lado o <b>
                         CONTRATANTE,
                         <u id="clienteSpan"></u>,
                     </b>
                     <span id="nacionalidadeSpan">nacionalidade</span>,
-                    <span id="estadoCivilSpan">casado</span>, inscrito no CPF/CNPJ sob o <a name="_Hlk39479136"><b>Nº</b></a><b>
+                    <span id="estadoCivilSpan">casado</span>, inscrito no CPF/CNPJ sob o <a
+                        name="_Hlk39479136"><b>Nº</b></a><b>
                         <u id="documentoSpan"></u>,
                     </b> residente e domiciliado na cidade de <b><u><span id="cidadeSpan"></span> - PR</u></b>
                     CEP <b><u id="cepSpan">XXXXX-XXX</u></b>, que é parte integrante desse Contrato, tem
@@ -700,19 +1174,19 @@
             </p>
 
             <p class=MsoNormal style='text-align:justify'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:107%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:107%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
 
-            <h1 style='margin-left:43.5pt;line-height:150%'>
-                <span lang=PT style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'><b>DO OBJETO</b></span>
+            <h1 style='margin-left:43.5pt;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'><b>DO
+                        OBJETO</b></span>
             </h1>
 
-            <p class=MsoNormal style='margin-top:11.85pt;margin-right:5.65pt;margin-bottom:8.0pt;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:11.85pt;margin-right:5.65pt;margin-bottom:8.0pt;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>01.</span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>01.</span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     O presente Contrato tem por objeto a prestação, por parte da <b>CONTRATADA, </b>DO
                     FORNECIMENTO DE EQUIPAMENTOS, INSTALAÇÃO E SERVIÇOS DE IMPLEMENTAÇÃO DE MICRO
                     GERAÇÃO DE SISTEMA SOLAR FOTOVOLTAICA em regime de instalação Parcial e Prazo
@@ -721,56 +1195,58 @@
                 </span>
             </p>
 
-            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:150%'>
-                <span style='position:absolute;z-index:-1895822336;left:0px;margin-left:124px;margin-top:11px;width:31px;height:20px'>
-                </span><span lang=PT
-                             style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:125%'>
+                <span
+                    style='position:absolute;z-index:-1895822336;left:0px;margin-left:124px;margin-top:11px;width:31px;height:20px'>
+                </span><span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     -
                     INSTALAÇÕES DOS EQUIPAMENTOS: apresentado no orçamento entregue ao cliente no
                     dia da solicitação;
                 </span>
             </p>
 
-            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:150%'>
-                <span lang=PT style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     -
                     Os módulos fotovoltaicos serão instalados buscando atingir a maior irradiação
                     solar, fornecendo
                 </span>
             </p>
 
-            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:150%'>
-                <span lang=PT style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     assim,
                     a geração média estimada apresentada no orçamento solar;
                 </span>
             </p>
 
-            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:150%'>
-                <span lang=PT style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     -
                     A estrutura de fixação dos Módulos Fotovoltaicos será telhado;
                 </span>
             </p>
-            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:150%'>
-                <span lang=PT style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoBodyText style='margin-right:5.9pt;text-align:justify;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     -
-                    O inversor deverá estar dentro das normas técnicas e liberada pelo<span style='letter-spacing:-.85pt'>
+                    O inversor deverá estar dentro das normas técnicas e liberada pelo<span
+                        style='letter-spacing:-.85pt'>
                     </span>INMETRO;
                 </span>
             </p>
 
-            <p class=MsoBodyText style='margin-top:5.6pt;margin-right:5.9pt;margin-bottom:0in;margin-left:0in;margin-bottom:.0001pt;text-align:justify;line-height:150%'>
-                <span lang=PT
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoBodyText
+                style='margin-top:5.6pt;margin-right:5.9pt;margin-bottom:0in;margin-left:0in;margin-bottom:.0001pt;text-align:justify;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     -
                     Os quadros de proteção AC e DC do Sistema Fotovoltaico deveram ser instalados
                     próximo ao inversor, sendo assim vistoriada pela concessionaria local;
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:8.0pt;margin-left:-3.4pt;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:8.0pt;margin-left:-3.4pt;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     - O cabeamento elétrico poderá
                     ser passado por canaletas, calhas, eletrodutos ou caixa de passagem, desde que
                     respeite o limite de cabos sob os<span style='letter-spacing:-.8pt'> </span>dutos;
@@ -779,10 +1255,11 @@
         </div>
         <!-- PAGE 2-->
         <div class="page">
-            <p class=MsoNormal align=center style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:center;line-height:150%'>
+            <p class=MsoNormal align=center
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:center;line-height:125%'>
                 <b>
                     <u>
-                        <span lang=PT-BR style='font-size:14.0pt;line-height:150%'>
+                        <span lang=PT-BR style='font-size:14.0pt;line-height:125%'>
                             LISTA DOS MATERIAS A SEREM
                             ENTREGUES E INSTALADOS:
                         </span>
@@ -790,27 +1267,35 @@
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:14.0pt;line-height:150%;font-family:"Arial",sans-serif'>                       </span>
+                    <span lang=PT-BR style='font-size:14.0pt;line-height:125%;font-family:"Arial",sans-serif'>    
+                                          </span>
                 </b>
             </p>
             <!--ITEMS-->
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:14.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:14.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:14.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:14.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
             <div class="row mt-4">
                 <div class="col-12 small">
-                    <table class="small" width="100%" style="border: 1px solid black; border-collapse: collapse; text-align: center;" cellpadding="0" cellspacing="0">
+                    <table class="small" width="100%"
+                        style="border: 1px solid black; border-collapse: collapse; text-align: center;" cellpadding="0"
+                        cellspacing="0">
                         <thead style="border:1px solid black;">
                             <tr>
                                 <th style="border-right:1px solid black, ;">Qtd</th>
@@ -827,14 +1312,17 @@
             </div>
             <br>
 
-            <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 align=left width=716 style='width:537.0pt;border-collapse:collapse;border:none;'>
+            <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 align=left width=716
+                style='width:537.0pt;border-collapse:collapse;border:none;'>
                 <tr style='height:84.6pt'>
-                    <td width=716 valign=top style='width:537.0pt;border:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:84.6pt'>
+                    <td width=716 valign=top
+                        style='width:537.0pt;border:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;height:84.6pt'>
                         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
                             <span lang=PT-BR>
                             </span>
                         </p>
-                        <p class=MsoListParagraph style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:17.05pt'>
+                        <p class=MsoListParagraph
+                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;text-indent:-.25in;line-height:17.05pt'>
                             <a name="_Hlk39493676">
                                 <span lang=PT style='font-family:Symbol'>
                                     ·<span style='font:7.0pt "Times New Roman"'>
@@ -843,21 +1331,24 @@
                                 </span><span lang=PT>Mão de obra especializada para a instalação;</span>
                             </a>
                         </p>
-                        <p class=MsoListParagraph align=left style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:left;text-indent:-.25in;line-height:17.05pt'>
+                        <p class=MsoListParagraph align=left
+                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:left;text-indent:-.25in;line-height:17.05pt'>
                             <span lang=PT style='font-family:Symbol'>
                                 ·<span style='font:7.0pt "Times New Roman"'>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </span>
                             </span><span lang=PT>Homologação;</span>
                         </p>
-                        <p class=MsoListParagraph align=left style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:left;text-indent:-.25in;line-height:17.05pt'>
+                        <p class=MsoListParagraph align=left
+                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:left;text-indent:-.25in;line-height:17.05pt'>
                             <span lang=PT style='font-family:Symbol'>
                                 ·<span style='font:7.0pt "Times New Roman"'>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </span>
                             </span><span lang=PT>Contratos;</span>
                         </p>
-                        <p class=MsoListParagraph align=left style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:left;text-indent:-.25in;line-height:17.05pt'>
+                        <p class=MsoListParagraph align=left
+                            style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;margin-bottom:.0001pt;text-align:left;text-indent:-.25in;line-height:17.05pt'>
                             <span lang=PT style='font-family:Symbol'>
                                 ·<span style='font:7.0pt "Times New Roman"'>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -872,208 +1363,245 @@
                             </span>
                             <b><span id="valorNumerico3">XXXXXXXXXXXXXXXXXX</span></b>
                         </p>
-                        <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;line-height:normal'><b><span lang=PT-BR>                                 </span></b></p>
-                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span lang=PT-BR>&nbsp;</span></p>
+                        <p class=MsoNormal
+                            style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;line-height:normal'><b><span
+                                    lang=PT-BR>                                 </span></b></p>
+                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span lang=PT-BR>&nbsp;</span>
+                        </p>
                     </td>
                 </tr>
             </table>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
                     <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
                     <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                         DOS
                         VALORES E FORMAS DE PAGAMENTO:
                     </span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:justify;line-height:125%'>
                 <b>
                     <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>02.</span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>02.</span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Pelos itens descritos na Cláusula 1ª deste contrato, a <b>CONTRATANTE </b>pagará
-                    à <b>CONTRATADA </b>o valor de <SPAN id="valorNumerico">X.XXXXX </SPAN><b> (<span id="valorPorExtenso">VALOR POR EXTENSO</span>)</b>, efetuados
+                    à <b>CONTRATADA </b>o valor de <SPAN id="valorNumerico">X.XXXXX </SPAN><b> (<span
+                            id="valorPorExtenso">VALOR POR EXTENSO</span>)</b>, efetuados
                     por meio de depósito bancário, da seguinte forma:
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:justify;line-height:125%'>
                 <b>
                     <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:justify;line-height:150%'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.2pt;margin-bottom:0in;margin-left:-3.4pt;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     -O valor
-                    de <span id="valorNumerico1">X.XXXXXX</span> <b>(<span id="valorPorExtenso1">VALOR POR EXTENSO</span>)</b>, referente aos materiais, deverá ser
+                    de <span id="valorNumerico1">X.XXXXXX</span> <b>(<span id="valorPorExtenso1">VALOR POR
+                            EXTENSO</span>)</b>, referente aos materiais, deverá ser
                     depositado a <b>título de entrada</b> na conta:
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.75pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.75pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
             <!--BEDIN-->
             <div id="bedin1">
-                <p class=MsoNormal style='margin-top:0in;margin-right:5.75pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                <p class=MsoNormal
+                    style='margin-top:0in;margin-right:5.75pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                         BANCO:
                         SICREDI
                     </span>
                 </p>
 
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Agência: 0704</span>
+                <p class=MsoNormal
+                    style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Agência:
+                        0704</span>
                 </p>
 
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Conta corrente: 30.300-3</span>
+                <p class=MsoNormal
+                    style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Conta
+                        corrente: 30.300-3</span>
                 </p>
 
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>CNPJ:82.489.709/0001-67</span>
+                <p class=MsoNormal
+                    style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>CNPJ:82.489.709/0001-67</span>
                 </p>
 
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Nome: ML BEDIN E CIA LTDA </span>
+                <p class=MsoNormal
+                    style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Nome: ML
+                        BEDIN E CIA LTDA </span>
                 </p>
 
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:8.0pt;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>PIX: financeiro@bedinsat.com.br</span>
+                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:8.0pt;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>PIX:
+                        financeiro@bedinsat.com.br</span>
                 </p>
             </div>
             <!--FOCO-->
             <div id="foco1">
-                <p class=MsoNormal style='margin-top:0in;margin-right:5.75pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                <p class=MsoNormal
+                    style='margin-top:0in;margin-right:5.75pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                         BANCO:
                         SICOOB
                     </span>
                 </p>
 
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Agência: 3032</span>
+                <p class=MsoNormal
+                    style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Agência:
+                        3032</span>
                 </p>
 
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Conta corrente: 135870-7</span>
+                <p class=MsoNormal
+                    style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Conta
+                        corrente: 135870-7</span>
                 </p>
 
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>CNPJ:28.744.960/0001-85</span>
+                <p class=MsoNormal
+                    style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>CNPJ:28.744.960/0001-85</span>
                 </p>
 
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Nome: FOCO ENERGIA TECNOLOGIA E INOVAÇÃO LTDA </span>
+                <p class=MsoNormal
+                    style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Nome: FOCO
+                        ENERGIA TECNOLOGIA E INOVAÇÃO LTDA </span>
                 </p>
-                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:8.0pt;text-align:justify;line-height:150%'>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>PIX: 49999680868</span>
+                <p class=MsoNormal style='margin-bottom:0in;margin-bottom:8.0pt;text-align:justify;line-height:125%'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>PIX:
+                        49999680868</span>
                 </p>
 
             </div>
         </div>
         <!--PAGE 3-->
         <div class="page">
-            <p class=MsoNormal style='margin-right:5.75pt;line-height:150%'>
-                <span lang=PT
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoNormal style='margin-right:5.75pt;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     - O
-                    valor restante de R$ <span id="valorNumerico2">XXX...XXXXX</span> <b>(<span id="valorPorExtenso2">VALOR POR EXTENSO</span>)</b> referente a mão de
+                    valor restante de R$ <span id="valorNumerico2">XXX...XXXXX</span> <b>(<span
+                            id="valorPorExtenso2">VALOR POR EXTENSO</span>)</b> referente a mão de
                     obra, deverá ser depositado em uma parcela após a instalação completa do kit
                     fotovoltaico.
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-right:5.75pt;line-height:150%'>
-                <span lang=PT
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal style='margin-right:5.75pt;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
 
 
 
-            <p class=MsoNormal style='margin-right:5.75pt;line-height:150%'>
-                <span lang=PT
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoNormal style='margin-right:5.75pt;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Deverá
                     ser depositado na conta da <b>CONTRATADA:</b>           <b> </b>
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-right:5.75pt;line-height:150%'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoNormal style='margin-right:5.75pt;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     BANCO:
                     SICREDI
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Agência: 0710</span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Agência:
+                    0710</span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Nome: Neusa Genir da Silva
                     Follmann
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Conta: 82605-2</span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Conta: <span
+                        id="conta">82605-2</span></span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>CNPJ: 31075819/0001-41</span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>CNPJ: <span
+                        id="cnpj2">31.075.819/0001-41</span></span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>            <b>DOS PRAZOS</b></span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>           
+                    <b>DOS PRAZOS</b></span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>03. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>03.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     O
                     cumprimento deste contrato iniciará na data de sua assinatura, devendo a <b>
                         CONTRATADA
@@ -1082,47 +1610,55 @@
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                         DAS OBRIGAÇÕES DA
                         CONTRATADA
                     </span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>04. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>04.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     A
                     <b>CONTRATADA </b>se compromete a fornecer os equipamentos e executar a
                     instalação dos itens contidos na cláusula 1ª deste contrato.
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>05. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>05.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Utilizar
                     equipamentos adequados à realização dos serviços e pessoal qualificado,
                     assumindo plena e exclusiva responsabilidade por sua contratação, eximindo a <b>
@@ -1131,43 +1667,49 @@
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;line-height:150%'>
+            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>06. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>06.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Executar
                     as atividades necessárias à implantação do empreendimento de modo a não
-                    interferir desnecessária ou indevidamente com instalações ou serviços já<span style='letter-spacing:-.65pt'> </span>existentes;
+                    interferir desnecessária ou indevidamente com instalações ou serviços já<span
+                        style='letter-spacing:-.65pt'> </span>existentes;
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.15pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.15pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>07. </span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>07.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Evitar
                     danos ou perturbação a terceiros, resultantes de poluição, incluindo ruído e
                     outras causas advindas do seu método de<span style='letter-spacing:-.35pt'> </span>trabalho;
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.15pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.15pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>08. </span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>08.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Fazer
                     com que todo o pessoal sob sua responsabilidade, cumpram todas as normas
                     disciplinares e de segurança exigidas, fornecendo e fazendo com que todos
@@ -1176,79 +1718,92 @@
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:6.15pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:6.15pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
                     <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>09. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>09.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Prestar
-                    informação adequada e clara ao <b>CONTRATANTE </b>sobre os produtos e<span style='letter-spacing:-1.1pt'> </span>serviços.
+                    informação adequada e clara ao <b>CONTRATANTE </b>sobre os produtos e<span
+                        style='letter-spacing:-1.1pt'> </span>serviços.
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;text-indent:35.4pt;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;text-indent:35.4pt;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                         DAS
                         OBRIGAÇÕES DA CONTRATANTE
                     </span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>10. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>10.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Efetuar
-                    os pagamentos a <b>CONTRATADA</b>, de forma tempestiva, nos termos deste<span style='letter-spacing:-1.1pt'> </span>Contrato.
+                    os pagamentos a <b>CONTRATADA</b>, de forma tempestiva, nos termos deste<span
+                        style='letter-spacing:-1.1pt'> </span>Contrato.
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>11. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>11.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Liberar
                     a entrada dos profissionais para a execução dos serviços de instalação nas
                     áreas do imóvel para isso<span style='letter-spacing:-.1pt'> </span>necessárias.
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>12. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>12.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Providenciar
                     a disponibilização dos pontos de<span style='letter-spacing:-.3pt'> </span>energia.
                 </span>
@@ -1256,23 +1811,27 @@
         </div>
         <!--PAGE 4-->
         <div class="page">
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>            DAS GARANTIAS</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>            DAS
+                        GARANTIAS</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='text-align:justify;line-height:150%'>
+            <p class=MsoNormal style='text-align:justify;line-height:125%' id="clausulasPadrao">
                 <b>
-                    <span lang=PT
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>13. </span>
-                </b><span lang=PT style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>13. </span>
+                </b><span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     A
                     <b>CONTRATADA </b>garante à <b>CONTRATANTE </b>que o equipamento a ser
                     fornecido atende ao descrito nas Especificações Técnicas quando operado dentro
@@ -1282,18 +1841,34 @@
                     para este tipo de<span style='letter-spacing:-.4pt'> </span>equipamento.
                 </span>
             </p>
-
-            <p class=MsoListParagraph style='margin-top:0in;margin-right:5.65pt;margin-bottom:0in;margin-left:5.1pt;margin-bottom:.0001pt;line-height:150%'>
-                <span lang=PT
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal style='text-align:justify;line-height:125%;display: none;' id="clausulasPrefeitura">
+                <b>
+                    <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>13. </span>
+                </b><span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
+                    De acordo com o procedimento adotado pela Prefeitura Municipal, o valor do subsidio só será liberado
+                    aos munícipes após a instalação do sistema fotovoltaico contratado, que depois repassarão à empresa
+                    contratada.
+                    <br />
+                    §1 Por conta disso, fica obrigada a contratante a realizar o pagamento à contrada no prazo máximo de
+                    3 (três) dias utéis após o recebimento do valor pago pela Prefeitura Municipal.
+                    <br />
+                    <br />
+                    §2 Se o pagamento não for realizado no prazo estipulado, ficará a contratante sujeita à uma
+                    penalidade de multa no valor de R$ 1.000,00 (um mil reais), além de ter os equipamentos adquiridos
+                    retirados pela empresa contrada, haja vista que enquanto não for pago trata-se de propriedade da
+                    contratada.
+                </span>
             </p>
 
-            <p class=MsoNormal style='text-align:justify;line-height:150%'>
+            <p class=MsoListParagraph
+                style='margin-top:0in;margin-right:5.65pt;margin-bottom:0in;margin-left:5.1pt;margin-bottom:.0001pt;line-height:125%'>
+                <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            </p>
+
+            <p class=MsoNormal style='text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>14.</span>
-                </b><span lang=PT
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>14.</span>
+                </b><span lang=PT style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     A <b>CONTRATADA </b>garante que os equipamentos serão isentos de defeitos
                     materiais, tendo como prazos de garantia dos panéis de 25 (vinte e cinco) anos
                     de geração de energia, após o 20<b>º </b>ano a geração de 80% do nominal
@@ -1302,19 +1877,13 @@
                     instalação dos equipamentos.
                 </span>
             </p>
-
-            <p class=MsoListParagraph style='margin-top:11.75pt;margin-right:5.65pt;margin-bottom:0in;margin-left:5.1pt;margin-bottom:.0001pt;line-height:150%'>
-                <span lang=PT
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
-            </p>
-
-            <p class=MsoNormal style='text-align:justify;line-height:150%'>
+            <br />
+            <p class=MsoNormal style='text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                         15.
                     </span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Durante o período de garantia, a obrigação da <b>
                         CONTRATADA
                     </b>será limitada à substituição ou reparo, à sua opção, de qualquer
@@ -1324,15 +1893,17 @@
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>16. </span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>16.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     A
                     presente garantia não cobre defeitos ou falhas decorrentes do desgaste normal
                     dos materiais e componentes, erros operacionais, erros de manutenção ou de sua
@@ -1343,18 +1914,20 @@
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
                     <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>17. </span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>17.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     Em
                     caso de solicitação de visita pela <b>CONTRATANTE </b>à <b>CONTRATADA </b>e
                     sendo constatado pelo técnico que a falha, deficiência ou defeito ocorrido
@@ -1366,39 +1939,44 @@
             </p>
 
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
                     <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>18. </span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>18.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     A
                     garantia torna-se nula sempre que houver a violação de qualquer tipo de lacre
                     de instalação dos equipamentos da <b>CONTRATADA </b>e, também, quando a <b>
                         CONTRATANTE
-                    </b>não autorizar a visita técnica para o levantamento do problema<span style='letter-spacing:-.35pt'>
+                    </b>não autorizar a visita técnica para o levantamento do problema<span
+                        style='letter-spacing:-.35pt'>
                     </span>ocorrido.
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.85pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
                     <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>19. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>19.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     A
                     <b>CONTRATADA </b>não será responsável por quaisquer custos ou prejuízos
                     decorrentes de modificações, remoção, instalação, reinstalação ou substituição
@@ -1409,17 +1987,20 @@
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>20. </span>
-                </b><span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>20.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     As
                     garantias previstas nesta cláusula são as únicas garantias aplicáveis ao
                     Contrato, ficando excluídas todas e quaisquer outras declarações e/ou garantias
@@ -1428,50 +2009,57 @@
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
         </div>
         <!--PAGE 5-->
         <div class="page">
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                         DAS
                         DISPOSIÇÕES GERAIS
                     </span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>21. </span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>21.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     A
                     <b>CONTRATADA </b>executará seus projetos de acordo com padrões e normas
                     técnicas aplicáveis.
                 </span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
 
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR
-                          style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>22. </span>
-                </b><span lang=PT-BR style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>22.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     E
                     por estarem justas e contratadas, assinam o presente, em 02 (duas) vias de
                     igual<span style='letter-spacing:-.5pt'> </span>teor.
@@ -1479,53 +2067,72 @@
             </p>
 
             <!--Assinaturas-->
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
             </p>
-            <p class=MsoNormal style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:150%'>
-                <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>
-                    Serranópolis
-                    do Iguaçu - PR, <span id="dataContratoSpan">____ de _____________________ de 2022</span>.
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
+                    <span id="cidadeContrato">Serranópolis do Iguaçu - PR</span>, <span id="dataContratoSpan">____ de
+                        _____________________ de 2022</span>.
                 </span>
                 <br>
                 <br>
                 <br>
             </p>
-            <center><img src="images/assinatura_Valmir.png"></center>
+            <center><img id="assinaturaPrincipal" src="images/assinatura_Valmir.png" /></center>
 
-            <p class=MsoNormal align=center style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:150%'>
+            <p class=MsoNormal align=center
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:125%'>
                 <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>____________________________________</span>
+                    style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>____________________________________</span>
             </p>
-            <p class=MsoNormal align=center style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:150%'>
+            <p class=MsoNormal align=center
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:125%'>
                 <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Contratado</span>
+                    style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Contratado</span>
 
-
+            <div id="contratatado1Div">
                 <br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+            <div id="contratatado2Div" style="display:none">
+                <br><br><br><br>
+                <center><img src="images/Assinatura_Rose.png" width="300px" /></center>
+                <p class=MsoNormal align=center
+                    style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:125%'>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>____________________________________</span>
+                </p>
+                <p class=MsoNormal align=center
+                    style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:125%'>
+                    <span lang=PT-BR
+                        style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Contratado</span>
+                </p>
+                <br><br><br><br><br><br>
+            </div>
 
-
-            <p class=MsoNormal align=center style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:150%'>
+            <p class=MsoNormal align=center
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:125%'>
                 <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>____________________________________</span>
+                    style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>____________________________________</span>
             </p>
-            <p class=MsoNormal align=center style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:150%'>
+            <p class=MsoNormal align=center
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:center;line-height:125%'>
                 <span lang=PT-BR
-                      style='font-size:12.0pt;line-height:150%;font-family:"Arial",sans-serif'>Contratante</span>
+                    style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>Contratante</span>
             </p>
         </div>
     </div>

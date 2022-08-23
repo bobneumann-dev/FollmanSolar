@@ -252,6 +252,7 @@ function PreencherCampos(d, completo) {
 
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
+    
     console.log(pageTxt);
 
     //Cliente/Cidade
@@ -306,10 +307,10 @@ function ExtractData(pageTxt) {
     }
 
     //Valor Mao de Obra
-    if (pageTxt.includes("Liberação do sistema fotovoltaíco;")) {
+    if (pageTxt.includes("Liberação do sistema fotovolta")) {
 
         let total = pageTxt.substring(
-            pageTxt.indexOf("Liberação") + 34,
+            pageTxt.indexOf("Liberação do sistema fotovolta") + 34,
             pageTxt.indexOf("INVESTIMENTO"));
         
 
@@ -319,12 +320,13 @@ function ExtractData(pageTxt) {
         total = total.replace(/(\S\))/gm, "");
         total = total.trim();
         
+        console.log(total);
 
         let value = Number(total);
         orcamento.valorMaoDeObra = value;
     }
     else {
-        console.log('Erro ao tentar capturar os valores');
+        console.log('Erro ao tentar capturar os valores de mão de obra');
     }
     //Valor Total
     orcamento.valorOrcamento = orcamento.valorMaoDeObra + orcamento.valorCotacao;
