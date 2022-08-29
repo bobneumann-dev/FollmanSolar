@@ -49,7 +49,7 @@ function SomarTotal(orcamento) {
 }
 
 function SetDateInput(input, date) {    
-        $("#" + input).val(date.toISOString().split("T")[0]);
+    $("#" + input).val(date.toISOString().split("T")[0]);
 }
 
 function TrocarCidade(novaCidade) {
@@ -294,10 +294,11 @@ function PreencherCampos(d, completo) {
 
 function ExtractData(pageTxt) {
     orcamento = DefaultObj();
-    
+    console.log("Bedin");
+    //console.log(pageTxt);
     //Extrair Items
     //OK
-    if (pageTxt.includes("Descrição Tipo Quantidade")) {
+    if (pageTxt.includes("Descrição Quantidade")) {
         const categorias = ["Painéis", 
                             "Terminal-Final", 
                             "Terminal-Intermediario", 
@@ -324,28 +325,44 @@ function ExtractData(pageTxt) {
                 str: "Mesa-Ao Solo",
                 replace: "Mesa-Ao-Solo"
             },
+            {
+                str: " - Pronta Entrega ",
+                replace: ""
+            },
+            {
+                str: " - Pronta Entrega",
+                replace: ""
+            }
         ];
 
         let itemsTxtStr = pageTxt.substring(
-            pageTxt.lastIndexOf("Descrição Tipo Quantidade") + 26,
-            pageTxt.lastIndexOf("END. ENTREGA:"))
-        
+            pageTxt.lastIndexOf("Descrição Quantidade") + 21,
+            pageTxt.lastIndexOf("1) O"));
+
         //Normalizar categorias
         normalizar.forEach(v => itemsTxtStr = itemsTxtStr.replaceAll(v.str, v.replace));
+
+        console.log("----ITEMS----");        
+        itemsTxtStr = itemsTxtStr.replace(/\[.+?\]/g, "*");
+        itemsTxtStr = itemsTxtStr.replaceAll("**", "*");
+        itemsTxtStr = itemsTxtStr.replaceAll("* ", "*");
+        itemsTxtStr = itemsTxtStr.replaceAll("*", "* ");
+        console.log(itemsTxtStr);
 
         let itemsTxt = itemsTxtStr.split(' ');
 
         let items = [];
         let itemName = "";
-
+        
         for (let i = 0; i < itemsTxt.length; i++) {
-            
-            if(categorias.includes(itemsTxt[i]))
+        
+
+            if(itemsTxt[i].includes('*'))
             {
                 items.push({
                     quantidade: Number(itemsTxt[i + 1]),
                     item: itemName.trimEnd(),
-                    modelo: itemsTxt[i],
+                    modelo: "",//itemsTxt[i],
                     valor: 0,
                     total: 0
                 });
@@ -410,14 +427,14 @@ function ExtractData(pageTxt) {
     if (pageTxt.includes("Total:")) {
 
         let total = pageTxt.substring(
-            pageTxt.lastIndexOf("Total:") + 6,
-            pageTxt.indexOf("1)"));
+            pageTxt.lastIndexOf("Total:") + 6);
 
         console.log(total);
 
         total = total.replace("R$", "");
-        total = total.replaceAll(".", "");
-        total = total.replace(",", ".");
+        //total = total.replaceAll(".", "");
+        total = total.replaceAll(",", "");
+        //total = total.replace(",", ".");
         total = total.replace(/(\S\))/gm, "");
         total = total.trim();
         console.log(total);
@@ -446,147 +463,106 @@ function ExtractData(pageTxt) {
 
 function ExtractData2(pageTxt) {
     orcamento = DefaultObj();
-    //console.log("Pdf 2");
-    console.log(pageTxt);
-
-    orcamento.fornecedor = "FOCO ENERGIA";
-    orcamento.forncedorGuid = "Foco";
-
-    //POTÊNCIA kWp  8.18 kWp  LINHAS
-    if (pageTxt.includes("Potência:")) {
-
-        let kwp = pageTxt.substring(
-            pageTxt.lastIndexOf("Potência:") + 9,
-            pageTxt.lastIndexOf("kWp"));
-
-        kwp = kwp.toUpperCase();
-        kwp = kwp.replace("KWP", "");
-        kwp = kwp.replace(",", ".");
-        kwp = kwp.trim();
-        let potenciaPico = Number(kwp);
-
-        orcamento.potenciaPico = potenciaPico;
-    }
-    else {
-        //console.log("K");
-    }
-
-    //Extrair Valor Total
-    if (pageTxt.includes("VALOR TOTAL:")) {
-
-        let total = pageTxt.substring(
-            pageTxt.lastIndexOf("VALOR TOTAL:") + 12,
-            pageTxt.lastIndexOf("Observações"));
-
-        //console.log(total);
-
-        total = total.replace("R$", "");
-        total = total.replace(".", "");
-        total = total.replace(",", ".");
-        total = total.replace(/(\S\))/gm, "");
-        total = total.trim();
-        //console.log(total);
-
-        let value = Number(total);
-
-        orcamento.valorCotacao = value;
-        orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.3;
-        orcamento.valorOrcamento = orcamento.valorMaoDeObra + orcamento.valorCotacao;
-
-    }
-    else {
-        //console.log('-');
-    }
-
+    console.log("Foco");
+    //console.log(pageTxt);
     //Extrair Items
-    if (pageTxt.includes("Itens Inclusos")) {
+    //OK
+    if (pageTxt.includes("ITEM DESCRIÇÃO UNID")) {
+        
+        const unidades = ["PC", 
+                          "RL", 
+                          "M"];                                  
 
-        let itemsTxt = pageTxt.substring(
-            pageTxt.lastIndexOf("Itens Inclusos") + 14,
-            pageTxt.lastIndexOf("VALOR TOTAL:"));
+        let itemsTxtStr = pageTxt.substring(
+            pageTxt.lastIndexOf("ITEM DESCRIÇÃO UNID") + 26,
+            pageTxt.lastIndexOf("Prazo de sa"));
+        
+        console.log("----ITEMS----");        
+        //itemsTxtStr = itemsTxtStr.replace(/\[.+?\]/g, "*");
+        //itemsTxtStr = itemsTxtStr.replaceAll("**", "*");
+        //itemsTxtStr = itemsTxtStr.replaceAll("* ", "*");
+        //itemsTxtStr = itemsTxtStr.replaceAll("*", "* ");
+        //console.log(itemsTxtStr);
 
-        var splits = itemsTxt.split("\n");
-
-        //console.log(splits);
-        //console.log(itemsTxt);
-
-        //Correção Algoritmo Detecção
-        itemsTxt = itemsTxt.replace(" MPPT", "MPPT");
-
-        var splits = itemsTxt.split(" ");
-        splits.shift();
-        splits.shift();
-        splits.shift();
-
-        let itemName = "";
-        let qtd = 1;
+        let itemsTxt = itemsTxtStr.split(' ');
+        console.log(itemsTxtStr);
         let items = [];
-        splits.forEach((v) => {
-
-            if (isNaN(v)) {
-                //Não é um número isolado
-                itemName += v + " ";
-            }
-            else {
-                //É um número isolado
-                qtd = Number(v);
-
+        let itemName = "";
+        
+        for (let i = 0; i < itemsTxt.length; i++) {
+        
+           
+            if(unidades.includes(itemsTxt[i]))
+            {
                 items.push({
-                    quantidade: qtd,
-                    item: itemName,
-                    modelo: itemName.split(' ')[0],
+                    quantidade: Number(itemsTxt[i + 1].replace(",", ".")),
+                    item: itemName.trimEnd(),
+                    modelo: "",//itemsTxt[i],
                     valor: 0,
                     total: 0
                 });
 
                 itemName = "";
+                i++; //Pular próxima que é a quantidade e ja foi capturado
             }
-        });
+            else
+            {
+                itemName += itemsTxt[i] + ' ';
+            }
+          
+        }
 
-        //Remove ultima linha, que vem lixo
-        items.pop();
-        
         orcamento.items = items;
     }
     else {
         //console.log("I");
-    }
-
-    //Telhado
-    if (pageTxt.includes("Tipo de Estrutura:")) {
-
-        let telhado = pageTxt.substring(
-            pageTxt.lastIndexOf("Tipo de Estrutura:") + 18,
-            pageTxt.lastIndexOf("Itens Inclusos"));
-
-        telhado = telhado.trim();
-
-        orcamento.telhado = telhado;
-    }
-    else {
-        //console.log("T");
-    }
-
+    } 
+    
     //Validade
-    if (pageTxt.includes("Validade Orçamento")) {
+    //OK
+    if (pageTxt.includes("Validade:")) {
 
         let validade = pageTxt.substring(
-            pageTxt.indexOf("Validade Orçamento:") + 19,
-            pageTxt.indexOf("Potência"));
+            pageTxt.indexOf("Validade:") + 10,
+            pageTxt.indexOf("ITEM"));
 
-        validade = validade.replace("Validade Orçamento:", "");
+        validade = validade.replace("Validade: ", "");
         validade = validade.trim();
 
-        let parts = validade.split('/');            
-        orcamento.validade = new Date(parts[2] + "-" + parts[1] + "-" + parts[0]);
+        console.log(validade);
 
-        //Data Invalida
-        if(isNaN(orcamento.validade))
-            orcamento.validade = new Date();
+        let parts = validade.split('/');
+
+        orcamento.validade = new Date("20" + parts[2] + "-" + parts[1] + "-" + parts[0]);
     }
     else {
         //console.log("V");
+    }    
+
+    //Extrair Valor Total
+    if (pageTxt.includes("OBSERVAÇÕES TOTAL")) {
+
+        let total = pageTxt.substring(
+            pageTxt.lastIndexOf("OBSERVAÇÕES TOTAL") + 18,
+            pageTxt.lastIndexOf("Observações Frete"));
+
+        console.log(total);
+
+        total = total.replace("R$", "");
+        total = total.replaceAll(".", "");        
+        total = total.replace(",", ".");
+        total = total.replace(/(\S\))/gm, "");
+        total = total.trim();
+        console.log(total);
+
+        let value = Number(total);
+
+        orcamento.valorCotacao = value;
     }
+    else {
+        //console.log('-');
+    }
+
 
     //Orçamentos    
     orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.3;
