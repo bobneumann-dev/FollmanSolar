@@ -23,7 +23,7 @@ function Somar() {
     });
 
     orcamento.valorCotacao = soma;
-    orcamento.valorMaoDeObra = soma * 0.3;
+    orcamento.valorMaoDeObra = soma * 0.35;
     orcamento.valorOrcamento = soma * 1.3;
 
     PreencherCampos(orcamento, false);
@@ -41,7 +41,7 @@ function SomarTotal(orcamento) {
     });
 
     orcamento.valorCotacao   = total;
-    orcamento.valorMaoDeObra = total * 0.3;
+    orcamento.valorMaoDeObra = total * 0.35;
     orcamento.valorOrcamento = orcamento.valorCotacao + orcamento.valorMaoDeObra;
 
     AtualizarItems(orcamento);
@@ -59,6 +59,7 @@ function TrocarCidade(novaCidade) {
 
 function AtualizarRepresentante(representante) {
     $("#assinaturaRepresentante").hide();
+    $("#assinaturaPrincipal").prop('src', 'assinatura_Valmir.png');
 
     if (representante != '' && representante != null) {
         orcamento.representante = representante;        
@@ -69,14 +70,29 @@ function AtualizarRepresentante(representante) {
             $("#assinaturaRepresentante").show();
             $("#emailSpan").text("follmannenergiasolar2@gmail.com");
             $("#enderecoSpan").html("Av. Tôrres, 1862 - Centro <br /> Itaipulândia - PR.");
-            $("#cepSpan").text("85880-000");
+            $("#cepSpan").text("85888-000");
             $("#nomeBancarioSpan").text("Neusa Genir da Silva Follmann");
             $("#contaBancariaSpan").html(`Sicredi<span style='letter-spacing:.2pt'>
                                     </span>C/C: 36492-9 &nbsp; AG: 0710`);
             $("#cnpjSpan").text("31.075.819/0002-22");
         }
+
+        if (representante == 'Filial Santa Helena')
+        {
+            TrocarCidade("Santa Helena");
+            $("#assinaturaPrincipal").prop('src', 'assinatura_Valmir_semCarimbo.png');
+            $("#assinaturaRepresentante").prop('src', 'Assinatura_Rose.png');
+            $("#assinaturaRepresentante").show();
+            $("#emailSpan").text("follmannenergiasolar3@gmail.com");
+            $("#enderecoSpan").html("Avenida Brasil, 2421 - Centro <br /> Santa Helena - PR.");
+            $("#cepSpan").text("85892-000");
+            $("#nomeBancarioSpan").text("ROSELI SOLAR LTDA");
+            $("#contaBancariaSpan").html(`Sicredi<span style='letter-spacing:.2pt'>
+                                    </span>C/C: 59382-7 &nbsp; AG: 0710`);
+            $("#cnpjSpan").text("51.578.351/0001-15");
+        }
     }
-    else {
+    else{
         orcamento.representante = null;
         $("#emailSpan").text("follmannenergiasolar@gmail.com");
         $("#enderecoSpan").html("Avenida Independência, 1108, Flor da Serra <br /> Serranópolis do Iguaçu, PR.");
@@ -149,8 +165,7 @@ function AtualizarOrcamento(orcamento) {
     $("#validadeSpan").text(new Date(orcamento.validade).toLocaleDateString());
     $("#dataOrcamentoExtensoSpan").text(new Date(orcamento.dataOrcamento).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' }));
     
-    $("#valorMaoDeObraSpan").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
-    $("#valorCotacaoSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
+    $("#valorMaoDeObraSpan").text(orcamento.valorMaoDeObra.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));    
     $("#origemPlacasSpan").text(orcamento.origemPlacas);
     //Fornecedor
     $("#fornecedorSpan").text(orcamento.fornecedor.toUpperCase());
@@ -171,6 +186,18 @@ function AtualizarOrcamento(orcamento) {
         $("#itemsBody").append(tr);
     });
 
+    //Adicionar Rodapé com total
+
+    $("#itemsBody").append(`<tr style="font-weight: bold; font-size: 1.25em; border-right: 1px solid black; padding-right: 10px">
+        <td colspan="2" align="right">
+                TOTAL:
+            </td>
+            <td align="right">
+                <span id="valorCotacaoSpan">000,00</span>
+                <span style="color:white">;</span>
+            </td>
+        </tr>`);
+        $("#valorCotacaoSpan").text(orcamento.valorCotacao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }));
     //Pagina 2
     IptRefresh("numeroPlacas", orcamento);
     $("#potenciaPlacasSpan").text(orcamento.potenciaPlacas.toUpperCase().replace("W", "").replace("P", ""));
@@ -216,6 +243,17 @@ function AtualizarOrcamento(orcamento) {
         $(".representanteShow").hide();
         $(".representanteHide").show();
     }
+
+    //Garantia
+    if(orcamento.fornecedor == "BEDIN SOLAR")
+    {
+        $("#garantiaSpan").text("10 anos");
+    }
+    else
+    {
+        $("#garantiaSpan").text("5 anos");
+    }
+    
 
     AtualizarTitulo();
 }
@@ -340,13 +378,16 @@ function ExtractData(pageTxt) {
             pageTxt.lastIndexOf("1) O"));
 
         //Normalizar categorias
-        normalizar.forEach(v => itemsTxtStr = itemsTxtStr.replaceAll(v.str, v.replace));
-
+        normalizar.forEach(v => itemsTxtStr = itemsTxtStr.replaceAll(v.str, v.replace));        
         console.log("----ITEMS----");        
-        itemsTxtStr = itemsTxtStr.replace(/\[.+?\]/g, "*");
+        console.log(itemsTxtStr);
+        itemsTxtStr = itemsTxtStr.replace(/\s?-\s?Disp(.*?)\]/, "");
+        itemsTxtStr = itemsTxtStr.replace(/\[.+?\]/g, "*");    
+        itemsTxtStr = itemsTxtStr.replace("MELHOR PREÇO * ", "");    
         itemsTxtStr = itemsTxtStr.replaceAll("**", "*");
         itemsTxtStr = itemsTxtStr.replaceAll("* ", "*");
         itemsTxtStr = itemsTxtStr.replaceAll("*", "* ");
+        console.log("-----");
         console.log(itemsTxtStr);
 
         let itemsTxt = itemsTxtStr.split(' ');
@@ -449,7 +490,7 @@ function ExtractData(pageTxt) {
 
 
     //Orçamentos    
-    orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.3;
+    orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.35;
     orcamento.valorOrcamento = orcamento.valorMaoDeObra + orcamento.valorCotacao;
 
     ExtrairInfPlacas(orcamento.items);
@@ -463,109 +504,151 @@ function ExtractData(pageTxt) {
 
 function ExtractData2(pageTxt) {
     orcamento = DefaultObj();
-    console.log("Foco");
-    //console.log(pageTxt);
-    //Extrair Items
-    //OK
-    if (pageTxt.includes("ITEM DESCRIÇÃO UNID")) {
-        
-        const unidades = ["PC", 
-                          "RL", 
-                          "M"];                                  
+    //console.log("Pdf 2");
+    console.log(pageTxt);
 
-        let itemsTxtStr = pageTxt.substring(
-            pageTxt.lastIndexOf("ITEM DESCRIÇÃO UNID") + 26,
-            pageTxt.lastIndexOf("Prazo de sa"));
-        
-        console.log("----ITEMS----");        
-        //itemsTxtStr = itemsTxtStr.replace(/\[.+?\]/g, "*");
-        //itemsTxtStr = itemsTxtStr.replaceAll("**", "*");
-        //itemsTxtStr = itemsTxtStr.replaceAll("* ", "*");
-        //itemsTxtStr = itemsTxtStr.replaceAll("*", "* ");
-        //console.log(itemsTxtStr);
+    orcamento.fornecedor = "FOCO ENERGIA";
+    orcamento.forncedorGuid = "Foco";
 
-        let itemsTxt = itemsTxtStr.split(' ');
-        console.log(itemsTxtStr);
-        let items = [];
-        let itemName = "";
-        
-        for (let i = 0; i < itemsTxt.length; i++) {
-        
-           
-            if(unidades.includes(itemsTxt[i]))
-            {
-                items.push({
-                    quantidade: Number(itemsTxt[i + 1].replace(",", ".")),
-                    item: itemName.trimEnd(),
-                    modelo: "",//itemsTxt[i],
-                    valor: 0,
-                    total: 0
-                });
+    //POTÊNCIA kWp  8.18 kWp  LINHAS
+    if (pageTxt.includes("Potência:")) {
 
-                itemName = "";
-                i++; //Pular próxima que é a quantidade e ja foi capturado
-            }
-            else
-            {
-                itemName += itemsTxt[i] + ' ';
-            }
-          
-        }
+        let kwp = pageTxt.substring(
+            pageTxt.lastIndexOf("Potência:") + 9,
+            pageTxt.lastIndexOf("kWp"));
 
-        orcamento.items = items;
+        kwp = kwp.toUpperCase();
+        kwp = kwp.replace("KWP", "");
+        kwp = kwp.replace(",", ".");
+        kwp = kwp.trim();
+        let potenciaPico = Number(kwp);
+
+        orcamento.potenciaPico = potenciaPico;
     }
     else {
-        //console.log("I");
-    } 
-    
-    //Validade
-    //OK
-    if (pageTxt.includes("Validade:")) {
-
-        let validade = pageTxt.substring(
-            pageTxt.indexOf("Validade:") + 10,
-            pageTxt.indexOf("ITEM"));
-
-        validade = validade.replace("Validade: ", "");
-        validade = validade.trim();
-
-        console.log(validade);
-
-        let parts = validade.split('/');
-
-        orcamento.validade = new Date("20" + parts[2] + "-" + parts[1] + "-" + parts[0]);
+        //console.log("K");
     }
-    else {
-        //console.log("V");
-    }    
 
     //Extrair Valor Total
-    if (pageTxt.includes("OBSERVAÇÕES TOTAL")) {
+    if (pageTxt.includes("VALOR TOTAL:")) {
 
         let total = pageTxt.substring(
-            pageTxt.lastIndexOf("OBSERVAÇÕES TOTAL") + 18,
-            pageTxt.lastIndexOf("Observações Frete"));
+            pageTxt.lastIndexOf("VALOR TOTAL:") + 12,
+            pageTxt.lastIndexOf("Observações"));
 
-        console.log(total);
+        //console.log(total);
 
         total = total.replace("R$", "");
-        total = total.replaceAll(".", "");        
+        total = total.replace(".", "");
         total = total.replace(",", ".");
         total = total.replace(/(\S\))/gm, "");
         total = total.trim();
-        console.log(total);
+        //console.log(total);
 
         let value = Number(total);
 
         orcamento.valorCotacao = value;
+        orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.35;
+        orcamento.valorOrcamento = orcamento.valorMaoDeObra + orcamento.valorCotacao;
+
     }
     else {
         //console.log('-');
     }
 
+    //Extrair Items
+    if (pageTxt.includes("Itens Inclusos")) {
+
+        let itemsTxt = pageTxt.substring(
+            pageTxt.lastIndexOf("Itens Inclusos") + 14,
+            pageTxt.lastIndexOf("VALOR TOTAL:"));
+
+        var splits = itemsTxt.split("\n");
+
+        //console.log(splits);
+        //console.log(itemsTxt);
+
+        //Correção Algoritmo Detecção
+        itemsTxt = itemsTxt.replace(" MPPT", "MPPT");
+        itemsTxt = itemsTxt.replaceAll(" K", "K");
+
+        var splits = itemsTxt.split(" ");
+        splits.shift();
+        splits.shift();
+        splits.shift();
+
+        let itemName = "";
+        let qtd = 1;
+        let items = [];
+        splits.forEach((v) => {
+
+            if (isNaN(v)) {
+                //Não é um número isolado
+                itemName += v + " ";
+            }
+            else {
+                //É um número isolado
+                qtd = Number(v);
+
+                items.push({
+                    quantidade: qtd,
+                    item: itemName,
+                    modelo: itemName.split(' ')[0],
+                    valor: 0,
+                    total: 0
+                });
+
+                itemName = "";
+            }
+        });
+
+        //Remove ultima linha, que vem lixo
+        items.pop();
+        
+        orcamento.items = items;
+    }
+    else {
+        //console.log("I");
+    }
+
+    //Telhado
+    if (pageTxt.includes("Tipo de Estrutura:")) {
+
+        let telhado = pageTxt.substring(
+            pageTxt.lastIndexOf("Tipo de Estrutura:") + 18,
+            pageTxt.lastIndexOf("Itens Inclusos"));
+
+        telhado = telhado.trim();
+
+        orcamento.telhado = telhado;
+    }
+    else {
+        //console.log("T");
+    }
+
+    //Validade
+    if (pageTxt.includes("Validade Orçamento")) {
+
+        let validade = pageTxt.substring(
+            pageTxt.indexOf("Validade Orçamento:") + 19,
+            pageTxt.indexOf("Potência"));
+
+        validade = validade.replace("Validade Orçamento:", "");
+        validade = validade.trim();
+
+        let parts = validade.split('/');            
+        orcamento.validade = new Date(parts[2] + "-" + parts[1] + "-" + parts[0]);
+
+        //Data Invalida
+        if(isNaN(orcamento.validade))
+            orcamento.validade = new Date();
+    }
+    else {
+        //console.log("V");
+    }
 
     //Orçamentos    
-    orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.3;
+    orcamento.valorMaoDeObra = orcamento.valorCotacao * 0.35;
     orcamento.valorOrcamento = orcamento.valorMaoDeObra + orcamento.valorCotacao;
 
     ExtrairInfPlacas(orcamento.items);
@@ -574,7 +657,6 @@ function ExtractData2(pageTxt) {
     AtualizarItems(orcamento);
     PreencherCampos(orcamento, false);
 
-    //console.log(orcamento);
 }
 
 function ExtractText() {

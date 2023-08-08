@@ -11,8 +11,8 @@
             height: 297mm;
             padding: 10mm;
             margin: 0mm auto;
-
-            /*border-radius: 5px;
+            /*
+            border-radius: 5px;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
                 border: 1px #D3D3D3 solid;
                 border: 1px solid black;
@@ -386,15 +386,15 @@
 
             $("#tipoContrato").on('change', () => {
                 let val = $("#tipoContrato").val();
-
+                
                 if (val == "1") {
                     $("#cnpj").text("31.075.819/0001-41");
                     $("#cnpj2").text("31.075.819/0001-41");
-                    $("#endereco").html("<b><u>AVENIDA INDEPENDÊNCIA, Nº 1108, </u></b>Bairro <b><u>FLOR DA SERRA</u></b>");
-                    $("#cep").text("85885-000");
+                    $("#endereco").html("<b><u>AVENIDA INDEPENDÊNCIA, Nº 1108, </u></b>Bairro <b><u>FLOR DA SERRA</u></b>");                    
                     $("#conta").text("36492-9");
                     $("#cidadeContrato").text("Serranópolis do Iguaçu - PR");
                     $("#cidadeFilial").text("SERRANÓPOLIS DO IGUAÇU");
+                    $("#cepCidade").text("85885-000");
                     $("#assinaturaPrincipal").prop('src', "images/assinatura_Valmir.png");
 
                     $("#contratatado1Div").show();
@@ -403,7 +403,7 @@
                     $("#clausulasPadrao").show();
                     $("#clausulasPrefeitura").hide();
                 }
-                else {
+                else if (val == "2" || val == "4") {
                     $("#cnpj").text("31.075.819/0002-22");
                     $("#cnpj2").text("31.075.819/0002-22");
                     $("#endereco").html("<b><u>AVENIDA TORRES, Nº 1862, </u></b> Bairro <b><u>CENTRO</u></b>");
@@ -424,6 +424,23 @@
                         $("#clausulasPadrao").hide();
                         $("#clausulasPrefeitura").show();
                     }
+                }
+                else if (val == "5")
+                {
+                    $("#cnpj").text("51.578.351/0001-15");
+                    $("#cnpj2").text("51.578.351/0001-15");
+                    $("#endereco").html("<b><u>Avenida Brasil, 2421., </u></b> <b><u>Centro</u></b>");                    
+                    $("#conta").text("59382-7");
+                    $("#cidadeContrato").text("Santa Helena - PR");
+                    $("#cidadeFilial").text("SANTA HELENA");
+                    $("#cepCidade").text("85892-000");
+                    $("#assinaturaPrincipal").prop('src', "images/assinatura_Valmir.png");
+
+                    $("#contratatado1Div").show();
+                    $("#contratatado2Div").hide();
+                    $("#clausulasPadrao").show();
+                    $("#clausulasPrefeitura").hide();
+
                 }
 
                 //GOTO
@@ -579,6 +596,7 @@
                                                 <option value="1">Serranópolis</option>
                                                 <option value="2">Itaipulândia</option>
                                                 <option value="4">Itaipulândia-Prefeitura</option>
+                                                <option value="5">Santa Helena</option>
                                             </select>
                                         </div>
                                     </div>
@@ -1159,7 +1177,7 @@
                             PR
                         </u>
                     </b>,
-                    CEP&nbsp;<b><u id="cep">85885-000</u> </b>de outro lado o <b>
+                    CEP&nbsp;<b><u id="cepCidade">85885-000</u> </b>de outro lado o <b>
                         CONTRATANTE,
                         <u id="clienteSpan"></u>,
                     </b>
@@ -2008,6 +2026,21 @@
                     outra<span style='letter-spacing:-.4pt'> </span>fonte).
                 </span>
             </p>
+            <p class=MsoNormal
+            style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+            <b>
+                <span lang=PT-BR
+                    style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
+            </b>
+        </p>
+           <p class=MsoNormal
+                style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
+                <b>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
+                        DO DESCUMPRIMENTO
+                    </span>
+                </b>
+            </p>
 
             <p class=MsoNormal
                 style='margin-bottom:0in;margin-bottom:0in;margin-top:0in;text-align:justify;line-height:125%'>
@@ -2015,6 +2048,18 @@
                     <span lang=PT-BR
                         style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>&nbsp;</span>
                 </b>
+            </p>
+
+            <p class=MsoNormal
+                style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
+                <b>
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>21.
+                    </span>
+                </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
+                    No caso de descumprimento de qualquer uma das cláusulas, a parte que não cumpriu deverá pagar uma multa a título de Cláusula penal no percentual de 20% (dez por cento)
+                    sobre o valor do contrato, em lavor da parte prejudicada.
+                    PARÁGRAFO ÚNICO: Além disso, em caso de cobrança judicial, devem ser acrescidas custas processuais e de honorários advocatícios no percentual de 20% (vinte por cento)
+                </span>
             </p>
         </div>
         <!--PAGE 5-->
@@ -2040,7 +2085,7 @@
             <p class=MsoNormal
                 style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>21.
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>22.
                     </span>
                 </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     A
@@ -2057,7 +2102,7 @@
             <p class=MsoNormal
                 style='margin-top:0in;margin-right:5.95pt;margin-bottom:0in;margin-left:0in;text-align:justify;line-height:125%'>
                 <b>
-                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>22.
+                    <span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>23.
                     </span>
                 </b><span lang=PT-BR style='font-size:12.0pt;line-height:125%;font-family:"Arial",sans-serif'>
                     E

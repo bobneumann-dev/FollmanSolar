@@ -32,7 +32,7 @@
             display: block;
         }
 
-        .printArea {
+        .printArea {            
             display: none;
         }
 
@@ -526,6 +526,7 @@
                                                 <option value="Rudi">Rudi</option>
                                                 <option value="Roseli Borchert" data-img="Assinatura_Rose.png">Rosi</option>
                                                 <option value="Luiz Antônio Fernandes">Luiz Antônio Fernandes</option>
+                                                <option value="Filial Santa Helena">Filial Santa Helena</option>
                                             </select>
                                         </div>
                                         <div class="col-12 col-md-6">
@@ -710,7 +711,7 @@
 
                 <p class=MsoTitle>
                     <span lang=PT style='color:#FFC000'>
-                        Orçamento Sistema Fotovoltaico
+                        Proposta Sistema Fotovoltaico
                     </span>
                 </p>
 
@@ -799,9 +800,7 @@
                             </tr>
                         </thead>
                         <tbody id="itemsBody">
-                        </tbody>
-                        <tfoot style="font-weight: bold; font-size: 1.25em;">
-                            <tr style="border-right: 1px solid black; padding-right: 10px">
+                            <tr style="font-weight: bold; font-size: 1.25em; border-right: 1px solid black; padding-right: 10px">
                                 <td colspan="2" align="right">
                                     TOTAL:
                                 </td>
@@ -810,7 +809,7 @@
                                     <span style="color:white">;</span>
                                 </td>
                             </tr>
-                        </tfoot>
+                        </tbody>                            
                     </table>
                 </div>
 
@@ -1350,8 +1349,7 @@ font-family:Symbol'>
                     <td width=216 valign=top style='width:162.1pt;border:solid #BEBEBE 1.0pt;
   border-top:none;background:#F1F1F1;padding:0in 0in 0in 0in;height:41.6pt'>
                         <p class=TableParagraph style='margin-top:.3pt'>
-                            <span lang=PT
-                                  style='font-size:11.5pt;font-family:"Arial",sans-serif;color:black'> 5 anos</span>
+                            <span lang=PT style='font-size:11.5pt;font-family:"Arial",sans-serif;color:black' id="garantiaSpan">10 anos</span>
                         </p>
                     </td>
                     <td width=217 valign=top style='width:162.5pt;border-top:none;border-left:
@@ -1447,7 +1445,7 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
         <!--Page 7-->
         <div class="page">
             <!--Valmir-->
-            <center><img src="assinatura_Valmir.png" /></center>
+            <center><img id="assinaturaPrincipal" src="assinatura_Valmir.png" style="max-width: 300px;" /></center>
             <br />
             <p class=MsoBodyText align=center>
                 _________________________________________
@@ -1521,7 +1519,7 @@ margin-left:65.0pt;margin-bottom:.0001pt;text-align:left'>
             </p>
 
             <!--FOOTER-->
-            <div style='margin-top:2.5cm'>
+            <div style='margin-top:1.5cm'>
                 <div class="row">
                     <div class="col-6 fornecedorBancario" id="bancarioBedin">
                         <p class=MsoNormal align=center>
